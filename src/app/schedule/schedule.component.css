@@ -1,0 +1,17 @@
+.main-wrapper
+{
+    
+    align-items: center; 
+    display: flex;
+    
+}
+.example-form{
+    width: 50%;
+}
+.box{
+     align-items: center; 
+     width: 90%;
+}
+.example-full-width{
+     width: 180%;  
+}

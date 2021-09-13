@@ -1,0 +1,72 @@
+<!-- <app-inbox></app-inbox> -->
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    CT General Hospital
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+        <img class="avatar mat-elevation-z8" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfhnnb_9Wy7toeAbYmtM-4dJ5Nwty-rf8HVlhkSuHZDygLfAwGBm4wrcB6HHfwK1johMU&usqp=CAU" />
+
+        <h4 class="name">warren buffett</h4>
+        <p class="designation"> CT Hospital CEO</p>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button" routerLink='/app-inbox'>
+            
+                <mat-icon>inbox</mat-icon>
+                <span>Inbox</span>
+             
+        </button>
+        <button mat-button class="menu-button" routerLink='/app-notes'>
+            <mat-icon>question_answer</mat-icon>
+            <span>Notes</span>
+        </button>
+        
+        <button mat-button class="menu-button" routerLink='/app-schedule'>
+            <mat-icon>event</mat-icon>
+            <span>Schedule</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon>people</mat-icon>
+            <span>Patients</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button">
+            <mat-icon>help</mat-icon>
+            <span>Help</span>
+        </button>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+            <!-- Main content here!head -->
+            <div class="appDiv">
+            <router-outlet></router-outlet>
+            </div>
+            <!-- <app-inbox></app-inbox> -->
+            <!-- <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                      <a class="navbar-brand" href="javascript:void(0)">header</a> 
+                     
+                     
+                    </div>
+                </div>
+            </nav> -->
+            
+        </div>
+        
+    </mat-sidenav-content>
+</mat-sidenav-container>
