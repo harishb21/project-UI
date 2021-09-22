@@ -1,0 +1,231 @@
+<mat-card>
+  <mat-card-title>Patient Registration</mat-card-title>
+  <mat-divider [inset]="true"></mat-divider>
+  <br />
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onRegister()">
+      <mat-radio-group aria-label="Select an option" formControlName="title">
+        <mat-radio-button value="Mr.">Mr. </mat-radio-button>
+        <mat-radio-button value="Ms.">Ms. </mat-radio-button>
+        <mat-radio-button value="Mrs.">Mrs. </mat-radio-button>
+        <mat-radio-button value="Dr.">Dr. </mat-radio-button>
+        <mat-error *ngIf="isFieldInvalid('title')">{{
+          errorTitle()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-radio-group>
+
+      <br />
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" formControlName="firstName" />
+        <mat-error *ngIf="isFieldInvalid('firstName')">{{
+          errorFirstName()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" formControlName="lastName" />
+        <mat-error *ngIf="isFieldInvalid('lastName')">{{
+          errorLastName()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Email Id</mat-label>
+        <input matInput placeholder="Email" formControlName="email" />
+        <mat-error *ngIf="isFieldInvalid('email')">{{
+          errorEmail()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Birth Date</mat-label>
+        <input
+          matInput
+          type="date"
+          placeholder="Birth Date"
+          formControlName="birthDate"
+        />
+        <mat-error *ngIf="isFieldInvalid('birthDate')">{{
+          errorBirthDate()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>New Password</mat-label>
+        <input
+          matInput
+          [type]="hideNewPwd ? 'password' : 'text'"
+          placeholder="New Passoword"
+          formControlName="password"
+        />
+        <button
+          class="eye-icon"
+          mat-icon-button
+          matSuffix
+          (click)="hideNewPwd = !hideNewPwd"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hideNewPwd"
+        >
+          <mat-icon>{{
+            hideNewPwd ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error *ngIf="isFieldInvalid('password')">{{
+          errorPassword()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          matInput
+          [type]="hideConfirmPwd ? 'password' : 'text'"
+          placeholder="Confirm Passoword"
+          formControlName="confirmPassword"
+        />
+        <button
+          class="eye-icon"
+          mat-icon-button
+          matSuffix
+          (click)="hideConfirmPwd = !hideConfirmPwd"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hideConfirmPwd"
+        >
+          <mat-icon>{{
+            hideConfirmPwd ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error *ngIf="isFieldInvalid('confirmPassword')">{{
+          errorConfirmPassword()
+        }}</mat-error>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <br />
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!--
+<h2>Patient Registration</h2>
+
+<form [formGroup]="form">
+  <div class="form-check">
+    <label class="radio-inline"
+      ><input type="radio" value="Mr." formControlName="title" />Mr.</label
+    >
+    <label class="radio-inline"
+      ><input type="radio" value="Ms." formControlName="title" />Ms.</label
+    >
+    <label class="radio-inline"
+      ><input type="radio" value="Mrs." formControlName="title" />Mrs.</label
+    >
+    <label class="radio-inline"
+      ><input type="radio" value="Dr." formControlName="title" />Dr.</label
+    >
+    <div
+      *ngIf="submitted && form.controls.title.errors"
+      class="alert alert-danger"
+    >
+      {{ errorTitle() }}
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">First Name</label>
+    <input type="text" class="form-control" formControlName="firstName" />
+    <div
+      *ngIf="submitted && form.controls.firstName.errors"
+      class="alert alert-danger"
+    >
+      {{ errorFirstName() }}
+     </div>
+  </div>
+  <div class="form-group">
+    <label for="">Last Name</label>
+    <input type="text" class="form-control" formControlName="lastName" />
+    <div
+      *ngIf="submitted && form.controls.lastName.errors"
+      class="alert alert-danger"
+    >
+      {{ errorLastName() }}
+     
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Email</label>
+    <input type="email" class="form-control" formControlName="email" />
+    <div
+      *ngIf="submitted && form.controls.email.errors"
+      class="alert alert-danger"
+    >
+      {{ errorEmail() }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Birth Date</label>
+    <input
+      type="date"
+      class="form-control"
+      max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+      formControlName="birthDate"
+    />
+
+    <div
+      *ngIf="submitted && form.controls.birthDate.errors"
+      class="alert alert-danger"
+    >
+      {{ errorBirthDate() }}
+      
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Contact No</label>
+    <input type="text" class="form-control" formControlName="contactNo" />
+  </div>
+  
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+    <div
+      *ngIf="submitted && form.controls.password.errors"
+      class="alert alert-danger"
+    >
+      {{ errorPassword() }}
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Confirm Password</label>
+    <input
+      type="password"
+      class="form-control"
+      formControlName="confirmPassword"
+    />
+    <div
+      *ngIf="submitted && form.controls.confirmPassword.errors"
+      class="alert alert-danger"
+    >
+      {{ errorConfirmPassword() }}
+
+    </div>
+  </div>
+
+  <button class="btn btn-success" type="button" (click)="onRegister()">
+    Register
+  </button>
+  |
+  <button class="btn btn-danger" type="reset">Clear</button>
+</form>
+-->

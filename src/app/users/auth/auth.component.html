@@ -1,0 +1,131 @@
+<!-- <mat-toolbar color="primary">
+  <span>CT Hospital</span>
+</mat-toolbar> -->
+
+<mat-grid-list class="bg-img" cols="1">
+  <mat-card class="mat-card">
+    <mat-card-title> Login </mat-card-title>
+    <mat-divider [inset]="true"></mat-divider>
+    <br />
+    <mat-card-content>
+      <form [formGroup]="form" ngNativeValidate (ngSubmit)="onLogin()">
+        <div>{{ errorMessage }}</div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email Id</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Email Id"
+            formControlName="email"
+          />
+          <mat-error *ngIf="isFieldInvalid('email')">
+            {{ errorEmail() }}
+          </mat-error>
+          <mat-hint>
+            Please enter your email address e.g. exampleusername@xyzdomain.com
+          </mat-hint>
+        </mat-form-field>
+        <br />
+        <br />
+        <mat-form-field *ngIf="!isForget" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hidePwd ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            class="eye-icon"
+            mat-icon-button
+            matSuffix
+            (click)="hidePwd = !hidePwd"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePwd"
+          >
+            <mat-icon>{{ hidePwd ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="isFieldInvalid('password')">
+            {{ errorPassword() }}</mat-error
+          >
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <br />
+        <a class="fp" (click)="isForget = !isForget">
+          {{ actionToggle() }}
+        </a>
+
+        <br />
+        <div *ngIf="!isForget">
+          <button
+            type="submit"
+            class="register"
+            [disabled]="attempt >= MAX_ATTEMPT"
+            mat-raised-button
+            color="primary"
+          >
+            Login
+          </button>
+        </div>
+        <button
+          *ngIf="isForget"
+          type="button"
+          (click)="onForget()"
+          mat-raised-button
+          color="warn"
+        >
+          Forget Password
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-grid-list>
+
+<!-- <form>
+  <mat-form-field appearance="fill">
+    <mat-label>Email Id</mat-label>
+    <input matInput placeholder="Enter Email eg. xyz@abc.com" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Enter Email eg. xyz@abc.com" />
+  </mat-form-field>
+</form> -->
+<!-- <form [formGroup]="form">
+  <div class="alert alert-danger" *ngIf="submitted && retries > 0">
+    <div>{{ errorMessage }}</div>
+  </div>
+  <div class="form-group">
+    <label for="">Email Id</label>
+    <input type="text" class="form-control" formControlName="email" />
+    <div
+      class="alert alert-danger"
+      *ngIf="submitted && form.controls.email.errors"
+    >
+      {{ errorEmail() }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+    <div
+      class="alert alert-danger"
+      *ngIf="submitted && form.controls.password.errors"
+    >
+      {{ errorPassword() }}
+    </div>
+  </div>
+
+  <button
+    class="btn btn-success"
+    type="button"
+    (click)="onLogin()"
+    [disabled]="retries >= MAX_ATTEMPT"
+  >
+    Login
+  </button>
+
+  <button class="btn btn-link" type="button" (click)="onForget()">
+    Forget Password
+  </button>
+</form> -->
