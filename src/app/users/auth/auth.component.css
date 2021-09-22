@@ -1,0 +1,95 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+/* .eye-icon {
+  background-color: #293183;
+}
+.mat-icon {
+  color: white;
+} */
+
+mat-grid-tile {
+  background: white;
+}
+
+.mat-card {
+  /* width: 30%; */
+  width: 350px;
+  height: 350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 1px;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 7em auto;
+  background-color: rgb(255, 255, 255);
+}
+
+mat-form-field {
+  width: 70%;
+  /* padding-bottom: 0; */
+}
+
+.bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.loginvsi.com/wp-content/uploads/2021/04/Login_VSI_Coronavirus_Covid-19_Landing_Page_Validate_Your_Remote_Infrastructure_Scale_Healthcare_Doctor_Holding_iPad-1-1.png")
+    no-repeat fixed center;
+}
+
+.fp {
+  color: black;
+  font-size: 15px;
+}
+
+.register {
+  background-color: #293183;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+  font-size: 16px;
+  margin-right: 5px;
+}
