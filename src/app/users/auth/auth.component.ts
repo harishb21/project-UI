@@ -78,8 +78,15 @@ export class AuthComponent implements OnInit {
             // localStorage.setItem('user', JSON.stringify(res));
             verified = true;
 
+            if (res.attempt === -1) {
+              // new user redirect update password page
+              this.router.navigate(['/users/update']);
+            } else {
+              this.router.navigate(['/']);
+            }
+
             this._snackBar.open('Successfully Authenticated');
-            this.router.navigate(['/']);
+
             // If res shows user not found set user null and login fail
             // If successfully then fetch that user update for global access
           },
