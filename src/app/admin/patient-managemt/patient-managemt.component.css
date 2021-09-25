@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    
+  }
+  
+  /* td, th {
+     width: 25%; 
+  } */
+
+  .header{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    color: rgb(68, 63, 63)
+  }
+  

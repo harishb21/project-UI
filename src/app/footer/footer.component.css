@@ -1,0 +1,18 @@
+.fa {
+    padding: 20px;
+    font-size: 20px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .panel-footer {
+   
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(10, 10, 10); 
+    height: 50px;
+    color: white;
+    text-align: center;
+  }

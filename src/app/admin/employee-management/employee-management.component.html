@@ -1,0 +1,112 @@
+<title>Employee List</title>
+<div class="container">
+    <h2>Employee List</h2>
+  
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Search with employee id or employee name"
+        #input
+      />
+    </mat-form-field>
+     
+    <table class="table table-bordered count-Table table-responsive" style="width: fit-content;">
+      <tr >
+        
+        <th (click)= "sort('empId')">Employee ID &nbsp;<i class='fa fa-sort'></i></th>
+        <th (click)= "sort('firstName')">Employee Name &nbsp;<i class="fa fa-sort"></i></th>
+        <th>Date Of registration</th>
+        <th>Status</th>
+        <th width="220px">Edit Status</th>
+      </tr>
+      <tr *ngFor="let employee of allEmployee | orderBy: key: reverse | paginate: { itemsPerPage: newrecord, currentPage: p }; let i=index">
+        <td>{{ employee.empId }}</td>
+        <td>{{ employee.firstName }}&nbsp;{{ employee.lastName }}</td>
+        <td>{{ employee.createdOn | date}}</td>
+        <td><h3
+          style="width: 100px; text-align: center"
+          class="label-success"
+          *ngIf="employee.status == 'active'"
+        >
+          <span>Active</span>
+        </h3>
+        <h3
+          *ngIf="employee.status == 'deactive'"
+          style="width: 100px; text-align: center"
+          class=" label-warning"
+        >
+          <span>Inactive </span>
+        </h3>
+        <h3
+          style="width: 100px; text-align: center"
+          class=" label-danger"
+          *ngIf="employee.status == 'block'"
+        >
+          <span>Blocked</span>
+        </h3></td>
+        <td>
+          <button mat-button class="menu-button" (click)="onClick(i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <mat-form-field *ngIf="!disableSelect.value && index == i" appearance="fill">
+            <mat-label>Choose an option</mat-label>
+            <mat-select
+              [(ngModel)]="selectedValue"
+              [formControl]="selected"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option
+                *ngFor="let status of allStatus"
+                [value]="status.value"
+                (click)="addValues(employee.userId)"
+                >{{ status.viewValue }}</mat-option
+              >
+            </mat-select>
+            <mat-error *ngIf="selectedValue === employee.status">
+              User has already {{ employee.status }}
+            </mat-error>
+          </mat-form-field> </td>
+        
+      </tr>
+      <span style="float: right; margin-right: 10%;"
+      ><button
+        style="width: 100px"
+        (click)="changeStatus()"
+        class="btn btn-success"
+      >
+        Save
+      </button></span
+    >
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="2">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+    </table>
+   <br><br>
+    <div class="row">
+      <div>
+        <label for="record" class="font-weight-bold text-dark">Select Number of Record&nbsp;</label>
+        <select class="bg-info text-light" name="record" id="record" [(ngModel)]="value" (ngModelChange) = "changeRecord(value)">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          </select>
+      </div>
+     
+      <div class="col-6 text-right">
+        <pagination-controls
+         (pageChange)="p = $event" 
+         previousLabel="Prev"
+        nextLabel="Next"
+        [responsive]="true"
+        ></pagination-controls>
+      </div>
+     
+      
+     
+    </div>
+ </div>

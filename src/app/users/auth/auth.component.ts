@@ -22,7 +22,6 @@ export class AuthComponent implements OnInit {
   errorMessage: string = '';
   isForget: boolean = false;
   hidePwd: boolean = true;
-
   constructor(
     private http: HttpClient,
     private router: Router,

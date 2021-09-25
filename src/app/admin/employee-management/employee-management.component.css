@@ -1,0 +1,31 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .active {
+    background-color: green;
+    text-align: center;
+    color: wheat;
+    width: 30px;
+  }
+  .deactive {
+    background-color: yellow;
+    text-align: center;
+    color: wheat;
+    width: 30px;
+  }
+  .block {
+    background-color: red;
+    color: wheat;
+    text-align: center;
+    width: 80px;
+  }
+  
+  /* td, th {
+      width: 25%;
+    } */
+  
