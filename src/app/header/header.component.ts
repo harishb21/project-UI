@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AuthService } from '../users/auth.service';
 import { User } from '../users/model/user.model';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

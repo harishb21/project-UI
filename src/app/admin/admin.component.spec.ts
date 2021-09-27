@@ -1,6 +1,12 @@
+import { AngularMaterialModule } from './../angular-material.module';
+import { ToastrModule } from 'ngx-toastr';
+import { Router, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminComponent } from './admin.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -8,6 +14,8 @@ describe('AdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule,HttpClientModule,RouterTestingModule,
+        AngularMaterialModule, ToastrModule.forRoot()],
       declarations: [ AdminComponent ]
     })
     .compileComponents();
@@ -19,7 +27,7 @@ describe('AdminComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create admin component', () => {
     expect(component).toBeTruthy();
   });
 });

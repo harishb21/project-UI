@@ -1,1 +1,57 @@
-<p>notes works!</p>
+<div class="responsive">
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h3>Notes</h3>
+      <strong>BS</strong>
+    </div>
+
+    <ul class="list-unstyled components">
+    
+      
+      <li>
+        <a (click)="activatatedeSendNotes()">
+          <i class="fas fa-briefcase"></i>
+          send notes
+        </a>
+        
+      <li>
+        <a (click)="activatatedeRecievedNotes()">
+          <i class="fas fa-question"></i>
+          Recieved Notes
+        </a>
+      </li>
+      <li>
+        <a (click)="activatatedeSentNotes()">
+          <i class="fas fa-paper-plane"></i>
+          Sent Notes
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button
+          type="button"
+          (click)="hideBar()"
+          id="sidebarCollapse"
+          class="btn btn-info"
+        >
+          <i class="fas fa-align-left"></i>
+          <span>Notes Section</span>
+        </button>
+       
+        
+      </div>
+    </nav>
+    <app-send-notes *ngIf = "activateSendNotes"></app-send-notes>
+        <app-recieved-notes *ngIf = "activateRecievedNotes"></app-recieved-notes>
+        <app-sent-notes *ngIf = "activateSentNotes"></app-sent-notes>
+    </div>
+    
+</div>
+</div>

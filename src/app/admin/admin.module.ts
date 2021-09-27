@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { UserGuard } from './../users/guard/user.guard';
 import { AuthGuard } from './../users/guard/auth.guard';
 import { AuthService } from './../users/auth.service';
@@ -39,6 +40,7 @@ import { CommonModule } from '@angular/common';
     MatSnackBarModule,
     ChartModule,
     CardModule,
+    HttpClientModule
     
   ],
   providers: [CdkColumnDef,

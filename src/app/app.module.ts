@@ -21,6 +21,9 @@ import { AdminComponent } from './admin/admin.component';
 import { ChartModule } from 'primeng/chart';
 import {CommonModule} from '@angular/common'
 import { ToastrModule } from 'ngx-toastr';
+import { SendNotesComponent } from './notes/send-notes/send-notes.component';
+import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
+import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
 const router: Routes = [
   {
     path: '',
@@ -35,8 +38,9 @@ const router: Routes = [
     component: InboxComponent,
   },
   {
-    path: 'app-notes',
-    component: NotesComponent,
+    path: 'notes',
+    loadChildren: () =>
+    import('./notes/notes.module').then((n) => n.NotesModule)
   },
   {
     path: 'app-schedule',
@@ -61,7 +65,11 @@ const router: Routes = [
     ScheduleComponent,
     HeaderComponent,
     AdminComponent,
-    FooterComponent
+    FooterComponent,
+    RecievedNotesComponent,
+  SentNotesComponent,
+  SendNotesComponent
+   
   ],
   imports: [
     BrowserModule,
