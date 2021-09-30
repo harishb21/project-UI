@@ -25,8 +25,8 @@ export class AdminserviceService {
     return this.http.get<Patient[]>(`${this.baseurl}patient-list`);
   }
 
-  getAllUsers(): Observable<Staff> {
-    return this.http.get<Staff>(`${this.baseurl}user-list`);
+  getAllUsers(): Observable<Staff[]> {
+    return this.http.get<Staff[]>(`${this.baseurl}user-list`);
   }
 
   editPatientStatus(allPatient: Patient[]) {
@@ -36,7 +36,7 @@ export class AdminserviceService {
     );
   }
   editEmployeeStatus(allEmployee : Staff[]) {
-    return this.http.put<Patient>(
+    return this.http.put<Staff>(
       `${this.baseurl}/employee/editstatus/`,allEmployee
     );
   }
