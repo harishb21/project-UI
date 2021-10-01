@@ -1,4 +1,5 @@
 export class User {
+  public userId!: number;
   public title!: string;
   public firstName!: string;
   public lastName!: string;
@@ -12,6 +13,8 @@ export class User {
 
   public contactNo!: number;
   public password!: string;
+
+  public message!: string;
 
   // public race!: string;
   // public ethnicity!: string;

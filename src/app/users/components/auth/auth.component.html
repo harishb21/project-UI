@@ -9,7 +9,7 @@
     <br />
     <mat-card-content>
       <form [formGroup]="form" ngNativeValidate (ngSubmit)="onLogin()">
-        <div>{{ errorMessage }}</div>
+        <mat-error *ngIf="errorMessage !== ''">{{ errorMessage }}</mat-error>
         <mat-form-field appearance="outline">
           <mat-label>Email Id</mat-label>
           <input

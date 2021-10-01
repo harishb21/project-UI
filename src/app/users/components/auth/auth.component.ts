@@ -4,9 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common/global-constants';
-import { AuthService } from '../auth.service';
-import { ErrorMessage } from '../model/error.enum';
-import { User } from '../model/user.model';
+import { AuthService } from '../../../services/auth.service';
+import { ErrorMessage } from '../../model/error.enum';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-auth',
@@ -38,8 +38,8 @@ export class AuthComponent implements OnInit {
     });
 
     this.form = new FormGroup({
-      email: new FormControl('admin@admin', [Validators.required]),
-      password: new FormControl('Welcome@1231', [
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
         Validators.required,
         Validators.pattern(
           '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
@@ -56,9 +56,33 @@ export class AuthComponent implements OnInit {
 
     this.formSubmitAttempt = true;
 
+    // if (localStorage.getItem('user')) {
+    //   this.router.navigate(['/admin']);
+    // }
+
     let email = this.form.value.email;
     let password = this.form.value.password;
     let verified: boolean = false;
+
+    // let res: User = new User();
+
+    // res.attempt = -1;
+    // res.title = 'Mr.';
+    // res.firstName = 'Admin';
+    // res.lastName = 'LastName';
+    // res.roleId = 1;
+    // res.roleName = 'ADMIN';
+    // res.email = 'admin@admin';
+
+    // this.authService.userInfo.next(res);
+
+    // if (res.attempt === -1) {
+    //   this.router.navigate(['/users/update']);
+    // } else {
+    //   this.router.navigate(['/']);
+    // }
+
+    // return true;
 
     // console.log(this.form);
     // return false;
@@ -77,6 +101,8 @@ export class AuthComponent implements OnInit {
             // localStorage.setItem('user', JSON.stringify(res));
             verified = true;
 
+            this.errorMessage = '';
+
             if (res.attempt === -1) {
               // new user redirect update password page
               this.router.navigate(['/users/update']);
@@ -85,6 +111,7 @@ export class AuthComponent implements OnInit {
             }
 
             this._snackBar.open('Successfully Authenticated');
+            // window.location.reload();
 
             // If res shows user not found set user null and login fail
             // If successfully then fetch that user update for global access

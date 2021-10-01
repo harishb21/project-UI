@@ -1,41 +1,40 @@
 <div class="main-wrapper" fxLayoutAlign="center center">
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Register</mat-card-title>
-      </mat-card-header>
-  
-      <form class="example-form">
-  
-        <mat-card-content class="matCard">
-            <mat-form-field class="example-full-width">
-                <mat-label>Choose Physician</mat-label>
-                <mat-select>
-                  <mat-option [value]="user" *ngFor="let user of User">{{user}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field><br>
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
 
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Physician EmpId">
-          </mat-form-field><br>
-  
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="PatientId">
-          </mat-form-field><br>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email">
-          </mat-form-field><br>
-  
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password">
-          </mat-form-field><br>
-  
-          
-  
-        </mat-card-content>
-  
-        <button mat-stroked-button color="accent" class="btn-block">Register</button>
-  
-      </form>
-    </mat-card>
-  </div>
+    <form class="example-form">
+      <mat-card-content class="matCard">
+        <mat-form-field class="example-full-width">
+          <mat-label>Choose Physician</mat-label>
+          <mat-select>
+            <mat-option [value]="user" *ngFor="let user of User"
+              >{{ user }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Physician EmpId" /> </mat-form-field
+        ><br />
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="PatientId" /> </mat-form-field
+        ><br />
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" /> </mat-form-field
+        ><br />
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" /> </mat-form-field
+        ><br />
+      </mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block">
+        Register
+      </button>
+    </form>
+  </mat-card>
+</div>

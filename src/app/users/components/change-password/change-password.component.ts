@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { ErrorMessage } from '../model/error.enum';
-import { User } from '../model/user.model';
-import { UserService } from '../user.service';
+import { AuthService } from '../../../services/auth.service';
+import { ErrorMessage } from '../../model/error.enum';
+import { User } from '../../model/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -17,6 +17,8 @@ export class ChangePasswordComponent implements OnInit {
   formSubmitAttempt: boolean = false;
   retries = 0;
   MAX_ATTEMPT: number = 3;
+
+  errorMessage: string = '';
 
   // To handle when first time login after forget or first login from employee
   newUser: boolean = false;
@@ -82,35 +84,55 @@ export class ChangePasswordComponent implements OnInit {
       let oldPassword = this.form.value.oldPassword;
       let newPassword = this.form.value.password;
 
-      if (
-        this.authService.updatePassword(this.user, oldPassword, newPassword)
-      ) {
-        // After updating again retirect to login
+      this.authService
+        .updatePassswordObservable(this.user, oldPassword, newPassword)
+        .subscribe(
+          (res) => {
+            console.log('Response Created');
+            this.errorMessage = res.message;
+            console.log(res);
 
-        console.log('Password updated');
-        // alert('Password updated');
-        // this.router.navigate(['/auth']);
-      } else {
-        // Updating the details if wrong data then error
-        this.retries++;
-      }
+            // Mail Confirmation for password update and user confirmation in UI also.
+          },
+          (err) => {
+            console.error('Error Occured');
+            console.error(err);
+
+            this.errorMessage = err.error;
+
+            // Might failed to update passord
+          }
+        );
+
+      // if (
+      //   this.authService.updatePassword(this.user, oldPassword, newPassword)
+      // ) {
+      //   // After updating again retirect to login
+
+      //   console.log('Password updated');
+      //   // alert('Password updated');
+      //   // this.router.navigate(['/auth']);
+      // } else {
+      //   // Updating the details if wrong data then error
+      //   this.retries++;
+      // }
     }
 
     console.log(this.form);
   }
 
-  errorMessage() {
-    // Error Message when user tries more than one time with wrong crendials
-    if (this.retries >= this.MAX_ATTEMPT) {
-      return `Your account has been locked for next 24 hours for security purpose.
-        Please contact the hospital administrator or call helpdesk on 123456 for
-        more information.`;
-    } else if (this.retries === 2) {
-      return `Kindly provide correct old password`;
-    }
+  // errorMessage() {
+  //   // Error Message when user tries more than one time with wrong crendials
+  //   if (this.retries >= this.MAX_ATTEMPT) {
+  //     return `Your account has been locked for next 24 hours for security purpose.
+  //       Please contact the hospital administrator or call helpdesk on 123456 for
+  //       more information.`;
+  //   } else if (this.retries === 2) {
+  //     return `Kindly provide correct old password`;
+  //   }
 
-    return '';
-  }
+  //   return '';
+  // }
 
   errorOldPassword() {
     if (this.form.controls.oldPassword.errors?.required) {
