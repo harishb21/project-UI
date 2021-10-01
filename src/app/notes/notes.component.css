@@ -124,13 +124,14 @@ span {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    
 }
 
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
+    border-bottom: 1px solid rgb(15, 15, 15);
 }
 
 #sidebar ul li a:hover {
@@ -164,6 +165,7 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
+    align-content: center;
 }
 
 ul.CTAs {
@@ -194,7 +196,7 @@ a.article:hover {
 ----------------------------------------------------- */
 
 #content {
-    width: 100%;
+   width: 30%;
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
@@ -254,11 +256,10 @@ a.article:hover {
         
     }
 }
-.maindiv{
-    
+#maindiv{
     width: 75%;
-    height: 80%;
+    height: 85%;
       margin-left: 7%;
       margin-top: 5%;
-      background-color: antiquewhite;
+      background-color: #fff ;
   }

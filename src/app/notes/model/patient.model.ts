@@ -1,4 +1,5 @@
-import { User } from "src/app/users/model/user.model";
+import { User } from "./user.model";
+
 
 export class Patient extends User{	
 	//private  title : string;

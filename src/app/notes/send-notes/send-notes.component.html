@@ -1,1 +1,40 @@
-<p>send-notes works!</p>
+<div class="container">
+  <h1 >New Notes</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="example-container">
+        <form [formGroup]="notesform" (ngSubmit)="onSubmit()">
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Select Physician</mat-label>
+          <mat-select disableRipple matNativeControl required formControlName="recieverId">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let staff of phycision" (click)="addValues(staff.roleId)" [value]="staff.userId">
+             {{staff.title}} {{ staff.firstName }}  {{staff.lastName}}
+            </mat-option>
+       
+          </mat-select>
+          <mat-hint align="end">Select Physician from dropdown</mat-hint>
+        </mat-form-field>
+        <mat-form-field  appearance="fill">
+          <mat-label>Designation</mat-label>
+          <input matInput disabled  [value] ="desgination">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Enter Message</mat-label>
+          <textarea matInput placeholder="Enter message..." formControlName="message"></textarea>
+        </mat-form-field>
+        <div>
+          <label>Urgency level: </label>
+          <mat-radio-group formControlName="urgency">
+            <mat-radio-button value="true">Urgency</mat-radio-button>
+            <mat-radio-button [checked]="true" value="false">Not Urgency</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <button type="submit" mat-raised-button color="primary">Send Note</button>
+       </form>
+      </div>
+      
+      <div>
+  </div>
+</div>

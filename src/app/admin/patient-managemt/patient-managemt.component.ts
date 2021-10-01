@@ -47,7 +47,6 @@ export class PatientManagementComponent implements OnInit {
   tempId: number;
   id: number = 0;
   allPatient: Patient[] = [];
-  allPatientStatus: string[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   disableSelect = new FormControl(true);
