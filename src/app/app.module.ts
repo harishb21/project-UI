@@ -1,3 +1,4 @@
+import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './footer/footer.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SendNotesComponent } from './notes/send-notes/send-notes.component';
 import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 const router: Routes = [
   {
     path: '',
@@ -83,7 +85,8 @@ const router: Routes = [
     AngularMaterialModule,
     ChartModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatInputModule
   ],
   providers: [AuthGuard, UserGuard],
   bootstrap: [AppComponent],

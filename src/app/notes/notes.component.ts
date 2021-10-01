@@ -13,6 +13,7 @@ declare const hide : any;
 })
 export class NotesComponent implements OnInit {
   user: User | null = null;
+  nonReadCount : number= 7;
   activateSendNotes : boolean = true;
   activateSentNotes : boolean = false;
   activateRecievedNotes : boolean = false;
@@ -43,5 +44,10 @@ export class NotesComponent implements OnInit {
     this.activateSentNotes = false;
     this.activateRecievedNotes = true;
   }
-
+ 
+    hidden = false;
+    
+    toggleBadgeVisibility() {
+      this.hidden = true;
+    }
 }

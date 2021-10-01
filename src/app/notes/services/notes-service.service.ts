@@ -22,20 +22,7 @@ export class NotesServiceService {
     console.log(notes)
       return this.http.post<Notes>(`${this.baseurl}inbox/notes`,notes);
   }
-  getNotes(userId: Number,
-     filter = '', sortOrder = 'asc',
-    pageNumber = 0, pageSize = 3):  Observable<Notes[]> {
-
-    return this.http.get(`${this.baseurl}inbox/notes/usernotes/${userId}`,  {
-        params: new HttpParams()
-            
-            .set('filter', filter)
-            .set('sortOrder', sortOrder)
-            .set('pageNumber', pageNumber.toString())
-            .set('pageSize', pageSize.toString())
-    }).pipe(
-      map((res: any) =>  res["payload"])
-    );
-}
-
+ getRecievedNotes(userId:number){
+  return this.http.get<Notes[]>(`${this.baseurl}inbox/notes/recieved/${userId}`);
+ }
 }

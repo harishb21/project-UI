@@ -57,7 +57,6 @@ const materialModules = [
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatFormFieldModule,
   MatButtonToggleModule,
   MatTreeModule,
   OverlayModule,
@@ -76,13 +75,13 @@ const materialModules = [
     ...materialModules,
     MatTableModule,
     MatSortModule,
-    MatInputModule
+   
   ],
   exports: [
     ...materialModules,
     MatTableModule,
     MatSortModule,
-    MatInputModule
+  
   ],
 })
 

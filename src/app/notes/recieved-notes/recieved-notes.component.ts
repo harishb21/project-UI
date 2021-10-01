@@ -1,4 +1,4 @@
-import { NotesDataSource } from './../services/notes.datasource';
+
 import { NotesServiceService } from './../services/notes-service.service';
 import { Notes } from './../model/notes.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -8,6 +8,7 @@ import { catchError, debounceTime, distinctUntilChanged, finalize, tap } from 'r
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-recieved-notes',
@@ -23,50 +24,35 @@ export class RecievedNotesComponent implements OnInit {
 
 
   notes:Notes;
-  dataSource: NotesDataSource;
-  displayedColumns = ["date ", "sender","message","urgency"];
+  userId:number =2;
+  dataSource: MatTableDataSource<Notes>;
+  displayedColumns = ["date", "sender","message","urgency"];
   constructor(private notesService:NotesServiceService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.notes = this.route.snapshot.data["notes"];
-
-        this.dataSource = new NotesDataSource(this.notesService);
-
-        this.dataSource.loadOneNotes(this.notes.notesid, '', 'asc', 0, 3);
-        console.log(this.dataSource)
+    this.loadNotes();
   }
-  ngAfterViewInit() {
+  loadNotes() {
+    this.notesService.getRecievedNotes(this.userId).subscribe(
+      (data) => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource);
+      }
+    );
+	}
+	applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
 
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    fromEvent(this.input.nativeElement,'keyup')
-        .pipe(
-            debounceTime(150),
-            distinctUntilChanged(),
-            tap(() => {
-                this.paginator.pageIndex = 0;
-
-                this.loadLessonsPage();
-            })
-        )
-        .subscribe();
-
-    merge(this.sort.sortChange, this.paginator.page)
-    .pipe(
-        tap(() => this.loadLessonsPage())
-    )
-    .subscribe();
-
-}
-
-loadLessonsPage() {
-    this.dataSource.loadOneNotes(
-        this.notes.notesid,
-        this.input.nativeElement.value,
-        this.sort.direction,
-        this.paginator.pageIndex,
-        this.paginator.pageSize);
-}
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+  }
   onRowClicked(row:any) {
     console.log('Row clicked: ', row);
 }

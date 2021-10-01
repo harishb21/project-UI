@@ -1,60 +1,49 @@
-<div class="responsive" id="maindiv">
-<div class="wrapper">
-  <!-- Sidebar  -->
-  <nav id="sidebar">
-    <div class="sidebar-header">
-      <h3>Notes</h3>
-      <strong>NS</strong>
-    </div>
-    
-    <ul class="list-unstyled components" >
-
-      <li >
-        
-        <a style="cursor: pointer;" (click)="activatatedeSendNotes()">
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-          send notes
-          
-        </a>
-       
-        </li>
-      <li>
-        <a style="cursor: pointer;" (click)="activatatedeRecievedNotes()">
-          <i class="fa fa-download" aria-hidden="true"></i>
-          Recieved Notes
-        </a>
-      </li>
-      <li>
-        <a style="cursor: pointer;" (click)="activatatedeSentNotes()">
-          <i class="fa fa-share-square" aria-hidden="true"></i>
-          Sent Notes
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- Page Content  -->
-  <div id="content">
-    <nav >
-      <div class="container-fluid">
-        <button
-          type="button"
-          (click)="hideBar()"
-          id="sidebarCollapse"
-          class="btn btn-info"
-        >
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-          Notes Section
-        </button>
-       
-        
+<div class="row" style="margin-top: 20px; margin-left: 40px">
+  <div class="col-md-3" style="background-color: #7386d5">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Notes</h3>
       </div>
+
+      <ul class="list-unstyled components">
+        <li>
+          <a style="cursor: pointer" (click)="activatatedeSendNotes()">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            send notes
+          </a>
+        </li>
+        <li>
+          <a style="cursor: pointer" (click)="activatatedeRecievedNotes()">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <span
+              mat-raised-button
+              matBadge="{{nonReadCount}}"
+              matBadgeOverlap="false"
+              matBadgeColor="accent"
+              [matBadgeHidden]="hidden"
+              (click)="toggleBadgeVisibility()"
+            >
+              Recieved Notes
+              </span
+            >
+          </a>
+        </li>
+        <li>
+          <a style="cursor: pointer" (click)="activatatedeSentNotes()">
+            <i class="fa fa-share-square" aria-hidden="true"></i>
+            Sent Notes
+          </a>
+        </li>
+      </ul>
     </nav>
-    <div style="width: 70%;">
-    <app-send-notes *ngIf = "activateSendNotes"></app-send-notes>
-        <app-recieved-notes *ngIf = "activateRecievedNotes"></app-recieved-notes>
-        <app-sent-notes *ngIf = "activateSentNotes"></app-sent-notes>
-    </div>
+  </div>
+  <div class="col-md-8" style="background-color: brown; width: 80%">
+    <app-send-notes *ngIf="activateSendNotes"></app-send-notes>
+    <app-recieved-notes *ngIf="activateRecievedNotes"></app-recieved-notes>
+    <app-sent-notes *ngIf="activateSentNotes"></app-sent-notes>
   </div>
 </div>
-</div>
+
+<!-- Sidebar  -->
+
+<!-- Page Content  -->
