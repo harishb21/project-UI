@@ -1,9 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { AuthService } from '../users/auth.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../users/model/user.model';
 @Component({
   selector: 'app-header',
@@ -21,23 +22,24 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private observer: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
-  // ngAfterContentInit() {
-  //   this.observer
-  //     .observe(['(max-width: 800px)'])
-  //     .pipe(delay(1))
-  //     .subscribe((res) => {
-  //       if (res.matches) {
-  //         this.sidenav.mode = 'over';
-  //         this.sidenav.close();
-  //       } else {
-  //         this.sidenav.mode = 'side';
-  //         this.sidenav.open();
-  //       }
-  //     });
-  // }
+  ngAfterContentInit() {
+    this.observer
+      .observe(['(max-width: 800px)'])
+      .pipe(delay(1))
+      .subscribe((res) => {
+        if (res.matches) {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        } else {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+        }
+      });
+  }
 
   // ngAfterViewInit() {
   //   this.observer
@@ -81,6 +83,9 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/users/auth']);
+    window.location.reload();
     // event.preventDefault();
     // this.authService.logout().subscribe(
     //   () => {

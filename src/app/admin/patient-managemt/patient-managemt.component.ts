@@ -16,7 +16,7 @@ import { pipe } from 'rxjs';
 import { User } from '../model/user.model';
 import { AdminserviceService } from '../admin.service';
 import { Patient } from '../model/patient.model';
-import { AuthService } from 'src/app/users/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
@@ -30,7 +30,7 @@ interface Status {
 @Component({
   selector: 'app-patient-managemt',
   templateUrl: './patient-managemt.component.html',
-  styleUrls: ['./patient-managemt.component.css']
+  styleUrls: ['./patient-managemt.component.css'],
 })
 export class PatientManagementComponent implements OnInit {
   user: User | null = null;
@@ -60,7 +60,7 @@ export class PatientManagementComponent implements OnInit {
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
@@ -72,9 +72,9 @@ export class PatientManagementComponent implements OnInit {
     this.loadPatient();
     this.toastr.success('All Data loaded successfully');
   }
-  
+
   addValues(patientId: number) {
-    const obj : Patient = new Patient();
+    const obj: Patient = new Patient();
     // obj.userId = patientId;
     // obj.status = this.selectedValue;
     this.allPatient.push(obj);
@@ -88,13 +88,11 @@ export class PatientManagementComponent implements OnInit {
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   loadPatient() {
-    this.adminService.getAllPatient().subscribe(
-      (data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    );
+    this.adminService.getAllPatient().subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   applyFilter(event: Event) {
@@ -106,27 +104,24 @@ export class PatientManagementComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    
   }
   changeStatus() {
-    
-    this.adminService
-     .editPatientStatus(this.allPatient).subscribe(
-     pipe((data)=>{
-      console.log(data);
-     this.loadPatient();
-     }
-   ));
+    this.adminService.editPatientStatus(this.allPatient).subscribe(
+      pipe((data) => {
+        console.log(data);
+        this.loadPatient();
+      })
+    );
 
-      // tap((data) => {
-      //         console.log(data);
-      //        this.loadPatient();
-      //      }),
-      //   (error :any) => {
-      //    console.log(error);
-      //    this.loadPatient();
-      //    });
-      }
+    // tap((data) => {
+    //         console.log(data);
+    //        this.loadPatient();
+    //      }),
+    //   (error :any) => {
+    //    console.log(error);
+    //    this.loadPatient();
+    //    });
+  }
   // acivatePatient(patientId: number) {
   //   this.adminService.activatePatient(patientId).subscribe(
   //     tap((data) => {
@@ -139,7 +134,6 @@ export class PatientManagementComponent implements OnInit {
   //     }
   //   );
   // }
-  
 }
 
 /** Builds and returns a new User. */

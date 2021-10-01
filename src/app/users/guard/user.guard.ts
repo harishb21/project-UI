@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../model/user.model';
 
 @Injectable()
@@ -27,6 +27,8 @@ export class UserGuard implements CanActivate {
       const str: string | null = localStorage.getItem('user');
       const user: User = JSON.parse(str === null ? '{}' : str);
       this.user = user;
+
+      // this.router.navigate(['/']);
     }
 
     this.authService.userInfo.subscribe((res) => {

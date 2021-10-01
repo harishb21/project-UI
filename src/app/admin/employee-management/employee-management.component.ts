@@ -12,7 +12,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/users/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { AdminserviceService } from '../admin.service';
 import { Staff } from '../model/Staff.model';
 import { User } from '../model/user.model';
@@ -28,9 +28,9 @@ interface Status {
 @Component({
   selector: 'app-employee-management',
   templateUrl: './employee-management.component.html',
-  styleUrls: ['./employee-management.component.css']
+  styleUrls: ['./employee-management.component.css'],
 })
-export class EmployeeManagementComponent  implements OnInit {
+export class EmployeeManagementComponent implements OnInit {
   user: User | null = null;
   allEmployee: Staff[]=[];
   currentContact?: null;
@@ -73,12 +73,10 @@ export class EmployeeManagementComponent  implements OnInit {
   }
 
   loadUser() {
-    this.adminService.getAllUsers().subscribe(
-      (data) => {
-        this.allEmployee = data;
-        this.toastr.success('All Data Loaded');
-      }
-    );
+    this.adminService.getAllUsers().subscribe((data) => {
+      this.allEmployee = data;
+      this.toastr.success('All Data Loaded');
+    });
   }
   setActiveContact(employee: User, index: number): void {
     this.currentContact = undefined;
@@ -101,18 +99,15 @@ export class EmployeeManagementComponent  implements OnInit {
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   changeStatus() {
-    this.adminService
-      .editEmployeeStatus(this.allStaffs)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    this.adminService.editEmployeeStatus(this.allStaffs).subscribe((data) => {
+      console.log(data);
+    });
   }
   addValues(patientId: number) {
     const obj = new Staff();
     //obj.userId = patientId;
     //obj.status = this.selectedValue;
     this.allStaffs.push(obj);
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

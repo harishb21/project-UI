@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, pipe } from 'rxjs';
 import { User } from './model/user.model';
 import { AdminserviceService } from './admin.service';
-import { AuthService } from '../users/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-admin',

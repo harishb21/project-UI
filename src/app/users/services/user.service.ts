@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
-import { Role } from './model/role.model';
-import { User } from './model/user.model';
+import { Role } from '../model/role.model';
+import { User } from '../model/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -11,7 +12,7 @@ export class UserService {
 
   HOST_URL = 'http://localhost:8082';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
     this.loadData();
   }
 
@@ -35,9 +36,11 @@ export class UserService {
   addEmployee(employee: User) {
     console.log('INSNIDE addEmployee');
 
-    this.http.post(`${this.HOST_URL}/employees/`, employee).subscribe(
+    this.http.post<User>(`${this.HOST_URL}/employees/`, employee).subscribe(
       (res) => {
         console.log('Response Created');
+        // res = JSON.parse(res);
+        this._snackBar.open(res?.message);
         console.log(res);
       },
       (err) => {
@@ -50,10 +53,10 @@ export class UserService {
   addPatient(patient: User) {
     console.log(patient);
 
-    this.http.post(`${this.HOST_URL}/patients/`, patient).subscribe(
+    this.http.post<User>(`${this.HOST_URL}/patients/`, patient).subscribe(
       (res) => {
         console.log('Response Created');
-
+        this._snackBar.open(res?.message);
         console.log(res);
       },
       (err) => {
@@ -100,5 +103,9 @@ export class UserService {
         matchingControl.setErrors(null);
       }
     };
+  }
+
+  getUserByEmail(value: any) {
+    return this.http.get(`${this.HOST_URL}/auth/valid/${value}`);
   }
 }

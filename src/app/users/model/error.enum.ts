@@ -7,6 +7,7 @@ export enum ErrorMessage {
   LASTNAME_REQUIRED = 'Last name cannot be empty.',
   ABBREVIATION_NOT_REQUIRED = 'Please don’t use abbreviations',
   EMAIL_REQUIRED = 'Please enter your email address e.g. exampleusername@xyzdomain.com',
+  EMAIL_INVALID = 'Email Id is already present',
   VALID_DATE_REQUITED = 'Please enter a valid date',
   VALID_BIRTH_DATE_REQUIRED = 'Please enter a valid date of birth',
   ROLE_REQUIRED = 'Please select a valid role.',

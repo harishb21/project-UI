@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ErrorMessage } from '../model/error.enum';
-import { User } from '../model/user.model';
-import { UserService } from '../user.service';
+import { ErrorMessage } from '../../model/error.enum';
+import { User } from '../../model/user.model';
+import { UserService } from '../../services/user.service';
+import { emailValidator } from '../../validators/email.validator';
 
 @Component({
   selector: 'app-patient-reg',
@@ -33,7 +34,14 @@ export class PatientRegComponent implements OnInit {
         title: ['', [Validators.required]],
         firstName: ['', [Validators.required, Validators.minLength(3)]],
         lastName: ['', [Validators.required, Validators.minLength(3)]],
-        email: ['', [Validators.required, Validators.email]],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            emailValidator(this.userService),
+          ],
+        ],
         birthDate: [
           '',
           [Validators.required, this.userService.validateBirthDate],
@@ -78,17 +86,17 @@ export class PatientRegComponent implements OnInit {
     //   this.form.value.password
     // );
 
-    const newPatient = new User();
-    newPatient.title = this.form.value.title;
-    newPatient.firstName = this.form.value.firstName;
-    newPatient.lastName = this.form.value.lastName;
-    newPatient.email = this.form.value.email;
-    newPatient.birthDate = this.form.value.birthDate;
-    newPatient.contactNo = this.form.value.contactNo;
-    newPatient.username = this.form.value.username;
-    newPatient.password = this.form.value.password;
-
     if (this.form.valid) {
+      const newPatient = new User();
+      newPatient.title = this.form.value.title;
+      newPatient.firstName = this.form.value.firstName;
+      newPatient.lastName = this.form.value.lastName;
+      newPatient.email = this.form.value.email;
+      newPatient.birthDate = this.form.value.birthDate;
+      newPatient.contactNo = this.form.value.contactNo;
+      newPatient.username = this.form.value.username;
+      newPatient.password = this.form.value.password;
+
       this.userService.addPatient(newPatient);
 
       // Redirect to Login Page when Sign up by new Patient
@@ -131,6 +139,8 @@ export class PatientRegComponent implements OnInit {
       return ErrorMessage.EMAIL_REQUIRED;
     } else if (this.form.controls.email.errors?.email) {
       return ErrorMessage.EMAIL_REQUIRED;
+    } else if (this.form.controls.email.errors?.emailInvalid) {
+      return ErrorMessage.EMAIL_INVALID;
     } else {
       return '';
     }
