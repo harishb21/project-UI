@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { GlobalConstants } from '../common/global-constants';
-import { User } from './model/user.model';
+import { User } from '../users/model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -202,5 +202,20 @@ export class AuthService {
 
     // updated = true;
     return updated;
+  }
+
+  updatePassswordObservable(
+    user: User,
+    oldPassword: string,
+    newPassword: string
+  ) {
+    return this.http.post<User>(
+      `${GlobalConstants.USER_SERVER_URL}/auth/update`,
+      {
+        email: user.email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      }
+    );
   }
 }

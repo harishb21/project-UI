@@ -2,11 +2,12 @@
 
 <!-- <mat-toolbar class="mat-elevation-z8" *ngIf="isLoggedIn$ | async as isLoggedIn"> -->
 <mat-toolbar class="mat-elevation-z8">
-  <button
+  <!-- <button
     mat-icon-button
     *ngIf="sidenav.mode === 'over'"
     (click)="sidenav.toggle()"
-  >
+  > -->
+  <button mat-icon-button (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
@@ -24,34 +25,72 @@
     <p class="designation">{{ user?.roleName }}</p>
 
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button" routerLink="/users/auth">
-      <mat-icon>people</mat-icon>
-      <span>Login</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/admin">
-      <mat-icon>dashboard</mat-icon>
-      <span>Admin Home</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/admin/patient-details">
-      <mat-icon>group_add</mat-icon>
-      <span>Patient Details</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/admin/employee-details">
-      <mat-icon>group_work</mat-icon>
-      <span>Employee Details</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/users/employee">
-      <mat-icon>people</mat-icon>
-      <span>Employee Reg</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/users/patient">
-      <mat-icon>people</mat-icon>
-      <span>Patient Reg</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/users/update">
-      <mat-icon>people</mat-icon>
-      <span>Change Password</span>
-    </button>
+    <mat-accordion mat-button>
+      <button mat-button class="menu-button" routerLink="/admin">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+
+      <mat-expansion-panel class="mat-expanded-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>people</mat-icon>
+            <span>Employee</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <button mat-button class="menu-button" routerLink="/users/employee">
+          <mat-icon>person_add</mat-icon>
+          <span>Register</span>
+        </button>
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/admin/employee-details"
+        >
+          <mat-icon>group_work</mat-icon>
+          <span>Employee Details</span>
+        </button>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="mat-expanded-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>people</mat-icon>
+            <span>Patient</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <button mat-button class="menu-button" routerLink="/users/patient">
+          <mat-icon>person_add</mat-icon>
+          <span>Register</span>
+        </button>
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/admin/patient-details"
+        >
+          <mat-icon>group_add</mat-icon>
+          <span>Patient Details</span>
+        </button>
+        <button mat-button class="menu-button">
+          <mat-icon>people</mat-icon>
+          <span>Patients</span>
+        </button>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="mat-expanded-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>manage_accounts</mat-icon>
+            <span>Settings</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <button mat-button class="menu-button" routerLink="/users/update">
+          <mat-icon>https</mat-icon>
+          <span>Change Password</span>
+        </button>
+      </mat-expansion-panel>
+    </mat-accordion>
+
     <button mat-button class="menu-button" routerLink="/app-inbox">
       <mat-icon>inbox</mat-icon>
       <span>Inbox</span>
@@ -65,12 +104,13 @@
       <mat-icon>event</mat-icon>
       <span>Schedule</span>
     </button>
-    <button mat-button class="menu-button">
-      <mat-icon>people</mat-icon>
-      <span>Patients</span>
-    </button>
 
     <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
 
     <button mat-button class="menu-button">
       <mat-icon>help</mat-icon>
@@ -80,8 +120,14 @@
   <mat-sidenav-content>
     <!-- <div class="content mat-elevation-z8"> -->
     <!-- Main content here!head -->
+    <div class="appDiv">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- </div> -->
+    <!-- <div class="content mat-elevation-z8"> 
+    <!-- Main content here!head -->
     <!-- <div class="appDiv"> -->
-    <router-outlet></router-outlet>
+
     <!-- </div> -->
     <!-- <app-inbox></app-inbox> -->
     <!-- <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
@@ -92,8 +138,7 @@
                        
                       </div>
                   </div>
-              </nav> -->
-    <!-- </div> -->
+              </nav> 
+    </div> -->
   </mat-sidenav-content>
 </mat-sidenav-container>
-

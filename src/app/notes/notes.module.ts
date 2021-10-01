@@ -5,7 +5,7 @@ import { SentNotesComponent } from './sent-notes/sent-notes.component';
 import { RecievedNotesComponent } from './recieved-notes/recieved-notes.component';
 import { UserGuard } from './../users/guard/user.guard';
 import { AuthGuard } from './../users/guard/auth.guard';
-import { AuthService } from './../users/auth.service';
+import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -13,23 +13,20 @@ import { NgModule } from '@angular/core';
 import { NotesRoutingModule } from './notes-routing.module';
 
 @NgModule({
-  declarations: [
-  
-
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     AngularMaterialModule,
     NotesRoutingModule,
-    HttpClientModule
-
+    HttpClientModule,
   ],
-  providers: [CdkColumnDef,
+  providers: [
+    CdkColumnDef,
     AuthService,
     AuthGuard,
     UserGuard,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 500 } },
-],
-  bootstrap: []
+  ],
+  bootstrap: [],
 })
-export class NotesModule { }
+export class NotesModule {}

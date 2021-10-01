@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorMessage } from '../model/error.enum';
-import { Role } from '../model/role.model';
-import { Roles } from '../model/roles.enum';
-import { User } from '../model/user.model';
-import { UserService } from '../user.service';
+import { ErrorMessage } from '../../model/error.enum';
+import { Role } from '../../model/role.model';
+import { Roles } from '../../model/roles.enum';
+import { User } from '../../model/user.model';
+import { UserService } from '../../services/user.service';
+import { emailValidator } from '../../validators/email.validator';
 
 @Component({
   selector: 'app-employee-reg',
@@ -39,7 +40,11 @@ export class EmployeeRegComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
       ]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+        emailValidator(this.userService),
+      ]),
       birthDate: new FormControl(null, [
         Validators.required,
         this.userService.validateBirthDate,
@@ -54,17 +59,23 @@ export class EmployeeRegComponent implements OnInit {
 
     this.formSubmitAttempt = true;
 
-    const newEmployee = new User();
-    newEmployee.title = this.form.value.title;
-    newEmployee.firstName = this.form.value.firstName;
-    newEmployee.lastName = this.form.value.lastName;
-    newEmployee.email = this.form.value.email;
-    newEmployee.birthDate = this.form.value.birthDate;
-    newEmployee.roleId = this.form.value.role;
     // newEmployee.empId = this.form.value.empId;
+    console.log(this.form);
 
     if (this.form.valid) {
+      const newEmployee = new User();
+      newEmployee.title = this.form.value.title;
+      newEmployee.firstName = this.form.value.firstName;
+      newEmployee.lastName = this.form.value.lastName;
+      newEmployee.email = this.form.value.email;
+      newEmployee.birthDate = this.form.value.birthDate;
+      newEmployee.roleId = this.form.value.role;
+      newEmployee.password = 'Welcome@123';
+
       this.userService.addEmployee(newEmployee);
+
+      // this.form.reset();
+      // this.formSubmitAttempt = false;
 
       // If need to redirect to landing page
     }
@@ -103,6 +114,8 @@ export class EmployeeRegComponent implements OnInit {
       return ErrorMessage.EMAIL_REQUIRED;
     } else if (this.form.controls.email.errors?.email) {
       return ErrorMessage.EMAIL_REQUIRED;
+    } else if (this.form.controls.email.errors?.emailInvalid) {
+      return ErrorMessage.EMAIL_INVALID;
     } else {
       return '';
     }

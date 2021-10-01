@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './auth/auth.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { EmployeeRegComponent } from './employee-reg/employee-reg.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { EmployeeRegComponent } from './components/employee-reg/employee-reg.component';
 import { UserGuard } from './guard/user.guard';
 import { Roles } from './model/roles.enum';
-import { PatientRegComponent } from './patient-reg/patient-reg.component';
+import { PatientRegComponent } from './components/patient-reg/patient-reg.component';
 
 const routes: Routes = [
   {
