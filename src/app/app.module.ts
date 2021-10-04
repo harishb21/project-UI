@@ -1,5 +1,5 @@
 import { FooterComponent } from './footer/footer.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { InboxComponent } from './inbox/inbox.component';
@@ -28,6 +28,7 @@ import { SendNotesComponent } from './notes/send-notes/send-notes.component';
 import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
 import { AuthInterceptor } from './users/auth.interceptor';
+import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
 const router: Routes = [
   {
     path: '',
@@ -46,10 +47,10 @@ const router: Routes = [
     loadChildren: () =>
       import('./notes/notes.module').then((n) => n.NotesModule),
   },
-  {
-    path: 'app-schedule',
-    component: ScheduleComponent,
-  },
+  // {
+  //   path: 'app-schedule',
+  //   component: ScheduleComponent,
+  // },
   {
     path: 'users',
     loadChildren: () =>
@@ -59,6 +60,12 @@ const router: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: 'app-schedule',
+    component: InboxCalendarComponent,
+    loadChildren: () =>
+      import('./calendar/calendar.module').then((m) => m.CalendarModule),
   },
 ];
 @NgModule({
