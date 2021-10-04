@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { User } from './model/user.model';
+import { User } from '../users/model/user.model';
 
 declare const hide: any;
 @Component({
