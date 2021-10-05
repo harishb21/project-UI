@@ -29,6 +29,8 @@ import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.co
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
 import { AuthInterceptor } from './users/auth.interceptor';
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
+
+
 const router: Routes = [
   {
     path: '',
@@ -67,6 +69,11 @@ const router: Routes = [
     loadChildren: () =>
       import('./calendar/calendar.module').then((m) => m.CalendarModule),
   },
+  {
+    path: 'patient',
+    loadChildren: () =>
+      import('./patient/patient.module').then((m) => m.PatientModule),
+  }
 ];
 @NgModule({
   declarations: [
@@ -92,7 +99,9 @@ const router: Routes = [
     MatSnackBarModule,
     AngularMaterialModule,
     ChartModule,
+    CommonModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
   providers: [
