@@ -51,7 +51,7 @@
                   placeholder="Date of Birth"
                   formControlName="birthDate"
                   [(ngModel)]="patient.birthDate"
-                  ng-change="ageCalculator()"
+                  (change)="ageCalculator()"
                 />
 
                 <mat-error *ngIf="isFieldInvalid('birthDate')">{{

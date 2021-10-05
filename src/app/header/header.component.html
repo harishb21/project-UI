@@ -71,9 +71,22 @@
           <mat-icon>group_add</mat-icon>
           <span>Patient Details</span>
         </button>
-        <button mat-button class="menu-button">
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/patient/patientList"
+        >
           <mat-icon>people</mat-icon>
           <span>Patients</span>
+        </button>
+
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/patient/patientVisit"
+        >
+          <mat-icon>people</mat-icon>
+          <span>Patient Visit</span>
         </button>
       </mat-expansion-panel>
 
@@ -104,18 +117,6 @@
       <mat-icon>event</mat-icon>
       <span>Schedule</span>
     </button>
-
-    <button mat-button class="menu-button" routerLink="/patient/patientList">
-      <mat-icon>people</mat-icon>
-      <span>Patient List</span>
-    </button>
-
-    <button mat-button class="menu-button" routerLink="/patient/patientVisit">
-      <mat-icon>people</mat-icon>
-      <span>Patient Visit</span>
-    </button>
-
-  
 
     <mat-divider></mat-divider>
 

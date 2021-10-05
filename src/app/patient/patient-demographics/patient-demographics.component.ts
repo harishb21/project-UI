@@ -21,7 +21,7 @@ export class PatientDemographicsComponent implements OnInit {
   address = 'ketannnnnnnnnn';
   address2 = '';
   form: FormGroup = new FormGroup({});
-  selected :any= null;
+  selected: any = null;
   toppings: FormGroup;
   checked: boolean = false;
   allergy: boolean = true;
@@ -33,7 +33,7 @@ export class PatientDemographicsComponent implements OnInit {
   patient: Patient = new Patient();
   emergencyContact: EmergencyContact = new EmergencyContact();
   allergyIds: string[];
-  patientId:any;
+  patientId: any;
   constructor(
     fb: FormBuilder,
     private patientService: PatientService,
@@ -48,7 +48,7 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.patientId= this.activatedroute.snapshot.paramMap.get('id');
+    this.patientId = this.activatedroute.snapshot.paramMap.get('id');
 
     this.loadPatient(this.patientId);
     this.fetchAllAllergyIds();
@@ -146,12 +146,11 @@ export class PatientDemographicsComponent implements OnInit {
   ageCalculator() {
     console.log(' ageCalculator method called');
 
-    if (this.age) {
-      const convertAge = new Date(this.age);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
-      console.log('age is ' + this.showAge);
-    }
+    const convertAge = new Date(this.age);
+    const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+    this.showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
+    console.log('age is ' + this.showAge);
+
   }
 
   changeFunction() {
@@ -159,7 +158,7 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('ng submit called');
+    // console.log('ng submit called');
 
     //Create Object
     const patientObject: Patient = {
@@ -179,8 +178,7 @@ export class PatientDemographicsComponent implements OnInit {
       emergencyContact: this.emergencyContactDetails(),
     };
 
-    console.log('All data : ' + patientObject);
-    alert(patientObject);
+    // console.log('All data : ' + patientObject);
 
     const res = confirm('Are you sure?');
     if (res) {
@@ -199,7 +197,7 @@ export class PatientDemographicsComponent implements OnInit {
       address: this.form.value.emergencyContactAddress,
     };
 
-    alert(emergencyContactObject);
+    // alert(emergencyContactObject);
 
     return emergencyContactObject;
   }
