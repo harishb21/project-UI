@@ -28,11 +28,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { SendNotesComponent } from './notes/send-notes/send-notes.component';
 import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
-<<<<<<< HEAD
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-=======
 import { AuthInterceptor } from './users/auth.interceptor';
->>>>>>> 62b9c377a14650f161a0e11cef36dfe482b7cbf0
+
 const router: Routes = [
   {
     path: '',
@@ -92,9 +90,9 @@ const router: Routes = [
     ChartModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-<<<<<<< HEAD
+
     MatInputModule
-=======
+
   ],
   providers: [
     AuthGuard,
@@ -104,7 +102,7 @@ const router: Routes = [
       useClass: AuthInterceptor,
       multi: true,
     },
->>>>>>> 62b9c377a14650f161a0e11cef36dfe482b7cbf0
+
   ],
   bootstrap: [AppComponent],
 })

@@ -1,4 +1,4 @@
-import { AuthService } from './../../users/auth.service';
+
 import { NotesServiceService } from './../services/notes-service.service';
 import { Staff } from './../model/Staff.model';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +6,7 @@ import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Notes } from '../model/notes.model';
 import { User } from './../../users/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-send-notes',

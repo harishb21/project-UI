@@ -33,7 +33,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-<<<<<<< HEAD
 
 const materialModules = [
   CdkTreeModule,
@@ -78,17 +77,9 @@ const materialModules = [
     MatSortModule,
    
   ],
-=======
-const materialModules = [];
-
-@NgModule({
->>>>>>> 62b9c377a14650f161a0e11cef36dfe482b7cbf0
   exports: [
     MatTableModule,
     MatSortModule,
-<<<<<<< HEAD
-  
-=======
     MatInputModule,
     CdkTreeModule,
     MatAutocompleteModule,
@@ -123,7 +114,6 @@ const materialModules = [];
     MatDatepickerModule,
     MatTooltipModule,
     MatFormFieldModule,
->>>>>>> 62b9c377a14650f161a0e11cef36dfe482b7cbf0
   ],
 })
 export class AngularMaterialModule {}
