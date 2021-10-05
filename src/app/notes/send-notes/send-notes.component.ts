@@ -62,14 +62,21 @@ else {
   }
   onSubmit(){
     const notes =new Notes();
-    notes.receiver = this.f.recieverId.value
+    const sender = new Staff();
+    const reciever = new Staff();
+    //notes.receiver = this.f.recieverId.value
     notes.message = this.f.message.value
   notes.urgency = this.f.urgency.value
   //notes.senderId = this.user.userId
-  notes.sender =1;
+   sender.userId =1;
+   reciever.userId = this.f.recieverId.value;
+ // notes.sender =1;
+    notes.sender = sender;
+    notes.receiver = reciever;
    this.notesService.saveNotes(notes).subscribe(
      (data) =>{
-       
+       console.log(data);
+       this.ngOnInit;
      }
    )
   
