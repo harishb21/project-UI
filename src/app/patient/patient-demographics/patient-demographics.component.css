@@ -1,0 +1,62 @@
+.example-full-width{
+    width: 60%;
+    height: 5%;
+}
+
+.top-padding{
+    padding-top: 3px;
+}
+
+.margin-left mat-radio-button:not(:first-child){
+    margin-left:10px;
+}
+
+.form-container{
+    margin: 80px;
+}
+
+.patient-form{
+    width: 40%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  .radioButton
+  {
+      text-align: center;
+  }
+
+
+  mat-form-field {
+    width: 60%;
+    /* padding-bottom: 0; */
+  }
+  
+  mat-card {
+    max-width: 80%;
+    margin: 1em auto;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .mat-card {
+    /* width: 40%; */
+    width: 500px;
+    /* height: 350px; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 20px;
+    /* padding-bottom: 1px; */
+  }
+  
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  .myButtons
+  {
+      text-align: center;
+  }

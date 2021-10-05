@@ -1,6 +1,6 @@
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './footer/footer.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { InboxComponent } from './inbox/inbox.component';
@@ -30,6 +30,11 @@ import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.co
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { AuthInterceptor } from './users/auth.interceptor';
+<<<<<<< HEAD
+=======
+import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
+
+>>>>>>> 12788c70975eef58a5e19dfb96ae040706c400ec
 
 const router: Routes = [
   {
@@ -49,10 +54,10 @@ const router: Routes = [
     loadChildren: () =>
       import('./notes/notes.module').then((n) => n.NotesModule),
   },
-  {
-    path: 'app-schedule',
-    component: ScheduleComponent,
-  },
+  // {
+  //   path: 'app-schedule',
+  //   component: ScheduleComponent,
+  // },
   {
     path: 'users',
     loadChildren: () =>
@@ -63,6 +68,17 @@ const router: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
+  {
+    path: 'app-schedule',
+    component: InboxCalendarComponent,
+    loadChildren: () =>
+      import('./calendar/calendar.module').then((m) => m.CalendarModule),
+  },
+  {
+    path: 'patient',
+    loadChildren: () =>
+      import('./patient/patient.module').then((m) => m.PatientModule),
+  }
 ];
 @NgModule({
   declarations: [
@@ -88,7 +104,9 @@ const router: Routes = [
     MatSnackBarModule,
     AngularMaterialModule,
     ChartModule,
+    CommonModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
 
     MatInputModule

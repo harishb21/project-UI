@@ -71,9 +71,22 @@
           <mat-icon>group_add</mat-icon>
           <span>Patient Details</span>
         </button>
-        <button mat-button class="menu-button">
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/patient/patientList"
+        >
           <mat-icon>people</mat-icon>
           <span>Patients</span>
+        </button>
+
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/patient/patientVisit"
+        >
+          <mat-icon>people</mat-icon>
+          <span>Patient Visit</span>
         </button>
       </mat-expansion-panel>
 
@@ -124,7 +137,7 @@
       <router-outlet></router-outlet>
     </div>
     <!-- </div> -->
-    <!-- <div class="content mat-elevation-z8"> 
+    <!-- <div class="content mat-elevation-z8">  -->
     <!-- Main content here!head -->
     <!-- <div class="appDiv"> -->
 
