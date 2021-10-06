@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { AuthService } from '../../../services/auth.service';
 import { ErrorMessage } from '../../model/error.enum';
-import { User } from '../../model/user.model';
+import { User } from '../../../model/user.model';
 
 @Component({
   selector: 'app-auth',

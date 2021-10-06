@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InboxCalendarComponent } from './inbox-calendar/inbox-calendar.component';
+import { InboxCalendarComponent } from '../calendar/inbox-calendar/inbox-calendar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { DropDownButtonAllModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';

@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 
-=======
-import { AuthService } from '../../services/auth.service';
->>>>>>> 12788c70975eef58a5e19dfb96ae040706c400ec
 import { NotesServiceService } from './../services/notes-service.service';
-import { Staff } from './../model/Staff.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Notes } from '../model/notes.model';
-import { User } from './../../users/model/user.model';
+import { Notes } from '../../model/notes.model';
+import { User } from '../../model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SendNotesComponent implements OnInit {
   public user: User;
   notesform: FormGroup;
-  phycision: Staff[] = [];
+  phycision: User[] = [];
   desgination: string = '';
   constructor(
     private authService: AuthService,
@@ -61,11 +56,10 @@ export class SendNotesComponent implements OnInit {
       else this.desgination = '';
     }
   }
-<<<<<<< HEAD
   onSubmit(){
     const notes =new Notes();
-    const sender = new Staff();
-    const reciever = new Staff();
+    const sender = new User();
+    const reciever = new User();
     //notes.receiver = this.f.recieverId.value
     notes.message = this.f.message.value
   notes.urgency = this.f.urgency.value
@@ -81,16 +75,5 @@ export class SendNotesComponent implements OnInit {
        this.ngOnInit;
      }
    )
-  
-=======
-  onSubmit() {
-    const notes = new Notes();
-    notes.receiver = this.f.recieverId.value;
-    notes.message = this.f.message.value;
-    notes.urgency = this.f.urgency.value;
-    //notes.senderId = this.user.userId
-    notes.sender = 1;
-    this.notesService.saveNotes(notes).subscribe((data) => {});
->>>>>>> 12788c70975eef58a5e19dfb96ae040706c400ec
   }
 }

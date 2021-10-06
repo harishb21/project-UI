@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
-import { User } from '../users/model/user.model';
+import { User } from '../model/user.model';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

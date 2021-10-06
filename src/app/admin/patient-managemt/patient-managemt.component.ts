@@ -1,3 +1,4 @@
+import { User } from './../../model/user.model';
 import { tap } from 'rxjs/operators';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,10 +14,9 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { pipe } from 'rxjs';
-import { User } from '../model/user.model';
 import { AdminserviceService } from '../admin.service';
-import { Patient } from '../model/patient.model';
 import { AuthService } from '../../services/auth.service';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
@@ -34,7 +34,7 @@ interface Status {
 })
 export class PatientManagementComponent implements OnInit {
   user: User | null = null;
-  allPatients: Patient[] = [];
+  allPatients: User[] = [];
   displayedColumns: string[] = [
     'patientId',
     'firstName',
@@ -42,11 +42,11 @@ export class PatientManagementComponent implements OnInit {
     'status',
     'editstatus',
   ];
-  dataSource: MatTableDataSource<Patient>;
+  dataSource: MatTableDataSource<User>;
   patienId: number;
   tempId: number;
   id: number = 0;
-  allPatient: Patient[] = [];
+  allPatient: User[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   disableSelect = new FormControl(true);
@@ -74,7 +74,7 @@ export class PatientManagementComponent implements OnInit {
   }
 
   addValues(patientId: number) {
-    const obj: Patient = new Patient();
+    const obj: User = new User();
     // obj.userId = patientId;
     // obj.status = this.selectedValue;
     this.allPatient.push(obj);

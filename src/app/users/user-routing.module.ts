@@ -4,8 +4,8 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { EmployeeRegComponent } from './components/employee-reg/employee-reg.component';
 import { UserGuard } from './guard/user.guard';
-import { Roles } from './model/roles.enum';
 import { PatientRegComponent } from './components/patient-reg/patient-reg.component';
+import { Roles } from '../model/roles.enum';
 
 const routes: Routes = [
   {

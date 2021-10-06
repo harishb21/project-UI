@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { User } from '../users/model/user.model';
-<<<<<<< HEAD
-
-=======
->>>>>>> 12788c70975eef58a5e19dfb96ae040706c400ec
+import { User } from '../model/user.model';
 
 declare const hide: any;
 @Component({

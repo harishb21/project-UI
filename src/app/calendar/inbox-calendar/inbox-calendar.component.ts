@@ -1,4 +1,5 @@
-import { PatientName, StaffName } from './staff.model';
+
+
 import { Observable } from 'rxjs';
 import { extend, isNullOrUndefined } from '@syncfusion/ej2-base';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
@@ -33,9 +34,11 @@ import { FormValidator } from '@syncfusion/ej2-angular-inputs';
 import { InboxService } from './inbox.service';
 import { Data } from '@syncfusion/ej2-schedule/src/schedule/actions/data';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { InboxData } from './inbox.model';
+import { InboxData } from '../../model/inbox.model';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ChangeEventArgs } from '@syncfusion/ej2-calendars';
+import { Patient } from 'src/app/patient/model/patient';
+import { User } from 'src/app/model/user.model';
 L10n.load({
   'en-US': {
     schedule: {
@@ -80,8 +83,8 @@ export class InboxCalendarComponent implements OnInit {
   public endDate: Date;
   public statusFields: Object = { text: 'staffName', value: 'id' };
   public fields: Object = { value: 'pId', text: 'patientName' };
-  public StatusData: StaffName[] = this.inboxService.staffNameList;
-  public booksData: PatientName[] = this.inboxService.patientNameList;
+  public StatusData: User[] = this.inboxService.staffNameList;
+  public booksData: User[] = this.inboxService.patientNameList;
   public watermark: string = 'e.g. Cristiano Ronaldo';
   public value: string = '';
   physicianValue: number;

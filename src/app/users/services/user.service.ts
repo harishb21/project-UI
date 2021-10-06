@@ -1,10 +1,11 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
-import { Role } from '../model/role.model';
-import { User } from '../model/user.model';
+import { Role } from 'src/app/model/role.model';
+import { User } from '../../model/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

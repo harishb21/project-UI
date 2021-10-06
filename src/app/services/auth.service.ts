@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { GlobalConstants } from '../common/global-constants';
-import { User } from '../users/model/user.model';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root',

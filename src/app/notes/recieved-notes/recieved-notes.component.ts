@@ -1,6 +1,6 @@
 
 import { NotesServiceService } from './../services/notes-service.service';
-import { Notes } from './../model/notes.model';
+import { Notes } from '../../model/notes.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { CollectionViewer } from '@angular/cdk/collections';

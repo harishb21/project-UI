@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './users/guard/auth.guard';
 import { UserGuard } from './users/guard/user.guard';
-import { Roles } from './users/model/roles.enum';
+import { Roles } from './model/roles.enum';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AngularMaterialModule } from './angular-material.module';
 import { AdminComponent } from './admin/admin.component';
@@ -30,11 +30,8 @@ import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.co
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { AuthInterceptor } from './users/auth.interceptor';
-<<<<<<< HEAD
-=======
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
 
->>>>>>> 12788c70975eef58a5e19dfb96ae040706c400ec
 
 const router: Routes = [
   {
@@ -72,7 +69,7 @@ const router: Routes = [
     path: 'app-schedule',
     component: InboxCalendarComponent,
     loadChildren: () =>
-      import('./calendar/calendar.module').then((m) => m.CalendarModule),
+      import('./model/calendar.module').then((m) => m.CalendarModule),
   },
   {
     path: 'patient',

@@ -1,9 +1,9 @@
-import { InboxData } from './inbox.model';
+import { User } from './../../model/user.model';
+import { InboxData } from '../../model/inbox.model';
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PatientName, Staff, StaffName } from './staff.model';
-import { Patient } from './patient.model';
+
 
 @Injectable({ providedIn: 'root' })
 export class InboxService implements OnInit {
@@ -15,8 +15,8 @@ export class InboxService implements OnInit {
   ngOnInit(): void {
     this.loadStaffData();
   }
-  staffNameList: StaffName[] = [];
-  patientNameList: PatientName[] = [];
+  staffNameList: User[] = [];
+  patientNameList: User[] = [];
   addAppointment(inbox: InboxData) {
     return this.http
       .post<InboxData>(`${this.HOST_URL}/appointments`, inbox)
@@ -76,19 +76,19 @@ export class InboxService implements OnInit {
     
   }
 
-  getAllStaffData(): Observable<Staff[]> {
-    return this.http.get<Staff[]>(`${this.HOST_URL}/appointments/employees`);
+  getAllStaffData(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.HOST_URL}/appointments/employees`);
   }
 
-  getAllPaientData(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.HOST_URL}/appointments/patients`);
+  getAllPaientData(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.HOST_URL}/appointments/patients`);
   } 
   loadStaffData() {
     this.getAllStaffData().subscribe((res) => {
       res
         .filter((val) => val.roleId == 2)
-        .forEach((data) => {
-          let obj = {
+        .forEach((data:any) => {
+          let obj: any = {
             staffName: data.title + ' ' + data.firstName + ' ' + data.lastName,
             id: data.empId,
           };
@@ -102,7 +102,7 @@ loadPatientNameData() {
   this.getAllPaientData().subscribe((res) => {
     res.forEach((data) => {
      // console.log(data.firstName);  
-      let obj = {
+      let obj:any = {
           patientName: data.firstName + ' ' + data.lastName,
           pId: data.userId,
         };
