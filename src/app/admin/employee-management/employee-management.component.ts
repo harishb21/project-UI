@@ -1,3 +1,4 @@
+import { User } from './../../model/user.model';
 import {
   AfterViewInit,
   Component,
@@ -14,8 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { AdminserviceService } from '../admin.service';
-import { Staff } from '../model/Staff.model';
-import { User } from '../model/user.model';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
     return !!control;
@@ -32,7 +31,7 @@ interface Status {
 })
 export class EmployeeManagementComponent implements OnInit {
   user: User | null = null;
-  allEmployee: Staff[]=[];
+  allEmployee: User[]=[];
   currentContact?: null;
   currentIndex = -1;
   id = '';
@@ -43,7 +42,7 @@ export class EmployeeManagementComponent implements OnInit {
   key: string = 'id';
   reverse: boolean = false;
   staffId: number;
-  allStaffs: Staff[] = [];
+  allStaffs: User[] = [];
   disableSelect = new FormControl(true);
   matcher = new MyErrorStateMatcher();
   selectedValue: string;
@@ -104,7 +103,7 @@ export class EmployeeManagementComponent implements OnInit {
     });
   }
   addValues(patientId: number) {
-    const obj = new Staff();
+    const obj = new User();
     //obj.userId = patientId;
     //obj.status = this.selectedValue;
     this.allStaffs.push(obj);

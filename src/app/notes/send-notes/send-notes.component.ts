@@ -46,6 +46,7 @@ export class SendNotesComponent implements OnInit {
     this.notesService.getAllPhycision().subscribe((data) => {
       this.phycision.splice(0, this.phycision.length);
       this.phycision.push(...data);
+      console.log(data)
     });
   }
   addValues(roleId: number) {

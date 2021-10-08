@@ -1,11 +1,10 @@
+import { User } from './../model/user.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Patient } from './model/patient.model';
-import { Staff } from './model/Staff.model';
-import { User } from './model/user.model';
+
 
 
 
@@ -13,7 +12,7 @@ import { User } from './model/user.model';
   providedIn: 'root',
 })
 export class AdminserviceService {
-  allPatients: Patient[] = [];
+  allPatients: User[] = [];
   allUsers: User[];
   private baseurl: string;
   response: any;
@@ -21,22 +20,22 @@ export class AdminserviceService {
     this.baseurl = 'http://localhost:8085/admin/';
   }
 
-  getAllPatient(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.baseurl}patient-list`);
+  getAllPatient(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseurl}patient-list`);
   }
 
-  getAllUsers(): Observable<Staff[]> {
-    return this.http.get<Staff[]>(`${this.baseurl}user-list`);
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseurl}user-list`);
   }
 
-  editPatientStatus(allPatient: Patient[]) {
-    return this.http.put<Patient>(
+  editPatientStatus(allPatient: User[]) {
+    return this.http.put<User>(
       `${this.baseurl}patient/editstatus`,
         allPatient
     );
   }
-  editEmployeeStatus(allEmployee : Staff[]) {
-    return this.http.put<Staff>(
+  editEmployeeStatus(allEmployee : User[]) {
+    return this.http.put<User>(
       `${this.baseurl}/employee/editstatus/`,allEmployee
     );
   }

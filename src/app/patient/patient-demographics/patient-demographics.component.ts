@@ -1,3 +1,4 @@
+import { User } from 'src/app/model/user.model';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmergencyContact } from '../model/EmergencyContact';
-import { ErrorMessage } from '../model/error.enum';
-import { Patient } from '../model/patient';
+import { EmergencyContact } from '../../model/EmergencyContact';
+import { ErrorMessage } from '../../model/error.enum';
+
 import { PatientService } from '../patient.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class PatientDemographicsComponent implements OnInit {
   showAge: number;
   formSubmitAttempt: boolean = false;
 
-  patient: Patient = new Patient();
+  patient: User = new User();
   emergencyContact: EmergencyContact = new EmergencyContact();
   allergyIds: string[];
   patientId: any;
@@ -160,23 +161,25 @@ export class PatientDemographicsComponent implements OnInit {
   onSubmit() {
     // console.log('ng submit called');
 
+    
+
     //Create Object
-    const patientObject: Patient = {
-      patientId: this.form.value.patientId,
-      title: this.form.value.title,
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      birthDate: this.form.value.birthDate,
-      age: this.form.value.age,
-      gender: this.form.value.gender,
-      race: this.form.value.race,
-      ethnicity: this.form.value.ethnicity,
-      languages: this.form.value.languages,
-      email: this.form.value.email,
-      contactNo: this.form.value.contactNo,
-      address: this.form.value.address,
-      emergencyContact: this.emergencyContactDetails(),
-    };
+    const patientObject: User = new User(); 
+    patientObject.userId= this.form.value.patientId,
+    patientObject.title =this.form.value.title,
+    patientObject.firstName= this.form.value.firstName,
+    patientObject.lastName= this.form.value.lastName,
+    patientObject.birthDate= this.form.value.birthDate,
+    patientObject.age= this.form.value.age,
+    patientObject.gender= this.form.value.gender,
+    patientObject.race= this.form.value.race,
+    patientObject.ethnicity= this.form.value.ethnicity,
+    patientObject.languages= this.form.value.languages,
+    patientObject.email= this.form.value.email,
+    patientObject.contactNo= this.form.value.contactNo,
+    patientObject.address= this.form.value.address,
+    patientObject.emergencyContact= this.emergencyContactDetails()
+    
 
     // console.log('All data : ' + patientObject);
 

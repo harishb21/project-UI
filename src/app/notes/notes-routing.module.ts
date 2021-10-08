@@ -1,12 +1,12 @@
 import { NotesComponent } from './notes.component';
-import { Role } from './../users/model/role.model';
 import { RecievedNotesComponent } from './recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './sent-notes/sent-notes.component';
 import { SendNotesComponent } from './send-notes/send-notes.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { UserGuard } from '../users/guard/user.guard';
-import { Roles } from './model/roles.enum';
+import { Roles } from '../model/roles.enum';
+
 
 
 

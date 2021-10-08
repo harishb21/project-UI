@@ -3,9 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, pipe } from 'rxjs';
-import { User } from './model/user.model';
 import { AdminserviceService } from './admin.service';
 import { AuthService } from '../services/auth.service';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-admin',

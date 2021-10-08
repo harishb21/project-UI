@@ -24,7 +24,7 @@ export class RecievedNotesComponent implements OnInit {
 
 
   notes:Notes;
-  userId:number =2;
+  userId:number =1;
   dataSource: MatTableDataSource<Notes>;
   displayedColumns = ["date", "sender","message","urgency"];
   constructor(private notesService:NotesServiceService,private route: ActivatedRoute) { }
@@ -38,7 +38,6 @@ export class RecievedNotesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource);
       }
     );
 	}

@@ -1,3 +1,5 @@
+import { Role } from './role.model';
+import { EmergencyContact } from './EmergencyContact';
 export class User {
   public userId!: number;
   public title!: string;
@@ -10,10 +12,10 @@ export class User {
   public roleId!: number;
   public empId!: number;
   public attempt!: number;
-
+  public age : number;
   public contactNo!: number;
   public password!: string;
-
+public gender: string;
   public message!: string;
 
   public race!: string;
@@ -24,6 +26,6 @@ export class User {
    public active!: boolean;
   public createdOn!: Date;
    public updatedOn!: Date;
-
+public emergencyContact: EmergencyContact;
   constructor() {} // public roleId: number // public roleName: string, // public username: string, // public birthDate: Date, // public email: string, // public lastName: string, // public firstName: string, // public title: string,
 }

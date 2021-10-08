@@ -4,7 +4,8 @@ import { AdminComponent } from './admin.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { UserGuard } from '../users/guard/user.guard';
-import { Roles } from './model/roles.enum';
+import { Roles } from '../model/roles.enum';
+
 
 
 const routes: Routes = [
