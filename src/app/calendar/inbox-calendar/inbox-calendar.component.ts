@@ -37,7 +37,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InboxData } from '../../model/inbox.model';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ChangeEventArgs } from '@syncfusion/ej2-calendars';
-import { Patient } from 'src/app/patient/model/patient';
 import { User } from 'src/app/model/user.model';
 L10n.load({
   'en-US': {

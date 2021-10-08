@@ -1,7 +1,7 @@
+import { User } from 'src/app/model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Patient } from './model/patient';
 import { PatientInterface } from './patient-list/patient-list.component';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class PatientService {
     this.getAllPatient();
   }
 
-  updatePatientDetails(patient: Patient) {
+  updatePatientDetails(patient: User) {
     this.http.put('http://localhost:8083/patient', patient).subscribe((res) => {
       console.log(res);
     });
