@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ErrorMessage } from 'src/app/patient/model/error.enum';
+import { ErrorMessage } from '../../model/error.model';
 import { User } from '../../../model/user.model';
 import { UserService } from '../../services/user.service';
 import { emailValidator } from '../../validators/email.validator';

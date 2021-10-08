@@ -14,8 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { AdminserviceService } from '../admin.service';
-import { Staff } from '../model/Staff.model';
-import { User } from '../model/user.model';
+import { User } from '../../model/user.model';
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
     return !!control;
@@ -32,7 +32,7 @@ interface Status {
 })
 export class EmployeeManagementComponent implements OnInit {
   user: User | null = null;
-  allEmployee: Staff[]=[];
+  allEmployee: Staff[] = [];
   currentContact?: null;
   currentIndex = -1;
   id = '';

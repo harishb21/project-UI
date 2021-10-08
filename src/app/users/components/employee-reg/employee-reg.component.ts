@@ -1,13 +1,11 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorMessage } from '../../model/error.enum';
+import { ErrorMessage } from '../../model/error.model';
 import { User } from '../../../model/user.model';
 import { UserService } from '../../services/user.service';
 import { emailValidator } from '../../validators/email.validator';
 import { Role } from 'src/app/model/role.model';
 import { Roles } from 'src/app/model/roles.enum';
-
 
 @Component({
   selector: 'app-employee-reg',
