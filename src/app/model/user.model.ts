@@ -17,13 +17,13 @@ export class User {
   public message!: string;
 
   public race!: string;
-   public ethnicity!: string;
+  public ethnicity!: string;
   public languages!: string;
-   public address!: string;
+  public address!: string;
   public deleted!: boolean;
-   public active!: boolean;
+  public active!: boolean;
   public createdOn!: Date;
-   public updatedOn!: Date;
+  public updatedOn!: Date;
 
   constructor() {} // public roleId: number // public roleName: string, // public username: string, // public birthDate: Date, // public email: string, // public lastName: string, // public firstName: string, // public title: string,
 }
