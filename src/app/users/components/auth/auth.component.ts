@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
 
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [
+      password: new FormControl('Welcome@123', [
         Validators.required,
         Validators.pattern(
           '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
@@ -103,14 +103,17 @@ export class AuthComponent implements OnInit {
 
             this.errorMessage = '';
 
+            // window.location.reload();
             if (res.attempt === -1) {
               // new user redirect update password page
               this.router.navigate(['/users/update']);
             } else {
+              window.location.reload();
               this.router.navigate(['/']);
             }
 
             this._snackBar.open('Successfully Authenticated');
+
             // window.location.reload();
 
             // If res shows user not found set user null and login fail
@@ -136,6 +139,8 @@ export class AuthComponent implements OnInit {
               }
 
               this.attempt = err.error.attempt;
+            } else {
+              this.errorMessage = err.error;
             }
 
             // alert(err.error.title + '\n' + err.error.detail);

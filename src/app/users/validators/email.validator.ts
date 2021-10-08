@@ -9,13 +9,14 @@ import { UserService } from '../services/user.service';
  */
 export function emailValidator(userService: UserService): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    userService.getUserByEmail(control.value).subscribe((loginData) => {
-      if (loginData) {
-        return control.setErrors({
-          emailInvalid: 'Email Id is already present',
-        });
-      }
-    });
+    if (control.value)
+      userService.getUserByEmail(control.value).subscribe((loginData) => {
+        if (loginData) {
+          return control.setErrors({
+            emailInvalid: 'Email Id is already present',
+          });
+        }
+      });
 
     return null;
   };

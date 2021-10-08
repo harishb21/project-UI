@@ -12,20 +12,20 @@ export class User {
   public roleId!: number;
   public empId!: number;
   public attempt!: number;
-  public age : number;
+  public age: number;
   public contactNo!: number;
   public password!: string;
-public gender: string;
+  public gender: string;
   public message!: string;
 
   public race!: string;
-   public ethnicity!: string;
+  public ethnicity!: string;
   public languages!: string;
-   public address!: string;
+  public address!: string;
   public deleted!: boolean;
-   public active!: boolean;
+  public active!: boolean;
   public createdOn!: Date;
-   public updatedOn!: Date;
-public emergencyContact: EmergencyContact;
+  public updatedOn!: Date;
+  public emergencyContact: EmergencyContact;
   constructor() {} // public roleId: number // public roleName: string, // public username: string, // public birthDate: Date, // public email: string, // public lastName: string, // public firstName: string, // public title: string,
 }

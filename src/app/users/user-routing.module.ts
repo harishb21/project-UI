@@ -29,6 +29,10 @@ const routes: Routes = [
     },
   },
   {
+    path: 'signup',
+    component: PatientRegComponent,
+  },
+  {
     path: 'update',
     component: ChangePasswordComponent,
     canActivate: [UserGuard],
