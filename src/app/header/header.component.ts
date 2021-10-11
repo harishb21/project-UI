@@ -30,18 +30,20 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngAfterContentInit() {
-    this.observer
-      .observe(['(max-width: 800px)'])
-      .pipe(delay(1))
-      .subscribe((res) => {
-        if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
+    if (this.user) {
+      this.observer
+        .observe(['(max-width: 800px)'])
+        .pipe(delay(1))
+        .subscribe((res) => {
+          if (res.matches) {
+            this.sidenav.mode = 'over';
+            this.sidenav.close();
+          } else {
+            this.sidenav.mode = 'side';
+            this.sidenav.open();
+          }
+        });
+    }
   }
 
   // ngAfterViewInit() {
@@ -73,8 +75,11 @@ export class HeaderComponent implements OnInit {
       }
     });
 
+    // this.user = localStorage.getItem('user');
+
     if (this.user) {
       this.observer
+
         .observe(['(max-width: 800px)'])
         .pipe(delay(1))
         .subscribe((res) => {

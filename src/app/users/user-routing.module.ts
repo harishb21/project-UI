@@ -6,11 +6,13 @@ import { EmployeeRegComponent } from './components/employee-reg/employee-reg.com
 import { UserGuard } from './guard/user.guard';
 import { PatientRegComponent } from './components/patient-reg/patient-reg.component';
 import { Roles } from '../model/roles.enum';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'employee',
