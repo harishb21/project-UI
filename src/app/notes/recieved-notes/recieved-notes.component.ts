@@ -1,6 +1,6 @@
+import { Notes } from './../../model/notes.model';
 
 import { NotesServiceService } from './../services/notes-service.service';
-import { Notes } from '../../model/notes.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { CollectionViewer } from '@angular/cdk/collections';
@@ -9,13 +9,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { MessageDailogComponent } from './message-dailog/message-dailog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 @Component({
   selector: 'app-recieved-notes',
   templateUrl: './recieved-notes.component.html',
   styleUrls: ['./recieved-notes.component.css']
 })
 export class RecievedNotesComponent implements OnInit {
+  animal: string;
+  name: string;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -27,7 +35,9 @@ export class RecievedNotesComponent implements OnInit {
   userId:number =1;
   dataSource: MatTableDataSource<Notes>;
   displayedColumns = ["date", "sender","message","urgency"];
-  constructor(private notesService:NotesServiceService,private route: ActivatedRoute) { }
+  constructor(private notesService:NotesServiceService,private route: ActivatedRoute,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
     this.loadNotes();
@@ -55,4 +65,17 @@ export class RecievedNotesComponent implements OnInit {
   onRowClicked(row:any) {
     console.log('Row clicked: ', row);
 }
+openDialog(note:Notes): void {
+  const dialogRef = this.dialog.open(MessageDailogComponent, {
+    data: note
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    console.log(note.reply)
+  });
 }
+
+
+}
+

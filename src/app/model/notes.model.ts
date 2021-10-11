@@ -14,4 +14,7 @@ export class Notes{
     
     public message : string;
     public urgency : boolean;
+
+    public reply:string;
+    public isdeleted:boolean
 }

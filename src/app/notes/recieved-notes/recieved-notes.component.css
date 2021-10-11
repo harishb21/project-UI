@@ -1,37 +1,31 @@
-
-.course {
-    text-align: center;
-    max-width: 800px;
-}
-
-.course-thumbnail {
+table {
+    width: 100%;
+  }
   
+  .mat-form-field {
+    font-size: 14px;
+    
+  }
   
-    display: block;
-}
+  /* td, th {
+     width: 20%;
+  }  */
+  .date{
+      width: 20%;
+  }
+  .message{
+      width: 40%;
+  }
+  .sender{
+      width: 20%;
+  }
+  .dailog-button{
+        float: right;
+  }
 
-.description-cell {
-    text-align: left;
-    
-}
-
-.duration-cell {
-    text-align: center;
-}
-
-.duration-cell mat-icon {
-   
-    font-size: 20px;
-}
-
-.spinner-container {
-    height: 360px;
-    width: 390px;
-    position: fixed;
-}
-
-.lessons-table {
-    height: 60%;
-    
-}
-
+  .header{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    color: rgb(68, 63, 63)
+  }
+  
