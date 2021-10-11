@@ -28,10 +28,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { SendNotesComponent } from './notes/send-notes/send-notes.component';
 import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MatFormFieldControl,
+  MatFormFieldModule,
+} from '@angular/material/form-field';
 import { AuthInterceptor } from './users/auth.interceptor';
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
-
 
 const router: Routes = [
   {
@@ -39,7 +41,7 @@ const router: Routes = [
     component: InboxComponent,
     canActivate: [UserGuard],
     data: {
-      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN],
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
     },
   },
   {
@@ -75,7 +77,7 @@ const router: Routes = [
     path: 'patient',
     loadChildren: () =>
       import('./patient/patient.module').then((m) => m.PatientModule),
-  }
+  },
 ];
 @NgModule({
   declarations: [
@@ -106,8 +108,7 @@ const router: Routes = [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
 
-    MatInputModule
-
+    MatInputModule,
   ],
   providers: [
     AuthGuard,
@@ -117,7 +118,6 @@ const router: Routes = [
       useClass: AuthInterceptor,
       multi: true,
     },
-
   ],
   bootstrap: [AppComponent],
 })

@@ -23,3 +23,15 @@
     padding-bottom: 30px;
     padding-top: 25px;
 }
+
+.e-custom-disable {
+    pointer-events: none;
+    background: gray !important;
+    color: black !important;
+  }
+
+  .e-custom-hide{
+      display: none;
+  }
+
+  

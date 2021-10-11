@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean>; //{1}
   isLoggedIn: boolean = false;
 
+  isPatient: boolean = false;
+  isAdmin: boolean = false;
+
   constructor(
     private observer: BreakpointObserver,
     private authService: AuthService,
@@ -63,7 +66,11 @@ export class HeaderComponent implements OnInit {
     this.authService.userInfo.subscribe((res) => {
       console.log('Header Component User : ', res);
       this.user = res;
-      if (res) this.isLoggedIn = true;
+      if (res) {
+        this.isLoggedIn = true;
+        this.isPatient = this.user.roleId === 4 ? true : false;
+        this.isAdmin = this.user.roleId === 1 ? true : false;
+      }
     });
 
     if (this.user) {

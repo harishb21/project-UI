@@ -29,8 +29,9 @@ import {
   Schedule,
   RenderCellEventArgs,
   PopupCloseEventArgs,
+  TimeScaleModel,
 } from '@syncfusion/ej2-angular-schedule';
-import { FormValidator } from '@syncfusion/ej2-angular-inputs';
+import { FormValidators, FormValidator, TextBox } from "@syncfusion/ej2-angular-inputs";
 import { InboxService } from './inbox.service';
 import { Data } from '@syncfusion/ej2-schedule/src/schedule/actions/data';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -38,6 +39,7 @@ import { InboxData } from '../../model/inbox.model';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ChangeEventArgs } from '@syncfusion/ej2-calendars';
 import { User } from 'src/app/model/user.model';
+
 L10n.load({
   'en-US': {
     schedule: {
@@ -70,14 +72,27 @@ export class InboxCalendarComponent implements OnInit {
   @ViewChild('scheduleObj')
   public scheduleObj: ScheduleComponent;
   public selectedDate: Date = new Date();
-  public showQuickInfo: boolean = true;
+  public showQuickInfo: boolean = false;
   public workHours: WorkHoursModel = { highlight: false };
   public startdate: Object = new Date(2021, 9, 22, 9);
   public enddate: Object = new Date(2021, 12, 22, 20);
   public startHour: string = '09:00';
   public endHour: string = '20:00';
-  public minDate: Object = new Date('10/03/2021');
-  public maxDate: Object = new Date('10/28/2021');
+  public currentYear: number = this.selectedDate.getFullYear();
+  public currentMonth: number = this.selectedDate.getMonth();
+  public currentDay: number = this.selectedDate.getDate();
+  public dateValue: Object = new Date(new Date().setDate(14));
+  public minDate: Object = new Date(
+    this.currentYear,
+    this.currentMonth,
+    this.currentDay
+  );
+  public maxDate: Object = new Date(
+    this.currentYear,
+    this.currentMonth + 3,
+    this.currentDay
+  );
+  public timeScale: TimeScaleModel = { interval: 30, slotCount: 1 };
   public startDate: Date;
   public endDate: Date;
   public statusFields: Object = { text: 'staffName', value: 'id' };
@@ -95,6 +110,7 @@ export class InboxCalendarComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   dropDownValue: string = '';
   //inboxList1: InboxData[] = [];
+  public validator: FormValidator;
   eventSettings: EventSettingsModel;
 
   loadUser() {
@@ -236,8 +252,12 @@ export class InboxCalendarComponent implements OnInit {
   }
 
   filteredval(event: any) {
+    console.log(event.isInteracted);
     if (event != null && event != undefined && event.value != null) {
       this.patientFilterValue = event.value;
+    }
+    if(!event.isInteracted){
+
     }
   }
   public startDateParser(data: string) {
@@ -269,38 +289,53 @@ export class InboxCalendarComponent implements OnInit {
     return !(date.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
-    console.log(args);
-
-    if (['QuickInfo', 'Editor'].indexOf(args.type) > -1) {
-      args.cancel = this.isValidAction(args.data.startTime);
-    }
-
+  
+    args.element.querySelector('.e-event-save').classList.add('e-custom-display');
+    // if (['QuickInfo', 'Editor'].indexOf(args.type) > -1) {
+      //disable all previous days appointments
+     // args.cancel = this.isValidAction(args.data.startTime);
+     
     if (
       ((args.data.id != null && args.data.physicianId != null) ||
         (args.data.id != undefined && args.data.physicianId != undefined)) &&
-      //args.data.PatientName != undefined &&
-      args.data.id &&
-      args.data.physicianId
+          args.data.id && args.data.physicianId
     ) {
       this.value = args.data.physicianId;
-      console.log('value--' + this.value);
       this.physicianStringVal = args.data.physicianId;
       this.physicianValue = args.data.physicianId;
-      console.log('PatientName--' + args.data.PatientName);
+     
       this.PatientNamePopUp = args.data.patientId;
     }
-    // if (args.type === "Editor") {
-    //   const formElement: HTMLElement = args.element.querySelector(
-    //     ".e-schedule-form"
-    //   ) as HTMLElement;
-    //   this.validator = (formElement as EJ2Instance)
-    //     .ej2_instances[0] as FormValidator;
-    //   this.validator.addRules("EventType", {
-    //     required: [true, "This field is required."]
-    //   });
-    // }
-    // console.log('on open');
-    //console.log( this.inboxService.getAllAppointmentData());
+    if (args.type === 'Editor') {
+      let formElement: HTMLElement = <HTMLElement>(
+        args.element.querySelector('.e-schedule-form')
+      );
+      this.validator = (formElement as EJ2Instance)
+        .ej2_instances[0] as FormValidator;
+      this.validator.addRules('Status', {
+        required: [true, 'This field is required.'],
+      });
+      this.validator.addRules('books', {
+        required: [true, 'This field is required.'],
+      });
+      if (args.target.classList.contains('e-work-cells')) {
+      
+        args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
+      }else{
+        
+        args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
+       }
+
+       if(this.isValidAction(args.data.startTime)){
+       
+         args.element.querySelector('.e-event-save').classList.add('e-custom-hide');
+         args.element.querySelector('.e-event-delete').classList.add('e-custom-hide');
+        }else{
+         
+         args.element.querySelector('.e-event-delete').classList.remove('e-custom-hide');
+         args.element.querySelector('.e-event-save').classList.remove('e-custom-hide');
+        }
+    }
   }
   onPopupClose(args: PopupCloseEventArgs): void {
     this.physicianStringVal = '';
@@ -318,6 +353,46 @@ export class InboxCalendarComponent implements OnInit {
     ) {
       args.element.classList.add('e-disable-dates');
       args.element.classList.add('e-disable-cell');
+    }
+  }
+
+  //========save button disbale code=====================
+  public onChange(args: any) {
+    let form = (document.querySelector('.e-schedule-form') as any)
+      .ej2_instances[0];
+    if (args.element && !args.e) {
+      return;
+    }
+    let names = [
+      'title',
+      'description',
+      'Status',
+      'books',
+      'endTime',
+      'startTime',
+    ];
+    names.forEach((e) => {
+      form.validateRules(e);
+    });
+    let isValidated = false;
+    let errorElements = document
+      .querySelector('.e-dlg-content')
+      .querySelectorAll('.e-schedule-error');
+    for (let i = 0; i < errorElements.length; i++) {
+      isValidated =
+        (errorElements[i] as any).style.display === 'none' ? true : false;
+      if (isValidated === false) {
+        break;
+      }
+    }
+    let saveBtn = document.querySelector('.e-custom-disable');
+    if (isValidated && saveBtn) {
+   
+      saveBtn.classList.remove('e-custom-disable');
+    } else if (!isValidated && !saveBtn) {
+    
+      
+      document.querySelector('.e-event-save').classList.add('e-custom-disable');
     }
   }
 }

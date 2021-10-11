@@ -31,7 +31,7 @@
         <span>Dashboard</span>
       </button>
 
-      <mat-expansion-panel class="mat-expanded-panel">
+      <mat-expansion-panel class="mat-expanded-panel" *ngIf="!isPatient">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>people</mat-icon>
@@ -59,7 +59,12 @@
             <span>Patient</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <button mat-button class="menu-button" routerLink="/users/patient">
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/users/patient"
+          *ngIf="!isPatient"
+        >
           <mat-icon>person_add</mat-icon>
           <span>Register</span>
         </button>
@@ -67,6 +72,7 @@
           mat-button
           class="menu-button"
           routerLink="/admin/patient-details"
+          *ngIf="isAdmin"
         >
           <mat-icon>group_add</mat-icon>
           <span>Patient Details</span>
@@ -120,7 +126,17 @@
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" (click)="onLogout()">
+    <button
+      mat-button
+      class="menu-button"
+      routerLink="/users/signup"
+      *ngIf="!user"
+    >
+      <mat-icon>person_add_alt</mat-icon>
+      <span>Sign up</span>
+    </button>
+
+    <button mat-button class="menu-button" (click)="onLogout()" *ngIf="user">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

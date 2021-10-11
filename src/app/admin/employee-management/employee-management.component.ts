@@ -31,7 +31,7 @@ interface Status {
 })
 export class EmployeeManagementComponent implements OnInit {
   user: User | null = null;
-  allEmployee: User[]=[];
+  allEmployee: User[] = [];
   currentContact?: null;
   currentIndex = -1;
   id = '';
