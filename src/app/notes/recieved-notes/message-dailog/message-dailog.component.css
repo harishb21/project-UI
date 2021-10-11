@@ -1,0 +1,8 @@
+.message-dailog {
+  min-width: 400px;
+  max-width: 500px;
+  width: 100%;
+}
+.input-full-width {
+    min-width: 90%;
+  }

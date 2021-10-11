@@ -26,4 +26,7 @@ export class NotesServiceService {
  getRecievedNotes(userId:number){
   return this.http.get<Notes[]>(`${this.baseurl}inbox/notes/recieved/${userId}`);
  }
+ getSentNotes(userId:number){
+  return this.http.get<Notes[]>(`${this.baseurl}inbox/notes/recieved/${userId}`);
+ }
 }
