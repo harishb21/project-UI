@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { User } from 'src/app/model/user.model';
 import { AuthService } from '../../services/auth.service';
 
 @Injectable()
-export class AuthGuard {
+export class AuthGuard implements CanActivate {
+  user: User;
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): Observable<boolean> {
-  // return this.authService.isLoggedIn.pipe(
-  //   take(1),
-  //   map((isLoggedIn: boolean) => {
-  //     if (!isLoggedIn) {
-  //       console.log('Auth Guard isloggedin', isLoggedIn);
-  //       this.router.navigate(['/users/auth']);
-  //       return false;
-  //     }
-  //     return true;
-  //   })
-  // );
-  // }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    // If user found in session
+    if (localStorage.getItem('user')) {
+      const str: string | null = localStorage.getItem('user');
+      const user: User = JSON.parse(str === null ? '{}' : str);
+      this.user = user;
+
+      // redirect to home
+      this.router.navigate(['/']);
+      return false;
+    }
+    return true;
+  }
 }
