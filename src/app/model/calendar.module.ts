@@ -33,20 +33,22 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CheckBoxModule  } from '@syncfusion/ej2-angular-buttons';
+import { InboxRoutingModule } from '../calendar/inbox-routing.module';
 
 
 @NgModule({
   declarations: [
-    InboxCalendarComponent
+    InboxCalendarComponent,
+  
   ],
   imports: [
-    CommonModule,CommonModule,RouterModule, ScheduleAllModule, RecurrenceEditorAllModule, 
+    CommonModule,RouterModule, ScheduleAllModule, RecurrenceEditorAllModule, 
     NumericTextBoxAllModule, TextBoxAllModule, DatePickerAllModule,
      TimePickerAllModule, DateTimePickerAllModule, CheckBoxAllModule, 
        ToolbarAllModule, DropDownListAllModule, ContextMenuAllModule,
         MaskedTextBoxModule, UploaderAllModule, MultiSelectAllModule,
   TreeViewModule, ButtonAllModule, DropDownButtonAllModule, SwitchAllModule,ReactiveFormsModule,
-  FormsModule,MatChipsModule,CheckBoxModule,
+  FormsModule,MatChipsModule,CheckBoxModule,  InboxRoutingModule,
   HttpClientModule,
   MatToolbarModule,
   MatSidenavModule,
