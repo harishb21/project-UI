@@ -103,7 +103,6 @@ export class AuthComponent implements OnInit {
 
             this.errorMessage = '';
 
-            // window.location.reload();
             if (res.attempt === -1) {
               // new user redirect update password page
               this.router.navigate(['/users/update']);
@@ -113,8 +112,6 @@ export class AuthComponent implements OnInit {
             }
 
             this._snackBar.open('Successfully Authenticated');
-
-            // window.location.reload();
 
             // If res shows user not found set user null and login fail
             // If successfully then fetch that user update for global access

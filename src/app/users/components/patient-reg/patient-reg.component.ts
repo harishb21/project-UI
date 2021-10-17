@@ -20,6 +20,8 @@ export class PatientRegComponent implements OnInit {
   hideNewPwd: boolean = true;
   hideConfirmPwd: boolean = true;
 
+  user: User;
+
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
@@ -28,6 +30,13 @@ export class PatientRegComponent implements OnInit {
 
   ngOnInit(): void {
     this.todayDate = new Date();
+
+    // If user found in session
+    if (localStorage.getItem('user')) {
+      const str: string | null = localStorage.getItem('user');
+      const user: User = JSON.parse(str === null ? '{}' : str);
+      this.user = user;
+    }
 
     this.form = this.fb.group(
       {
@@ -75,17 +84,6 @@ export class PatientRegComponent implements OnInit {
     this.formSubmitAttempt = true;
     console.log(this.form);
 
-    // const newPatient = new Patient(
-    //   this.form.value.title,
-    //   this.form.value.firstName,
-    //   this.form.value.lastName,
-    //   this.form.value.email,
-    //   this.form.value.birthDate,
-    //   this.form.value.contactNo,
-    //   this.form.value.username,
-    //   this.form.value.password
-    // );
-
     if (this.form.valid) {
       const newPatient = new User();
       newPatient.title = this.form.value.title;
@@ -99,8 +97,11 @@ export class PatientRegComponent implements OnInit {
 
       this.userService.addPatient(newPatient);
 
+      // When no user in session redirect after signup to login page
       // Redirect to Login Page when Sign up by new Patient
-      // this.router.navigate(['auth']);
+      if (!this.user) {
+        this.router.navigate(['/']);
+      }
 
       // Redirect To Dashboard after registration
     }

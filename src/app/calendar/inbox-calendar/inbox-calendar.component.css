@@ -34,4 +34,14 @@
       display: none;
   }
 
+  #patienterroMsg,#startDateCheck,#endDateCheck{
+      color: red !important;
+      font-size: 11px;
+  }
+
+
+  mat-sidenav-content{
+    overflow-x: hidden;
+    overflow-y: hidden !important;
   
+  }
