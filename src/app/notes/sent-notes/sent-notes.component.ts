@@ -23,7 +23,7 @@ export class SentNotesComponent implements OnInit {
   notes:Notes;
   userId:number =1;
   dataSource: MatTableDataSource<Notes>;
-  displayedColumns = ["date", "reciever","message","urgency"];
+  displayedColumns = ["date", "reciever","message","reply"];
   constructor(private notesService:NotesServiceService,private route: ActivatedRoute,
     public dialog: MatDialog
     ) { }

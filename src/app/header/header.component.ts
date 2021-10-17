@@ -29,6 +29,8 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {}
 
+ 
+
   ngAfterContentInit() {
     this.observer
       .observe(['(max-width: 800px)'])
@@ -60,6 +62,8 @@ export class HeaderComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;});
     // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 

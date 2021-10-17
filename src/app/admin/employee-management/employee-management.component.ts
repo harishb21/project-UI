@@ -32,15 +32,18 @@ interface Status {
 export class EmployeeManagementComponent implements OnInit {
   user: User | null = null;
   allEmployee: User[] = [];
-  currentContact?: null;
+  currentEmployee: null;
   currentIndex = -1;
   id = '';
-  p = 1;
+  page = 1;
+  count =0;
+  pageSize = 5;
+  pageSizes =[5,10,50,100]
   index: number;
   newrecord: number = 5;
   value = 5;
-  key: string = 'id';
-  reverse: boolean = false;
+  columnName: string = 'userId';
+  direction: string = "ASC";
   staffId: number;
   allStaffs: User[] = [];
   disableSelect = new FormControl(true);
@@ -56,7 +59,6 @@ export class EmployeeManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private adminService: AdminserviceService,
-    private toastr: ToastrService,
     private authService: AuthService
   ) {}
   ngOnInit() {
@@ -67,29 +69,32 @@ export class EmployeeManagementComponent implements OnInit {
   }
   refreshList() {
     this.loadUser();
-    this.currentContact = null;
+    this.currentEmployee = null;
     this.currentIndex = -1;
   }
 
   loadUser() {
-    this.adminService.getAllUsers().subscribe((data) => {
-      this.allEmployee = data;
-      this.toastr.success('All Data Loaded');
+    //const params =this.getRequestParams(this.page,this.pageSizes)
+    this.adminService.getAllUsers(this.page,this.pageSize,this.columnName,this.direction).subscribe((data) => {
+      const{staffs,totalElements} =data
+      this.allEmployee =staffs;
+      this.count = totalElements;
+      //this.allEmployee = data;
+      
     });
   }
-  setActiveContact(employee: User, index: number): void {
-    this.currentContact = undefined;
-    this.currentIndex = index;
+  handlePageChange(event:any): void {
+    this.page = event;
+    this.loadUser();
   }
+  handlePageSizeChange(event:any): void {
+    this.pageSizes = event.target.value;
+    this.page = 1;
+    this.loadUser();
+  }
+ 
 
-  sort(key: any) {
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
 
-  changeRecord(value: any) {
-    this.newrecord = value;
-  }
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
   ]);
@@ -102,15 +107,50 @@ export class EmployeeManagementComponent implements OnInit {
       console.log(data);
     });
   }
-  addValues(patientId: number) {
+  // addValues(patientId: number) {
+  //   const obj = new User();
+  //   //obj.userId = patientId;
+  //   //obj.status = this.selectedValue;
+  //   this.allStaffs.push(obj);
+  // }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    console.log(filterValue);
+  }
+
+  // getRequestParams(page:any,pageSize:any):any{
+  //   let params:any = {};
+
+  //   if(page){
+  //     params[`page`]=page-1;
+  //   }
+  //   if (pageSize) {
+  //     params[`size`] = pageSize;
+  //   }
+  //   return params;
+
+  // }
+  changeRecord(value: any) {
+    this.newrecord = value;
+    this.pageSize=value;
+    this.loadUser();
+  }
+  addValues(userId: number) {
     const obj = new User();
     //obj.userId = patientId;
     //obj.status = this.selectedValue;
     this.allStaffs.push(obj);
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-
-    console.log(filterValue);
+  getSort(key: any) {
+    if(this.columnName===key){
+      if(this.direction==="ASC")
+        this.direction="DESC"
+      else
+      this.direction="ASC"
+    }
+    this.columnName = key;
+    
+    this.loadUser();
   }
 }

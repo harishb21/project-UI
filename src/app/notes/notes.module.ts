@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { NotesRoutingModule } from './notes-routing.module';
 import { MessageDailogComponent } from './recieved-notes/message-dailog/message-dailog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AngularMaterialModule,
     NotesRoutingModule,
     HttpClientModule,

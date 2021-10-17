@@ -4,9 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-
-
+import { Page, PageRequest } from '../model/page';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +18,24 @@ export class AdminserviceService {
     this.baseurl = 'http://localhost:8085/admin/';
   }
 
-  getAllPatient(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseurl}patient-list`);
+  getAllPatient(page:any,size:any,columnName:any,direction:any): Observable<any> {
+    const params = {
+      page,
+      size,
+      columnName,
+      direction
+    }
+    return this.http.get(`${this.baseurl}patient-list`,{params});
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseurl}user-list`);
+  getAllUsers(page:any,size:any,columnName:any,direction:any): Observable<any> {
+    const params = {
+      page,
+      size,
+      columnName,
+      direction
+    }
+    return this.http.get(`${this.baseurl}user-list`,{params});
   }
 
   editPatientStatus(allPatient: User[]) {
@@ -40,12 +50,6 @@ export class AdminserviceService {
     );
   }
 
-  getOnePatient(patient_id: number) {
-    return this.http.get<User>(this.baseurl + 'patient/' + patient_id);
-  }
-  getOneUser(staffId: number) {
-    return this.http.get<User>(this.baseurl + 'user/' + staffId);
-  }
   getPatientCount(){
     return this.http.get<Response>(this.baseurl+'patients/patientcount');
     
@@ -54,4 +58,5 @@ export class AdminserviceService {
     return this.http.get<Number>(this.baseurl+'user/usercount');
     
   }
+  
 }

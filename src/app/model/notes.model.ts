@@ -13,8 +13,9 @@ export class Notes{
     public receiver: User;
     
     public message : string;
-    public urgency : boolean;
-
-    public reply:string;
+    public reply:string[];
+    
     public isdeleted:boolean
+    public isRead:boolean;
+    public urgency : boolean;
 }
