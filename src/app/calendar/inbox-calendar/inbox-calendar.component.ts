@@ -121,6 +121,13 @@ export class InboxCalendarComponent implements OnInit {
   dropDownValue: string = '';
   startDateCheck:boolean=false;
   endDateCheck:boolean=false;
+  slotStartDate:Date;
+  slotEndDate:Date;
+  slotStartTime:Date;
+  slotEndTime:Date;
+  timeSlotflag:boolean=false;
+  showPatientDisable=false;
+  showPatientName:string='';
   public validator: FormValidator;
   eventSettings: EventSettingsModel;
 
@@ -199,6 +206,7 @@ export class InboxCalendarComponent implements OnInit {
     }
   }
   public onActionBegin(args: any): void {
+   
     if (
       args.requestType === 'eventCreate' ||
       args.requestType === 'eventChange' ||
@@ -278,7 +286,7 @@ export class InboxCalendarComponent implements OnInit {
 
   isValidAction1(date: Date,bool:boolean) {
     if(bool){
-      return !(date > new Date() && this.startDate<= date);
+      return !(date >= new Date() && this.startDate<= date);
     }else{
       return !(date > new Date());
     }
@@ -293,7 +301,7 @@ export class InboxCalendarComponent implements OnInit {
       } else if (args.element.id === 'endTime') {
         this.endDate = args.value;
         this.endDateCheck = this.isValidAction1(this.endDate,true);
-        console.log(this.endDateCheck);
+        
       }
     }
 
@@ -303,14 +311,21 @@ export class InboxCalendarComponent implements OnInit {
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
     args.element.querySelector('.e-event-save').classList.add('e-custom-display');
-      this.showPatientError=false;
+    this.showPatientError=false;
+    //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
+    
+    
      
-      if(this.inboxService.disablePhysician){
-        console.log(this.inboxService.userEmpId.toString());
-        this.showPhysicianName=this.inboxService.uPhyisicanName;
-        this.showPhysicianDisable =this.inboxService.disablePhysician;
-        this.physicianStringVal=this.inboxService.userEmpId.toString();
-      }
+    if(this.inboxService.disablePhysician){
+      console.log(this.inboxService.userEmpId.toString());
+      this.showPhysicianName=this.inboxService.uPhyisicanName;
+      this.showPhysicianDisable =this.inboxService.disablePhysician;
+      this.physicianStringVal=this.inboxService.userEmpId.toString();
+    }else if(this.inboxService.disablePatient){
+        this.showPatientName = this.inboxService.patientName;
+        this.patientFilterValue= this.inboxService.patientId;
+        this.showPatientDisable = this.inboxService.disablePatient;
+    }
     // if (['QuickInfo', 'Editor'].indexOf(args.type) > -1) {
     //disable all previous days appointments
     // args.cancel = this.isValidAction(args.data.startTime);
@@ -327,44 +342,24 @@ export class InboxCalendarComponent implements OnInit {
       this.PatientNamePopUp = args.data.patientId;
     }
     if (args.type === 'Editor') {
-      let formElement: HTMLElement = <HTMLElement>(
-        args.element.querySelector('.e-schedule-form')
+      let formElement: HTMLElement = <HTMLElement>(args.element.querySelector('.e-schedule-form')
       );
-      this.validator = (formElement as EJ2Instance)
-        .ej2_instances[0] as FormValidator;
-        if(!this.inboxService.disablePhysician){
-      this.validator.addRules('Status', {
-        required: [true, 'This field is required.'],
-      });
+      this.validator = (formElement as EJ2Instance).ej2_instances[0] as FormValidator;
+      if(!this.inboxService.disablePhysician){
+      this.validator.addRules('Status', {required: [true, 'This field is required.'],});
     }
-
-      this.validator.addRules('books', {
-        required: [true, 'This field is required.'],
-      });
+      this.validator.addRules('books', {required: [true, 'This field is required.'],});
       if (args.target.classList.contains('e-work-cells')) {
-        args.element
-          .querySelector('.e-event-save')
-          .classList.add('e-custom-disable');
+        args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
       } else {
-        args.element
-          .querySelector('.e-event-save')
-          .classList.remove('e-custom-disable');
+        args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
       }
-
       if (this.isValidAction(args.data.startTime)) {
-        args.element
-          .querySelector('.e-event-save')
-          .classList.add('e-custom-hide');
-        args.element
-          .querySelector('.e-event-delete')
-          .classList.add('e-custom-hide');
+        args.element.querySelector('.e-event-save').classList.add('e-custom-hide');
+        args.element.querySelector('.e-event-delete').classList.add('e-custom-hide');
       } else {
-        args.element
-          .querySelector('.e-event-delete')
-          .classList.remove('e-custom-hide');
-        args.element
-          .querySelector('.e-event-save')
-          .classList.remove('e-custom-hide');
+        args.element.querySelector('.e-event-delete').classList.remove('e-custom-hide');
+        args.element.querySelector('.e-event-save').classList.remove('e-custom-hide');
       }
     }
   }
@@ -377,7 +372,8 @@ export class InboxCalendarComponent implements OnInit {
     this.showPatientError = false;
     this.showPhysicianName='';
   }
-  public onEventRendered(args: EventRenderedArgs): void {}
+  public onEventRendered(args: EventRenderedArgs): void {
+  }
   onRenderCell(args: any): void {
     if (
       args.elementType === 'workCells' &&
@@ -388,7 +384,6 @@ export class InboxCalendarComponent implements OnInit {
       args.element.classList.add('e-disable-cell');
     }
   }
-
 
   //==================patient Name=======================
   onchangeName(event:any){
@@ -410,11 +405,19 @@ export class InboxCalendarComponent implements OnInit {
       return;
     }
     let names:string[]=[];
-    if(!this.inboxService.disablePhysician){
-       names = [
+    if(this.inboxService.disablePhysician){
+      names = [
         'title',
         'description',
         'books',
+        'endTime',
+        'startTime',
+      ];
+    }else if(this.inboxService.disablePatient){
+      names = [
+        'Status',
+        'title',
+        'description',
         'endTime',
         'startTime',
       ];

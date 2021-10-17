@@ -32,10 +32,14 @@ export class InboxService implements OnInit {
   userEmp:number=0;
   uPhyisicanName:string='';
   disablePhysician:boolean=false;
+  //---patient data-----
+  patientId:number=0;
+  patientName:string='';
+  disablePatient:boolean=false;
   onloadFun(){
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
-      console.log(this.user);
+      
       
     });
      if( this.user.roleId === 2){
@@ -44,6 +48,14 @@ export class InboxService implements OnInit {
         this.userEmpId=this.user.empId;
         this.userRoleId=this.user.roleId;
        
+     }else if(this.user.roleId === 4){
+      console.log("patient details---------"); 
+      console.log(this.user); 
+      this.disablePatient=true;
+      this.patientName = this.user.firstName+" "+this.user.lastName;
+      this.patientId = this.user.userId;
+      this.userEmpId=this.user.userId;
+      this.userRoleId=this.user.roleId;
      }else{
       this.disablePhysician=false;
       this.userEmpId=this.user.empId;
