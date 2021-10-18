@@ -1,22 +1,74 @@
+import { map } from 'rxjs/operators';
 import { User } from './../../model/user.model';
 import { InboxData } from '../../model/inbox.model';
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Roles } from 'src/app/model/roles.enum';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class InboxService implements OnInit {
-  constructor(private http: HttpClient) {
+  userphysician:number=0;
+  public user: User;
+  constructor(private http: HttpClient,private authService: AuthService) {
     //this.getAllAppointmentData();
     this.getAllStaffData();
     this.getAllPaientData();
+   // this.onloadFun();
+   
   }
   ngOnInit(): void {
     this.loadStaffData();
+   
+    
   }
   staffNameList: User[] = [];
   patientNameList: User[] = [];
+ 
+  userEmpId:number=0;
+  userRoleId:number=0;
+  userEmp:number=0;
+  uPhyisicanName:string='';
+  disablePhysician:boolean=false;
+  //---patient data-----
+  patientId:number=0;
+  patientName:string='';
+  disablePatient:boolean=false;
+  onloadFun(){
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;
+      
+      
+    });
+     if( this.user.roleId === 2){
+        this.disablePhysician=true;
+        this.uPhyisicanName = this.user.title+" "+this.user.firstName+" "+this.user.lastName;
+        this.userEmpId=this.user.empId;
+        this.userRoleId=this.user.roleId;
+       
+     }else if(this.user.roleId === 4){
+      console.log("patient details---------"); 
+      console.log(this.user); 
+      this.disablePatient=true;
+      this.patientName = this.user.firstName+" "+this.user.lastName;
+      this.patientId = this.user.userId;
+      this.userEmpId=this.user.userId;
+      this.userRoleId=this.user.roleId;
+     }else{
+      this.disablePhysician=false;
+      this.userEmpId=this.user.empId;
+      this.userRoleId=this.user.roleId;
+     }
+   }
+   getAllAppointmentData(): Observable<InboxData[]> {
+    //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
+    console.log(this.userEmpId);
+    console.log(this.userRoleId);
+    return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/`+this.userRoleId+"/"+this.userEmpId);
+  }
+
   addAppointment(inbox: InboxData) {
     return this.http
       .post<InboxData>(`${this.HOST_URL}/appointments`, inbox)
@@ -71,10 +123,10 @@ export class InboxService implements OnInit {
 
   listOfInboxData: InboxData[] = [];
 
-  getAllAppointmentData(): Observable<InboxData[]> {
-    return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
-    
-  }
+  // getAllAppointmentData(): Observable<InboxData[]> {
+  //   return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
+  //   //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/`+this.roleId+"/"+this.userEmpId);
+  // }
 
   getAllStaffData(): Observable<User[]> {
     return this.http.get<User[]>(`${this.HOST_URL}/appointments/employees`);
@@ -264,3 +316,12 @@ loadPatientNameData() {
 
 //     return this.listOfInboxData;
 //     }
+
+
+// this.getAllStaffData().subscribe((data) => {
+//   data.filter(val=>(val.empId === this.userphysician)).map(
+//     (userData:any)=>{
+        
+//     }
+//   )
+// });

@@ -9,7 +9,7 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { NotesComponent } from './notes/notes.component';
-import { ScheduleComponent } from './schedule/schedule.component';
+
 import { RouterModule, Routes } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
@@ -34,16 +34,17 @@ import {
 } from '@angular/material/form-field';
 import { AuthInterceptor } from './users/auth.interceptor';
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
+import { CalendarModule } from './model/calendar.module';
 
 const router: Routes = [
-  {
-    path: '',
-    component: InboxComponent,
-    canActivate: [UserGuard],
-    data: {
-      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
-    },
-  },
+  // {
+  //   path: '',
+  //   component: InboxComponent,
+  //   canActivate: [UserGuard],
+  //   data: {
+  //     role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
+  //   },
+  //},
   {
     path: 'app-inbox',
     component: InboxComponent,
@@ -68,7 +69,13 @@ const router: Routes = [
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
-    path: 'app-schedule',
+    path: '',
+    component: InboxCalendarComponent,
+    loadChildren: () =>
+      import('./model/calendar.module').then((m) => m.CalendarModule),
+  },
+  {
+    path: 'app-inbox-calendar',
     component: InboxCalendarComponent,
     loadChildren: () =>
       import('./model/calendar.module').then((m) => m.CalendarModule),
@@ -84,7 +91,7 @@ const router: Routes = [
     AppComponent,
     InboxComponent,
     NotesComponent,
-    ScheduleComponent,
+    
     HeaderComponent,
     AdminComponent,
     FooterComponent,
@@ -94,7 +101,7 @@ const router: Routes = [
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(router),
     MatSelectModule,
     MatCardModule,
@@ -105,10 +112,9 @@ const router: Routes = [
     ChartModule,
     CommonModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot(),
-
     MatInputModule,
+    
   ],
   providers: [
     AuthGuard,

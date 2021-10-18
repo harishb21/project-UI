@@ -1,7 +1,8 @@
+
 import { User } from './../../model/user.model';
 import { tap } from 'rxjs/operators';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +17,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { pipe } from 'rxjs';
 import { AdminserviceService } from '../admin.service';
 import { AuthService } from '../../services/auth.service';
+import { Sort } from 'src/app/model/page';
+import { PaginationDataSource } from 'src/app/model/PaginationDataSource.datasource';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -43,12 +46,18 @@ export class PatientManagementComponent implements OnInit {
     'editstatus',
   ];
   dataSource: MatTableDataSource<User>;
+  pageEvent: PageEvent;
+pageIndex:number=0;
+pageSize:number=5;
+length:number;
+columnName: string = 'userId';
+  direction: string = "ASC";
+
   patienId: number;
   tempId: number;
   id: number = 0;
   allPatient: User[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   disableSelect = new FormControl(true);
   matcher = new MyErrorStateMatcher();
   selectedValue: string;
@@ -70,13 +79,33 @@ export class PatientManagementComponent implements OnInit {
       this.user = user;
     });
     this.loadPatient();
-    this.toastr.success('All Data loaded successfully');
+  }
+  public getServerData(event:PageEvent){
+    this.pageIndex=event.pageIndex;
+    this.pageSize=event.pageSize;
+   
+    this.loadPatient();
+    // this.adminService.getAllPatient(event.pageIndex,event.pageSize,this.sort).subscribe(
+    //   response =>{
+    //     if(response.error) {
+    //       console.log(response.error);
+          
+    //     } else {
+    //       this.dataSource=response.patients
+    //       this.pageIndex = response.page;
+    //       this.pageSize = response.size;
+    //       this.length = response.totalItems;
+    //     }
+    //   },
+    //   error =>{
+    //     console.log(error);
+    //   }
+    // );
+    return event;
   }
 
   addValues(patientId: number) {
     const obj: User = new User();
-    // obj.userId = patientId;
-    // obj.status = this.selectedValue;
     this.allPatient.push(obj);
   }
 
@@ -88,10 +117,11 @@ export class PatientManagementComponent implements OnInit {
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   loadPatient() {
-    this.adminService.getAllPatient().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.adminService.getAllPatient(this.pageIndex,this.pageSize,this.columnName,this.direction).subscribe((res) => {
+      this.dataSource=res.patients
+      this.pageIndex = res.page;
+      this.pageSize = res.size;
+      this.length = res.totalItems;
     });
   }
 
@@ -112,28 +142,19 @@ export class PatientManagementComponent implements OnInit {
         this.loadPatient();
       })
     );
-
-    // tap((data) => {
-    //         console.log(data);
-    //        this.loadPatient();
-    //      }),
-    //   (error :any) => {
-    //    console.log(error);
-    //    this.loadPatient();
-    //    });
+   
   }
-  // acivatePatient(patientId: number) {
-  //   this.adminService.activatePatient(patientId).subscribe(
-  //     tap((data) => {
-  //       console.log(data);
-  //       this.loadPatient();
-  //     }),
-  //     (error) => {
-  //       console.log(error);
-  //       this.loadPatient();
-  //     }
-  //   );
-  // }
+  getSort(sort:string){
+    if(this.columnName===sort){
+      if(this.direction==="ASC")
+        this.direction="DESC"
+      else
+      this.direction="ASC"
+    }
+    this.columnName = sort;
+    
+   this.loadPatient();
+}
 }
 
 /** Builds and returns a new User. */

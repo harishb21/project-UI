@@ -1,31 +1,21 @@
-table {
-    width: 100%;
-  }
+.maindiv{
+  width: max-content;
+   margin: auto;
+     padding: 10px;
+     
+}
   
   .mat-form-field {
     font-size: 14px;
     width: 100%;
   }
-  .active {
-    background-color: green;
-    text-align: center;
-    color: wheat;
-    width: 30px;
-  }
-  .deactive {
-    background-color: yellow;
-    text-align: center;
-    color: wheat;
-    width: 30px;
-  }
-  .block {
-    background-color: red;
-    color: wheat;
-    text-align: center;
-    width: 80px;
+  
+  .status-button{
+    float: none; 
+    text-align: center
   }
   
-  /* td, th {
-      width: 25%;
-    } */
+   td, th {
+      width: 150px;
+    } 
   

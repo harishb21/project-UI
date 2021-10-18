@@ -30,6 +30,8 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {}
 
+ 
+
   ngAfterContentInit() {
     if (this.user) {
       this.observer
@@ -63,6 +65,8 @@ export class HeaderComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;});
     // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 

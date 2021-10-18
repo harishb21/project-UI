@@ -1,5 +1,5 @@
 <title>Employee List</title>
-<div class="container">
+<div class="maindiv ">
     <h2>Employee List</h2>
   
     <mat-form-field appearance="standard">
@@ -12,36 +12,33 @@
       />
     </mat-form-field>
      
-    <table class="table table-bordered count-Table table-responsive" style="width: fit-content;">
-      <tr >
+    <table class="table table-hover table-bordered text-center table-responsive mat-elevation-z15 ">
+      <tr style="cursor: pointer;" >
         
-        <th (click)= "sort('empId')">Employee ID &nbsp;<i class='fa fa-sort'></i></th>
-        <th (click)= "sort('firstName')">Employee Name &nbsp;<i class="fa fa-sort"></i></th>
-        <th>Date Of registration</th>
-        <th>Status</th>
-        <th width="220px">Edit Status</th>
+        <th (click)= "getSort('empId')">Employee ID &nbsp;<i class='fa fa-sort'></i></th>
+        <th (click)= "getSort('firstName')">Employee Name &nbsp;<i class="fa fa-sort"></i></th>
+        <th (click)= "getSort('createdOn')" >Date Of registration &nbsp;<i class="fa fa-sort"></i></th>
+        <th (click)= "getSort('status')">Status &nbsp;<i class="fa fa-sort"></i></th>
+        <th >Edit Status</th>
       </tr>
-      <tr *ngFor="let employee of allEmployee | orderBy: key: reverse | paginate: { itemsPerPage: newrecord, currentPage: p }; let i=index">
+      <tr *ngFor="let employee of allEmployee | orderBy: columnName | paginate: { itemsPerPage: newrecord, currentPage: page,totalItems: count }; let i=index">
         <td>{{ employee.empId }}</td>
-        <td>{{ employee.firstName }}&nbsp;{{ employee.lastName }}</td>
+        <td><b>{{ employee.firstName |uppercase}}&nbsp;{{ employee.lastName |uppercase}}</b></td>
         <td>{{ employee.createdOn | date}}</td>
         <td><h3
-          style="width: 100px; text-align: center"
-          class="label-success"
+          class=" status-button label-success"
           *ngIf="employee.status == 'active'"
         >
           <span>Active</span>
         </h3>
         <h3
           *ngIf="employee.status == 'deactive'"
-          style="width: 100px; text-align: center"
-          class=" label-warning"
+          class="status-button label-warning"
         >
           <span>Inactive </span>
         </h3>
         <h3
-          style="width: 100px; text-align: center"
-          class=" label-danger"
+          class="status-button label-danger"
           *ngIf="employee.status == 'block'"
         >
           <span>Blocked</span>
@@ -69,8 +66,8 @@
             </mat-error>
           </mat-form-field> </td>
         
-      </tr>
-      <span style="float: right; margin-right: 10%;"
+      </tr><br>
+      <span style="float: right; margin-right: 1%;"
       ><button
         style="width: 100px"
         (click)="changeStatus()"
@@ -79,34 +76,32 @@
         Save
       </button></span
     >
+    <div class="text-right">
+      <div class="row">
+        <div>
+          <label for="record" class="font-weight-bold text-dark">Select Number of Record&nbsp;</label>
+          <select class="bg-info text-light" name="record" id="record" [(ngModel)]="value" (ngModelChange) = "changeRecord(value)">
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            </select>
+        </div>  
+      <pagination-controls
+       (pageChange)="handlePageChange($event)" 
+       previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      ></pagination-controls>
+      
+       </div>
+    </div>
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="2">
         No data matching the filter "{{ input.value }}"
       </td>
     </tr>
     </table>
-   <br><br>
-    <div class="row">
-      <div>
-        <label for="record" class="font-weight-bold text-dark">Select Number of Record&nbsp;</label>
-        <select class="bg-info text-light" name="record" id="record" [(ngModel)]="value" (ngModelChange) = "changeRecord(value)">
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-          </select>
-      </div>
-     
-      <div class="col-6 text-right">
-        <pagination-controls
-         (pageChange)="p = $event" 
-         previousLabel="Prev"
-        nextLabel="Next"
-        [responsive]="true"
-        ></pagination-controls>
-      </div>
-     
-      
-     
-    </div>
+    <br><br>
+   
  </div>

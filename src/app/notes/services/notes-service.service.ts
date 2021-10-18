@@ -21,12 +21,18 @@ export class NotesServiceService {
   }
   saveNotes(notes:Notes):Observable<Notes>{
     console.log(notes)
-      return this.http.post<Notes>(`${this.baseurl}inbox/notes`,notes);
+      return this.http.post<Notes>(`${this.baseurl}notes/save`,notes);
   }
  getRecievedNotes(userId:number){
-  return this.http.get<Notes[]>(`${this.baseurl}inbox/notes/recieved/${userId}`);
+  return this.http.get<Notes[]>(`${this.baseurl}notes/recieved/${userId}`);
  }
  getSentNotes(userId:number){
-  return this.http.get<Notes[]>(`${this.baseurl}inbox/notes/recieved/${userId}`);
+  return this.http.get<Notes[]>(`${this.baseurl}notes/sent/${userId}`);
+ }
+ deleteNotes(notesId:number){
+return this.http.delete(`${this.baseurl}notes/delete/${notesId}`,{responseType: 'text'});
+ }
+ sendReply(notes:Notes):Observable<any>{
+   return this.http.put(`${this.baseurl}notes/reply/`,notes,{responseType: 'text'});
  }
 }
