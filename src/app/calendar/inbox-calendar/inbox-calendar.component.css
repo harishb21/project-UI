@@ -34,7 +34,7 @@
       display: none;
   }
 
-  #patienterroMsg,#startDateCheck,#endDateCheck{
+  #patienterroMsg,#startDateCheck,#endDateCheck,#timeSlot{
       color: red !important;
       font-size: 11px;
   }

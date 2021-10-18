@@ -14,8 +14,8 @@
             <e-view option="Week"></e-view>
             <e-view option="Agenda"></e-view>
         </e-views>
-        <ng-template #editorTemplate let-data>
-            <form [formGroup]="form" >  
+        <ng-template #editorTemplate let-data >
+            <form [formGroup]="form" > 
                 <table *ngIf="data != undefined" class="custom-event-editor" width="100%" cellpadding="2">
                     <tbody>
                         <tr>
@@ -42,12 +42,15 @@
                         </tr>
                         <tr>
                             <td class="e-textlabel">Patient Name</td>
-                            <td colspan="4">
-                                
+                            <td colspan="4" *ngIf="!showPatientDisable">  
                             <ejs-autocomplete id='books' [dataSource]='booksData' [fields]='fields' (filtering)='onFiltering($event)'
                              [placeholder]='watermark' (change)="filteredval($event);onChange($event);onchangeName($event)" [value]='PatientNamePopUp' aria-required="true">
                             </ejs-autocomplete>
                             <div *ngIf="showPatientError" id='patienterroMsg' >please provide valid patient Name</div>
+                            </td>
+                            <td colspan="4" *ngIf="showPatientDisable">
+                                <input id="patientName" class="e-field e-input" type="text" value="{{showPatientName}}"
+                                    name="patientName"  style="width: 100%" disabled/>
                             </td>
                         </tr>
                         <tr>
@@ -85,7 +88,11 @@
                                 <div *ngIf="endDateCheck" id='endDateCheck' >please provide valid Date and Time</div>
                             </td>
                         </tr>
-                       
+                        <tr>
+                            <td></td>
+                            <td> <div *ngIf="timeSlotflag" id='timeSlot' >please provide valid time slot for appointment</div></td>
+                        </tr>
+                        
                     </tbody>
                 </table>  
             </form> 
