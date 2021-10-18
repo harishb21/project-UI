@@ -22,7 +22,9 @@ export class EmployeeRegComponent implements OnInit {
   ngOnInit(): void {
     this.userService.roles.subscribe((res) => {
       // Need to remove patient
-      this.roles = res.filter((role) => role.roleId !== Roles.PATIENT);
+      this.roles = res.filter((role) => {
+        return role.roleId !== Roles.PATIENT && role.roleId !== Roles.ADMIN;
+      });
     });
 
     // this.roles.push(new Role(1, 'ADMIN'));
