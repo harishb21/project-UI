@@ -17,7 +17,7 @@ export class User {
   public password!: string;
   public gender: string;
   public message!: string;
-
+  public status!:string;
   public race!: string;
   public ethnicity!: string;
   public languages!: string;

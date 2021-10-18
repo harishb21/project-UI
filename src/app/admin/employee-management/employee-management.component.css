@@ -1,21 +1,21 @@
-.maindiv{
+.maindiv {
   width: max-content;
-   margin: auto;
-     padding: 10px;
-     
+  margin: auto;
+  padding: 10px;
+  height: 80%;
 }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .status-button{
-    float: none; 
-    text-align: center
-  }
-  
-   td, th {
-      width: 150px;
-    } 
-  
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.status-button {
+  float: none;
+  text-align: center;
+}
+
+td,
+th {
+  width: 150px;
+}

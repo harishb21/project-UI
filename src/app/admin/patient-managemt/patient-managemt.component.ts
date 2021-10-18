@@ -1,4 +1,4 @@
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../model/user.model';
 import { tap } from 'rxjs/operators';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -19,7 +19,6 @@ import { AdminserviceService } from '../admin.service';
 import { AuthService } from '../../services/auth.service';
 import { Sort } from 'src/app/model/page';
 import { PaginationDataSource } from 'src/app/model/PaginationDataSource.datasource';
-
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
@@ -47,11 +46,11 @@ export class PatientManagementComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<User>;
   pageEvent: PageEvent;
-pageIndex:number=0;
-pageSize:number=5;
-length:number;
-columnName: string = 'userId';
-  direction: string = "ASC";
+  pageIndex: number = 0;
+  pageSize: number = 5;
+  length: number;
+  columnName: string = 'userId';
+  direction: string = 'ASC';
 
   patienId: number;
   tempId: number;
@@ -69,7 +68,8 @@ columnName: string = 'userId';
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _snackBar: MatSnackBar
   ) {}
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
@@ -80,16 +80,16 @@ columnName: string = 'userId';
     });
     this.loadPatient();
   }
-  public getServerData(event:PageEvent){
-    this.pageIndex=event.pageIndex;
-    this.pageSize=event.pageSize;
-   
+  public getServerData(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+
     this.loadPatient();
     // this.adminService.getAllPatient(event.pageIndex,event.pageSize,this.sort).subscribe(
     //   response =>{
     //     if(response.error) {
     //       console.log(response.error);
-          
+
     //     } else {
     //       this.dataSource=response.patients
     //       this.pageIndex = response.page;
@@ -106,6 +106,8 @@ columnName: string = 'userId';
 
   addValues(patientId: number) {
     const obj: User = new User();
+    obj.userId=patientId;
+    obj.status=this.selectedValue
     this.allPatient.push(obj);
   }
 
@@ -117,12 +119,19 @@ columnName: string = 'userId';
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   loadPatient() {
-    this.adminService.getAllPatient(this.pageIndex,this.pageSize,this.columnName,this.direction).subscribe((res) => {
-      this.dataSource=res.patients
-      this.pageIndex = res.page;
-      this.pageSize = res.size;
-      this.length = res.totalItems;
-    });
+    this.adminService
+      .getAllPatient(
+        this.pageIndex,
+        this.pageSize,
+        this.columnName,
+        this.direction
+      )
+      .subscribe((res) => {
+        this.dataSource = res.patients;
+        this.pageIndex = res.page;
+        this.pageSize = res.size;
+        this.length = res.totalItems;
+      });
   }
 
   applyFilter(event: Event) {
@@ -137,24 +146,21 @@ columnName: string = 'userId';
   }
   changeStatus() {
     this.adminService.editPatientStatus(this.allPatient).subscribe(
-      pipe((data) => {
-        console.log(data);
-        this.loadPatient();
+      pipe((data:any) => {
+        this._snackBar.open(data.msg);
+        this.ngOnInit();
       })
     );
-   
   }
-  getSort(sort:string){
-    if(this.columnName===sort){
-      if(this.direction==="ASC")
-        this.direction="DESC"
-      else
-      this.direction="ASC"
+  getSort(sort: string) {
+    if (this.columnName === sort) {
+      if (this.direction === 'ASC') this.direction = 'DESC';
+      else this.direction = 'ASC';
     }
     this.columnName = sort;
-    
-   this.loadPatient();
-}
+
+    this.loadPatient();
+  }
 }
 
 /** Builds and returns a new User. */
