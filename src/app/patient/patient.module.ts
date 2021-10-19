@@ -29,13 +29,11 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { PatientVisitComponent } from './patient-visit/patient-visit.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 
 @NgModule({
-  declarations: [PatientVisitComponent, PatientDemographicsComponent, LandingPageComponent, PatientListComponent],
+  declarations: [PatientDemographicsComponent, PatientListComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,

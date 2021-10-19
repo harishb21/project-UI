@@ -1,319 +1,610 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-tab-group>
     <mat-tab label="PATIENT REGISTRATION">
-      <div style="font-size: 15px">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <br />
-              <mat-radio-group aria-label="Select an option">
-                <mat-radio-button value="Mr.">Mr.</mat-radio-button>
-                <mat-radio-button value="Mrs.">Mrs.</mat-radio-button>
-                <mat-radio-button value="Ms.">Ms.</mat-radio-button>
-                <mat-radio-button value="Dr.">Dr.</mat-radio-button>
-              </mat-radio-group>
+      <!-- <div class="image"> -->
+      <!-- <div style="font-size: 15px"> -->
+      <br />
+      <mat-card>
+        <p class="heading">PATIENT REGISTRATION</p>
+        <br />
+        <mat-radio-group
+          aria-label="Select an option"
+          formControlName="title"
+          [(ngModel)]="patient.title"
+        >
+          <mat-radio-button value="Mr.">Mr.</mat-radio-button>
+          <mat-radio-button value="Mrs.">Mrs.</mat-radio-button>
+          <mat-radio-button value="Ms.">Ms.</mat-radio-button>
+          <mat-radio-button value="Dr.">Dr.</mat-radio-button>
+        </mat-radio-group>
 
-              <input
-                hidden=true
-                formControlName="patientId"
-                [(ngModel)]="patient.userId"
-              />
+        <input
+          hidden="true"
+          formControlName="id"
+          [(ngModel)]="patient.id"
+        />
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="First Name"
-                  formControlName="firstName"
-                  [(ngModel)]="patient.firstName"
-                />
-                <mat-error *ngIf="isFieldInvalid('firstName')">{{
-                  errorFirstName()
-                }}</mat-error>
-              </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="firstName"
+            [(ngModel)]="patient.firstName"
+          />
+          <mat-error *ngIf="isFieldInvalid('firstName')">{{
+            errorFirstName()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Last Name"
-                  formControlName="lastName"
-                  [(ngModel)]="patient.lastName"
-                />
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="lastName"
+            [(ngModel)]="patient.lastName"
+          />
 
-                <mat-error *ngIf="isFieldInvalid('lastName')">{{
-                  errorLastName()
-                }}</mat-error>
-              </mat-form-field>
+          <mat-error *ngIf="isFieldInvalid('lastName')">{{
+            errorLastName()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  type="date"
-                  matInput
-                  placeholder="Date of Birth"
-                  formControlName="birthDate"
-                  [(ngModel)]="patient.birthDate"
-                  (change)="ageCalculator()"
-                />
+        <mat-form-field class="example-full-width">
+          <input
+            type="date"
+            matInput
+            placeholder="Date of Birth"
+            formControlName="birthDate"
+            [(ngModel)]="patient.birthDate"
+            (change)="ageCalculator()"
+          />
 
-                <mat-error *ngIf="isFieldInvalid('birthDate')">{{
-                  errorBirthDate()
-                }}</mat-error>
-              </mat-form-field>
-              <!-- <button type="button">Calculate</button> -->
-              <br />
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Age"
-                  value="{{ showAge }}"
-                  formControlName="age"
-                  [(ngModel)]="patient.age"
-                /> </mat-form-field
-              ><br />
+          <mat-error *ngIf="isFieldInvalid('birthDate')">{{
+            errorBirthDate()
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Age"
+            value="{{ showAge }}"
+            formControlName="age"
+            [(ngModel)]="patient.age"
+          />
+        </mat-form-field>
+        <br />
 
-              <mat-radio-group aria-label="Select an option">
-                <mat-radio-button value="Male">Male</mat-radio-button>
-                <mat-radio-button value="Female">Female</mat-radio-button>
-                <mat-radio-button value="Other">Other</mat-radio-button>
+        <mat-radio-group
+          aria-label="Select an option"
+          [(ngModel)]="patient.gender"
+          formControlName="gender"
+        >
+          <mat-radio-button value="Male">Male</mat-radio-button>
+          <mat-radio-button value="Female">Female</mat-radio-button>
+          <mat-radio-button value="Other">Other</mat-radio-button>
 
-                <mat-error *ngIf="isFieldInvalid('gender')">{{
-                  errorGender()
-                }}</mat-error>
-              </mat-radio-group>
-              <br />
+          <mat-error *ngIf="isFieldInvalid('gender')">{{
+            errorGender()
+          }}</mat-error>
+        </mat-radio-group>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Race"
-                  maxlength="50"
-                  formControlName="race"
-                  [(ngModel)]="patient.race"
-                />
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Race"
+            maxlength="50"
+            formControlName="race"
+            [(ngModel)]="patient.race"
+          />
 
-                <mat-error *ngIf="isFieldInvalid('race')">{{
-                  errorRace()
-                }}</mat-error> </mat-form-field
-              ><br />
-            </div>
-            <div class="col-md-6">
-              <br />
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Ethnicity"
-                  formControlName="ethnicity"
-                  [(ngModel)]="patient.ethnicity"
-                />
-                <mat-error *ngIf="isFieldInvalid('ethnicity')">{{
-                  errorEthnicity()
-                }}</mat-error> </mat-form-field
-              ><br />
+          <mat-error *ngIf="isFieldInvalid('race')">{{
+            errorRace()
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Ethnicity"
+            formControlName="ethnicity"
+            [(ngModel)]="patient.ethnicity"
+          />
+          <mat-error *ngIf="isFieldInvalid('ethnicity')">{{
+            errorEthnicity()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Language Known"
-                  maxlength="50"
-                  formControlName="languages"
-                  [(ngModel)]="patient.languages"
-                />
-                <mat-error *ngIf="isFieldInvalid('languages')">{{
-                  errorLanguages()
-                }}</mat-error> </mat-form-field
-              ><br />
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Language Known"
+            maxlength="50"
+            formControlName="langKnown"
+            [(ngModel)]="patient.langKnown"
+          />
+          <mat-error *ngIf="isFieldInvalid('langKnown')">{{
+            errorLanguages()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Email"
-                  formControlName="email"
-                  [(ngModel)]="patient.email"
-                />
-                <mat-error *ngIf="isFieldInvalid('email')">{{
-                  errorEmail()
-                }}</mat-error> </mat-form-field
-              ><br />
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            [(ngModel)]="patient.email"
+          />
+          <mat-error *ngIf="isFieldInvalid('email')">{{
+            errorEmail()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Contact Number"
-                  formControlName="contactNo"
-                  [(ngModel)]="patient.contactNo"
-                />
-                <mat-error *ngIf="isFieldInvalid('contactNo')">{{
-                  errorContactNo()
-                }}</mat-error> </mat-form-field
-              ><br />
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Contact Number"
+            formControlName="contactNo"
+            [(ngModel)]="patient.contactNo"
+          />
+          <mat-error *ngIf="isFieldInvalid('contactNo')">{{
+            errorContactNo()
+          }}</mat-error>
+        </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <textarea
-                  matInput
-                  placeholder="Home Address"
-                  formControlName="address"
-                  [(ngModel)]="patient.address"
-                ></textarea>
-                <mat-error *ngIf="isFieldInvalid('address')">{{
-                  errorAddress()
-                }}</mat-error>
-              </mat-form-field>
-              <br />
-            </div>
-          </div>
-          <!-- <button class="btn btn-success" [disabled]="form.invalid">
-            Save
-          </button>
-          |
-          <button class="btn btn-danger">Clear</button> -->
-        </div>
-      </div>
+        <mat-form-field class="example-full-width">
+          <textarea
+            matInput
+            placeholder="Home Address"
+            formControlName="address"
+            [(ngModel)]="patient.address"
+          ></textarea>
+          <mat-error *ngIf="isFieldInvalid('address')">{{
+            errorAddress()
+          }}</mat-error>
+        </mat-form-field>
+        <br />
+      </mat-card>
     </mat-tab>
     <mat-tab label="EMERGENCY CONTACT DETAILS">
       <div style="font-size: 15px">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <br />
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="First Name"
-                  formControlName="emergencyContactFirstName"
-                />
-                <mat-error
-                  *ngIf="isFieldInvalid('emergencyContactFirstName')"
-                  >{{ errorEmergencyContactFirstName() }}</mat-error
+        <mat-card>
+          <p class="heading">EMERGENCY CONTACT DETAILS</p>
+
+          <br />
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="First Name"
+              formControlName="emgrFname"
+              [(ngModel)]="patient.emgrFname"
+            />
+            <mat-error *ngIf="isFieldInvalid('emgrFname')">{{
+              errorEmergencyContactFirstName()
+            }}</mat-error>
+          </mat-form-field>
+          <br />
+
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Last Name"
+              formControlName="emgrLname"
+              [(ngModel)]="patient.emgrLname"
+            />
+            <mat-error *ngIf="isFieldInvalid('emgrLname')">{{
+              errorEmergencyContactLastName()
+            }}</mat-error> </mat-form-field
+          ><br />
+
+          <mat-form-field appearance="fill">
+            <mat-label>Relationship</mat-label>
+            <mat-select
+              [(ngModel)]="patient.emgrRelation"
+              formControlName="emgrRelation"
+            >
+              <mat-option>None</mat-option>
+              <mat-option value="Father">Father</mat-option>
+              <mat-option value="Mother">Mother</mat-option>
+              <mat-option value="Sibling">Sibling</mat-option>
+              <mat-option value="Spouse">Spouse</mat-option>
+              <mat-option value="Brother">Brother</mat-option>
+              <mat-option value="Friend">Friend</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br />
+
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="emgrEmail"
+              [(ngModel)]="patient.emgrEmail"
+            />
+            <mat-error *ngIf="isFieldInvalid('emgrEmail')">{{
+              errorEmergencyContactEmail()
+            }}</mat-error> </mat-form-field
+          ><br />
+
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Contact Number"
+              formControlName="emgrContactNo"
+              [(ngModel)]="patient.emgrContactNo"
+            />
+            <mat-error *ngIf="isFieldInvalid('emgrContactNo')">{{
+              errorEmergencyContactContactNo()
+            }}</mat-error> </mat-form-field
+          ><br />
+
+          <mat-form-field class="example-full-width">
+            <textarea
+              matInput
+              placeholder="Address"
+              formControlName="emgrAddress"
+              [(ngModel)]="patient.emgrAddress"
+            ></textarea>
+
+            <mat-error *ngIf="isFieldInvalid('emgrAddress')">{{
+              errorEmergencyContactAddress()
+            }}</mat-error>
+          </mat-form-field>
+          <br />
+
+          <h2>Do you need access to patient portal?</h2>
+
+          <mat-radio-group>
+            <mat-radio-button
+              value="true"
+              (change)="isDisableAllergyTab = true"
+              color="primary"
+              >Yes</mat-radio-button
+            >
+            <mat-radio-button
+              [checked]="true"
+              value="false"
+              (change)="isDisableAllergyTab = false"
+              color="warn"
+              >No</mat-radio-button
+            >
+          </mat-radio-group>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <span *ngIf="isDisableAllergyTab">
+      <mat-tab label="ALLERGY">
+        <mat-card>
+          <p class="heading">ALLERGY DETAILS</p>
+
+          <h2>Patient has any known allergies?</h2>
+          <br />
+
+          <mat-radio-group>
+            <mat-radio-button
+              value="true"
+              (change)="isDisableAllergy = true"
+              color="primary"
+              >Yes</mat-radio-button
+            >
+            <mat-radio-button
+              [checked]="true"
+              value="false"
+              (change)="isDisableAllergy = false"
+              color="warn"
+              >No</mat-radio-button
+            >
+          </mat-radio-group>
+          <br />
+
+          <!-- <div style="font-size: 15px"> -->
+
+          <span *ngIf="isDisableAllergy">
+            <table class="tablee" style="width: 100%">
+              <tr>
+                <th>Allergy ID:</th>
+                <th>Allergy Name:</th>
+                <th>Allergy Type:</th>
+                <th>Other Allergy:</th>
+                <th>Is Allergy Fatal</th>
+                <th>Description:</th>
+              </tr>
+              <tr>
+                <td>
+                  <select
+                    name="allergyCode"
+                    formControlName="allergyCode"
+                    [(ngModel)]="allergyCode"
+                    class="title2"
+                    (change)="onChangeId(allergyCode)"
+                  >
+                    <option>{{ allergyCode }}</option>
+                    <option
+                      ngValue="{{ allergy.allergyCode }}"
+                      *ngFor="let allergy of allergy_idlist"
+                    >
+                      {{ allergy.allergyCode }}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    name="allergyName"
+                    formControlName="allergyName"
+                    [(ngModel)]="allergyName"
+                    class="title2"
+                  >
+                    <option>{{ allergyName }}</option>
+                    <option *ngFor="let allergynm of allergy_namelist">
+                      {{ allergynm }}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    name="allergyType"
+                    formControlName="allergyType"
+                    [(ngModel)]="allergyType"
+                    class="title2"
+                  >
+                    <option>{{ allergyType }}</option>
+                    <option *ngFor="let allergytype of allergy_typelist">
+                      {{ allergytype }}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="title2"
+                    formControlName="otherAllergy"
+                    name="otherAllergy"
+                  />
+                </td>
+                <td>
+                  Is Allergy Fatal : Yes:<input
+                    type="radio"
+                    class="form-group"
+                    formControlName="allergyFatal"
+                    value="yes"
+                    name="allergyFatal"
+                    (click)="setOption('yes')"
+                  />
+                  No:<input
+                    type="radio"
+                    class="form-group"
+                    formControlName="allergyFatal"
+                    value="no"
+                    name="allergyFatal"
+                    (click)="setOption('no')"
+                    [checked]="true"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="title2"
+                    formControlName="allergyDesc"
+                    name="allergyDesc"
+                  />
+                </td>
+              </tr>
+            </table>
+
+            <!-- 
+            <div class="row">
+              <div class="col-sm-3">
+                Allergy ID:
+                <select
+                  name="allergyCode"
+                  formControlName="allergyCode"
+                  [(ngModel)]="allergyCode"
+                  class="title2"
+                  (change)="onChangeId(allergyCode)"
                 >
-              </mat-form-field>
+                  <option>{{ allergyCode }}</option>
+                  <option
+                    ngValue="{{ allergy.allergyCode }}"
+                    *ngFor="let allergy of allergy_idlist"
+                  >
+                    {{ allergy.allergyCode }}
+                  </option>
+                </select>
+              </div>
+
               <br />
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Last Name"
-                  formControlName="emergencyContactLastName"
-                />
-                <mat-error *ngIf="isFieldInvalid('emergencyContactLastName')">{{
-                  errorEmergencyContactLastName()
-                }}</mat-error> </mat-form-field
-              ><br />
+             
 
-              <mat-form-field appearance="fill">
-                <mat-label>Relationship</mat-label>
-                <mat-select [(value)]="selected">
-                  <mat-option>None</mat-option>
-                  <mat-option value="Father">Father</mat-option>
-                  <mat-option value="Mother">Mother</mat-option>
-                  <mat-option value="Sibling">Sibling</mat-option>
-                  <mat-option value="Spouse">Spouse</mat-option>
-                  <mat-option value="Friend">Friend</mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="col-sm-3">
+                Allergy Name:
+                <select
+                  name="allergyName"
+                  formControlName="allergyName"
+                  [(ngModel)]="allergyName"
+                  class="title2"
+                >
+                  <option>{{ allergyName }}</option>
+                  <option *ngFor="let allergynm of allergy_namelist">
+                    {{ allergynm }}
+                  </option>
+                </select>
+              </div>
               <br />
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Email"
-                  formControlName="emergencyContactEmail"
-                />
-                <mat-error *ngIf="isFieldInvalid('emergencyContactEmail')">{{
-                  errorEmergencyContactEmail()
-                }}</mat-error> </mat-form-field
-              ><br />
+              <div class="col-sm-3">
+                Allergy Type:
+                <select
+                  name="allergyType"
+                  formControlName="allergyType"
+                  [(ngModel)]="allergyType"
+                  class="title2"
+                >
+                  <option>{{ allergyType }}</option>
+                  <option *ngFor="let allergytype of allergy_typelist">
+                    {{ allergytype }}
+                  </option>
+                </select>
+              </div>
 
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  placeholder="Contact Number"
-                  formControlName="emergencyContactContact"
-                />
-                <mat-error *ngIf="isFieldInvalid('emergencyContactContact')">{{
-                  errorEmergencyContactContactNo()
-                }}</mat-error> </mat-form-field
-              ><br />
-
-              <!-- <section class="example-section" [formGroup]="toppings">
-                  <p>
-                    <mat-checkbox formControlName="checked" (change)="check()">Address same as patient?</mat-checkbox>
-                  </p>
-                </section> -->
-              <mat-form-field class="example-full-width">
-                <textarea
-                  matInput
-                  placeholder="Address"
-                  formControlName="emergencyContactAddress"
-                ></textarea>
-
-                <mat-error *ngIf="isFieldInvalid('emergencyContactAddress')">{{
-                  errorEmergencyContactAddress()
-                }}</mat-error>
-              </mat-form-field>
               <br />
+
+              <div class="col-sm-3">
+                Other Allergy:
+                <input
+                  type="text"
+                  class="title2"
+                  formControlName="otherAllergy"
+                  name="otherAllergy"
+                />
+              </div>
             </div>
-          </div>
-          <!-- <button class="btn btn-success" [disabled]="form.invalid">
-            Save
-          </button>
-          |
-          <button class="btn btn-danger">Clear</button> -->
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="ALLERGY">
-      <div class="radioButton">
-        <br />
-        Patient has any known allergies? <br />
-        <input type="radio" name="allergy" /> YES
-        <input type="radio" name="allergy" /> NO
-      </div>
-      <br />
+            <br />
 
-      <!-- <span  hidden="allergy"> -->
+            <div class="row">
+              <div class="col-sm-4">
+                Is Allergy Fatal : Yes:<input
+                  type="radio"
+                  class="form-group"
+                  formControlName="allergyFatal"
+                  value="yes"
+                  name="allergyFatal"
+                  (click)="setOption('yes')"
+                />
+                No:<input
+                  type="radio"
+                  class="form-group"
+                  formControlName="allergyFatal"
+                  value="no"
+                  name="allergyFatal"
+                  (click)="setOption('no')"
+                  [checked]="true"
+                />
+              </div>
 
-      <div style="font-size: 15px">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
               <br />
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Allergy ID" /> </mat-form-field
-              ><br />
 
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Allergy Type" /> </mat-form-field
-              ><br />
-
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Allergy Name" /> </mat-form-field
-              ><br />
-
-              <mat-form-field class="example-full-width">
+              <div class="col-sm-3" *ngIf="isoptionSelected('yes')">
+                Description:
                 <input
-                  matInput
-                  placeholder="Allergy Description"
-                /> </mat-form-field
-              ><br />
-
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Allergy Clinical Information" />
-              </mat-form-field>
+                  type="text"
+                  class="title2"
+                  formControlName="allergyDesc"
+                  name="allergyDesc"
+                />
+              </div>
+-->
               <br />
-            </div>
-          </div>
-          <!-- <button class="btn btn-success" [disabled]="form.invalid">
-            Save
-          </button>
-          |
-          <button class="btn btn-danger">Clear</button> -->
-        </div>
-      </div>
-      <!-- </span> -->
-    </mat-tab>
+
+                <button
+                  type="button"
+                  class="primaryButton"
+                  (click)="addAllergy()"
+                >
+                  Add Allergy
+                </button>
+
+<!-- 
+
+                <table class="table">
+                  <thead>
+                    <th scope="col">Drug ID</th>
+                    <th scope="col">Allergy Code</th>
+                    <th scope="col">Allergy name</th>
+                    <th scope="col">Allergy Type</th>
+                    <th scope="col">Is Allergy Fatal</th>
+                    <th scope="col">Discription</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let allergy of listAllergies">
+                      <td scope="row">{{ allergy.allergyId }}</td>
+                      <td scope="row">{{ allergy.allergyName }}</td>
+                      <td scope="row">{{ allergy.allergyType }}</td>
+                      <td scope="row">{{ allergy.allergyFatal }}</td>
+                      <td scope="row">{{ allergy.allergyDesc }}</td>
+                      <td scope="row">
+                        <button
+                          type="button"
+                          class="primaryButton"
+                          (click)="deleteAllergy(allergy.allergyId)"
+                        >
+                          remove
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> -->
+
+
+
+
+
+                <table mat-table [dataSource]="listAllergies" class="mat-elevation-z8">
+
+               
+                  <ng-container matColumnDef="1">
+                    <th mat-header-cell *matHeaderCellDef>1</th>
+                    <td mat-cell *matCellDef="let allergy"> {{allergy.allergyId}} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="2">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let allergy"> {{allergy.allergyName }} </td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="3">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let allergy"> {{allergy.allergyType}} </td>
+                  </ng-container>
+                
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="4">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let allergy"> {{allergy.allergyFatal}} </td>
+                  </ng-container>
+                
+
+                   <!-- Symbol Column -->
+                   <ng-container matColumnDef="5">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let allergy"> {{allergy.allergyDesc}} </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+
+            <!-- ---------------------------------------------------------------------------- -->
+
+            <!-- <mat-form-field class="example-full-width">
+              <input matInput placeholder="Allergy ID" />
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Allergy Type" />
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Allergy Name" />
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Allergy Description" />
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Allergy Clinical Information" />
+            </mat-form-field> -->
+          </span>
+        </mat-card>
+      </mat-tab>
+    </span>
   </mat-tab-group>
 
   <div class="myButtons">
-    <button style="margin-right: 16px" class="btn btn-success">SUBMIT</button>
-    <button style="margin-right: 16px" class="btn btn-danger">Clear</button>
+    <button type="submit" style="margin-right: 16px" class="btn btn-success">SUBMIT</button>
+    <button type="reset" style="margin-right: 16px" class="btn btn-danger">Clear</button>
   </div>
 </form>

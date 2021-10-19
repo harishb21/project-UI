@@ -11,6 +11,8 @@ import { EmergencyContact } from '../../model/EmergencyContact';
 import { ErrorMessage } from '../../model/error.enum';
 
 import { PatientService } from '../patient.service';
+import { Allergy } from 'src/app/model/allergy.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-patient-demographics',
@@ -21,9 +23,16 @@ import { PatientService } from '../patient.service';
 export class PatientDemographicsComponent implements OnInit {
   address = 'ketannnnnnnnnn';
   address2 = '';
+
+  allergyList: Allergy[] = [];
+
   form: FormGroup = new FormGroup({});
-  selected: any = null;
+  selected: string = 'no';
+
   toppings: FormGroup;
+  reactiveForm: FormGroup=new FormGroup({});
+  isDisableAllergy: boolean = false;
+  isDisableAllergyTab: boolean = false;
   checked: boolean = false;
   allergy: boolean = true;
   isDisabled: boolean = false;
@@ -31,12 +40,21 @@ export class PatientDemographicsComponent implements OnInit {
   showAge: number;
   formSubmitAttempt: boolean = false;
 
+  allergyCode?: string;
+  allergyName?: string;
+  allergyType?: string;
+
+  allergy_idlist: Allergy[];
+  allergy_namelist: Allergy[];
+  allergy_typelist: Allergy[];
+
   patient: User = new User();
   emergencyContact: EmergencyContact = new EmergencyContact();
   allergyIds: string[];
   patientId: any;
   constructor(
     fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private patientService: PatientService,
     private router: Router,
     private activatedroute: ActivatedRoute
@@ -52,10 +70,31 @@ export class PatientDemographicsComponent implements OnInit {
     this.patientId = this.activatedroute.snapshot.paramMap.get('id');
 
     this.loadPatient(this.patientId);
-    this.fetchAllAllergyIds();
+    // this.fetchAllAllergyIds();
+
+    this.reactiveForm = this.formBuilder.group({
+      allergyCode: [' '],
+      allergyName: [' '],
+      allergyType: [''],
+    });
+
+    this.patientService.getAllergy().subscribe((allergy_idlist) => {
+      console.log(allergy_idlist);
+      this.allergy_idlist = allergy_idlist;
+    });
+    this.patientService.getAllergyName().subscribe((allergy_namelist) => {
+      this.allergy_namelist = allergy_namelist;
+    });
+    this.patientService.getAllergyType().subscribe((allergy_typelist) => {
+      this.allergy_typelist = allergy_typelist;
+    });
+
+    this.reactiveForm = this.formBuilder.group({
+      allergy_fatal: [],
+    });
 
     this.form = new FormGroup({
-      patientId: new FormControl(null, null),
+      id: new FormControl(null, null),
       title: new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [
         Validators.required,
@@ -82,7 +121,7 @@ export class PatientDemographicsComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
       ]),
-      languages: new FormControl(null, [
+      langKnown: new FormControl(null, [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -95,29 +134,26 @@ export class PatientDemographicsComponent implements OnInit {
         Validators.required,
         Validators.minLength(10),
       ]),
-      emergencyContactFirstName: new FormControl(null, [
+      emgrFname: new FormControl(null, [
         Validators.required,
         Validators.minLength(3),
       ]),
 
-      emergencyContactLastName: new FormControl(null, [
+      emgrLname: new FormControl(null, [
         Validators.required,
         Validators.minLength(3),
       ]),
-      emergencyContactRelationship: new FormControl(null, [
+      emgrRelation: new FormControl(null, [
         Validators.required,
         Validators.minLength(3),
       ]),
-      emergencyContactEmail: new FormControl(null, [
-        Validators.required,
-        Validators.email,
-      ]),
-      emergencyContactContact: new FormControl(null, [
+      emgrEmail: new FormControl(null, [Validators.required, Validators.email]),
+      emgrContactNo: new FormControl(null, [
         Validators.required,
         Validators.minLength(7),
       ]),
 
-      emergencyContactAddress: new FormControl(null, [
+      emgrAddress: new FormControl(null, [
         Validators.required,
         Validators.minLength(10),
       ]),
@@ -132,7 +168,7 @@ export class PatientDemographicsComponent implements OnInit {
     });
   }
 
-  loadPatient(id: number) {
+  loadPatient(id: string) {
     this.patientService.fetchPatient(id).subscribe(
       (data) => {
         console.log(data);
@@ -151,58 +187,72 @@ export class PatientDemographicsComponent implements OnInit {
     const timeDiff = Math.abs(Date.now() - convertAge.getTime());
     this.showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
     console.log('age is ' + this.showAge);
-
   }
 
   changeFunction() {
     console.log('checked');
   }
 
+  private selectedLink: string = 'No';
+
+  isSelected(name: string): boolean {
+    if (!this.selectedLink) {
+      // if no radio button is selected, always return false so every nothing is shown
+      return false;
+    }
+
+    return this.selectedLink === name; // if current radio button is selected, return true, else return false
+  }
+
+  isoptionSelected(name: string): boolean {
+    if (!this.selected) {
+      // if no radio button is selected, always return false so every nothing is shown
+      return false;
+    }
+
+    return this.selected === name; // if current radio button is selected, return true, else return false
+  }
+
   onSubmit() {
     // console.log('ng submit called');
 
-    
-
     //Create Object
-    const patientObject: User = new User(); 
-    patientObject.userId= this.form.value.patientId,
-    patientObject.title =this.form.value.title,
-    patientObject.firstName= this.form.value.firstName,
-    patientObject.lastName= this.form.value.lastName,
-    patientObject.birthDate= this.form.value.birthDate,
-    patientObject.age= this.form.value.age,
-    patientObject.gender= this.form.value.gender,
-    patientObject.race= this.form.value.race,
-    patientObject.ethnicity= this.form.value.ethnicity,
-    patientObject.languages= this.form.value.languages,
-    patientObject.email= this.form.value.email,
-    patientObject.contactNo= this.form.value.contactNo,
-    patientObject.address= this.form.value.address,
-    patientObject.emergencyContact= this.emergencyContactDetails()
-    
+    const patientObject: User = new User();
+    (patientObject.id = this.form.value.id),
+      (patientObject.title = this.form.value.title),
+      (patientObject.firstName = this.form.value.firstName),
+      (patientObject.lastName = this.form.value.lastName),
+      (patientObject.birthDate = this.form.value.birthDate),
+      (patientObject.age = this.form.value.age),
+      (patientObject.gender = this.form.value.gender),
+      (patientObject.race = this.form.value.race),
+      (patientObject.ethnicity = this.form.value.ethnicity),
+      (patientObject.langKnown = this.form.value.langKnown),
+      (patientObject.email = this.form.value.email),
+      (patientObject.contactNo = this.form.value.contactNo),
+      (patientObject.address = this.form.value.address),
+      (patientObject.emgrTitle = this.form.value.emgrTitle);
+    patientObject.emgrFname = this.form.value.emgrFname;
+    patientObject.emgrLname = this.form.value.emgrLname;
+    patientObject.emgrEmail = this.form.value.emgrEmail;
+    patientObject.emgrContactNo = this.form.value.emgrContactNo;
+    patientObject.emgrRelation = this.form.value.emgrRelation;
+    patientObject.emgrAddress = this.form.value.emgrAddress;
+    patientObject.emgrCity = this.form.value.emgrCity;
+    patientObject.emgrPincode = this.form.value.emgrPincode;
+    patientObject.emgrState = this.form.value.emgrState;
+    patientObject.emgrCountry = this.form.value.emgrCountry;
+    patientObject.allergies = this.listAllergies;
 
-    // console.log('All data : ' + patientObject);
+    console.log('All data : ' + patientObject);
+    console.log(patientObject);
+    
 
     const res = confirm('Are you sure?');
     if (res) {
       this.patientService.updatePatientDetails(patientObject);
       this.router.navigate(['/patient/landingPage']);
     }
-  }
-
-  emergencyContactDetails(): EmergencyContact {
-    const emergencyContactObject: EmergencyContact = {
-      firstName: this.form.value.emergencyContactFirstName,
-      lastName: this.form.value.emergencyContactLastName,
-      relationship: this.form.value.emergencyContactRelationship,
-      email: this.form.value.emergencyContactEmail,
-      contact: this.form.value.emergencyContactContact,
-      address: this.form.value.emergencyContactAddress,
-    };
-
-    // alert(emergencyContactObject);
-
-    return emergencyContactObject;
   }
 
   errorTitle() {
@@ -224,9 +274,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorEmergencyContactFirstName() {
-    if (this.form.controls.emergencyContactFirstName.errors?.required) {
+    if (this.form.controls.emgrFname.errors?.required) {
       return ErrorMessage.FIRSTNAME_REQUIRED;
-    } else if (this.form.controls.emergencyContactFirstName.errors?.minlength) {
+    } else if (this.form.controls.emgrFname.errors?.minlength) {
       return ErrorMessage.ABBREVIATION_NOT_REQUIRED;
     } else {
       return '';
@@ -234,9 +284,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorEmergencyContactLastName() {
-    if (this.form.controls.emergencyContactLastName.errors?.required) {
+    if (this.form.controls.emgrLname.errors?.required) {
       return ErrorMessage.LASTNAME_REQUIRED;
-    } else if (this.form.controls.emergencyContactLastName.errors?.minlength) {
+    } else if (this.form.controls.emgrLname.errors?.minlength) {
       return ErrorMessage.ABBREVIATION_NOT_REQUIRED;
     } else {
       return '';
@@ -244,9 +294,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorEmergencyContactEmail() {
-    if (this.form.controls.emergencyContactEmail.errors?.required) {
+    if (this.form.controls.emgrEmail.errors?.required) {
       return ErrorMessage.EMAIL_REQUIRED;
-    } else if (this.form.controls.emergencyContactEmail.errors?.email) {
+    } else if (this.form.controls.emgrEmail.errors?.email) {
       return ErrorMessage.EMAIL_REQUIRED;
     } else {
       return '';
@@ -254,9 +304,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorEmergencyContactContactNo() {
-    if (this.form.controls.emergencyContactContact.errors?.required) {
+    if (this.form.controls.emgrContactNo.errors?.required) {
       return ErrorMessage.TELEPHONE_NUMBER_REQIRED;
-    } else if (this.form.controls.emergencyContactContact.errors?.minlength) {
+    } else if (this.form.controls.emgrContactNo.errors?.minlength) {
       return ErrorMessage.TELEPHONE_NUMBER_NOT_LESS_THAN_7;
     } else {
       return '';
@@ -264,9 +314,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorEmergencyContactAddress() {
-    if (this.form.controls.emergencyContactAddress.errors?.required) {
+    if (this.form.controls.emgrAddress.errors?.required) {
       return ErrorMessage.ADDRESS_REQUIRED;
-    } else if (this.form.controls.emergencyContactAddress.errors?.minlength) {
+    } else if (this.form.controls.emgrAddress.errors?.minlength) {
       return ErrorMessage.ADDRESS_REQUIRED;
     } else {
       return '';
@@ -332,9 +382,9 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   errorLanguages() {
-    if (this.form.controls.languages.errors?.required) {
+    if (this.form.controls.langKnown.errors?.required) {
       return ErrorMessage.LANGUAGE_REQUIRED;
-    } else if (this.form.controls.languages.errors?.minlength) {
+    } else if (this.form.controls.langKnown.errors?.minlength) {
       return ErrorMessage.ABBREVIATION_NOT_REQUIRED;
     } else {
       return '';
@@ -366,5 +416,47 @@ export class PatientDemographicsComponent implements OnInit {
       (!this.form.get(field)?.valid && this.form.get(field)?.touched) ||
       (this.form.get(field)?.untouched && this.formSubmitAttempt)
     );
+  }
+
+  onChangeId(value: string) {
+    value = 'aa';
+    console.log('inside onchange : id =' + value);
+    this.patientService.getAllergyById(value).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  deleteAllergy(value: string) {
+    const allergyCode = this.listAllergies.findIndex(
+      (v: { allergyId: string }) => v.allergyId === value
+    );
+    this.listAllergies.splice(allergyCode, 1);
+  }
+
+  setOption(e: string): void {
+    this.selected = e;
+  }
+
+  displayedColumns: string[] = ['1', '2', '3', '4','5'];
+
+
+  listAllergies: Allergy[] = [];
+
+  addAllergy() {
+
+console.log("add allergies");
+
+
+
+    let patientAllergy = {
+      // allergyCode: this.reactiveForm.get('allergyCode').value,
+      allergyName: this.reactiveForm.get('allergyName').value,
+      allergyType: this.reactiveForm.get('allergyType').value,
+      allergyFatal: this.reactiveForm.get('allergyFatal').value,
+      allergyDesc: this.reactiveForm.get('allergyDesc').value,
+    } as Allergy;
+
+    this.listAllergies.push(patientAllergy);
+    console.log('listallergies' + this.listAllergies);
   }
 }

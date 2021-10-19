@@ -1,0 +1,27 @@
+<p class="heading">Add Medication</p>
+
+
+<form [formGroup]="Form" (submit)="onSubmit()">
+  <input
+    type="text"
+    formControlname="drugName"
+    placeholder="drug name"
+  /><br />
+  <input
+    type="text"
+    formControlname="drugForm"
+    placeholder="Drug form"
+  /><br />
+  <input
+    type="text"
+    formControlname="description"
+    placeholder="Drug Description"
+  /><br />
+
+  <div class="row" style="margin-top: 50px">
+    <div class="col text-center">
+      <button type="submit" class="primary">Save</button>&nbsp;
+      <button class="btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

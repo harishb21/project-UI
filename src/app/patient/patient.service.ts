@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PatientInterface } from './patient-list/patient-list.component';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -13,18 +14,20 @@ export class PatientService {
     this.getAllPatient();
   }
 
+  baseUrl: string = 'http://localhost:8083/';
+
   updatePatientDetails(patient: User) {
-    this.http.put('http://localhost:8083/patient', patient).subscribe((res) => {
+    this.http.post('http://localhost:8083/patient/save', patient).subscribe((res) => {
       console.log(res);
     });
   }
 
-  fetchPatient(id: number): Observable<any> {
-    return this.http.get('http://localhost:8083/patient/' + id);
+  fetchPatient(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + 'patient/getById/' + id);
   }
 
-  getAllPatient():Observable<PatientInterface[]> {
-    return this.http.get<PatientInterface[]>('http://localhost:8083/getAll');
+  getAllPatient(): Observable<PatientInterface[]> {
+    return this.http.get<PatientInterface[]>(this.baseUrl + 'patient/getAll');
     //   .subscribe((list) => {
     //     console.log('data : ' + list);
 
@@ -38,6 +41,37 @@ export class PatientService {
   }
 
   fetchAllAllergyIds() {
-    return this.http.get<string[]>('http://localhost:8083/allergy/ids');
+    return this.http.get<string[]>(this.baseUrl + 'allergy/ids');
+  }
+
+  getAllergy(): Observable<any> {
+    return this.http.get(this.baseUrl + `/patient/allAllergy`);
+  }
+
+  getAllergyName(): Observable<any> {
+    return this.http
+      .get(this.baseUrl + `/patient/allAllergy`)
+      .pipe(
+        map<any, any>((response: []) =>
+          response.map((item) => item['allergyName'])
+        )
+      );
+  }
+
+  getAllergyType(): Observable<any> {
+    return this.http
+      .get(this.baseUrl + `/patient/allAllergy`)
+      .pipe(
+        map<any, any>((response: []) =>
+          response.map((item) => item['allergyType'])
+        )
+      );
+  }
+
+  getAllergyById(allergyCode: string): Observable<any> {
+    console.log('service' + allergyCode);
+    return this.http.get(
+      this.baseUrl + 'patient/getAllergyByCode/' + allergyCode
+    );
   }
 }

@@ -1,0 +1,23 @@
+<p class="heading">Allergies</p>
+
+<table>
+  <tr>
+    <th>allergyId</th>
+    <th>allergyName</th>
+    <th>allergyType</th>
+    <th>allergyFatal</th>
+    <th>allergyDesc</th>
+  </tr>
+
+  <tr *ngFor="let allergy of allergies">
+    <td>{{ allergy.allergyId }}</td>
+    <td>{{ allergy.allergyName }}</td>
+    <td>{{ allergy.allergyType }}</td>
+    <td>{{ allergy.allergyFatal }}</td>
+    <td>{{ allergy.allergyDesc }}</td>
+  </tr>
+</table>
+<br />
+<button class="btn btn-danger" (click)="onNoClick()">
+  Close
+</button>

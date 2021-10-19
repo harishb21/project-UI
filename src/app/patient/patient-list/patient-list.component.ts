@@ -10,19 +10,15 @@ import { PatientService } from '../patient.service';
   styleUrls: ['./patient-list.component.css'],
 })
 export class PatientListComponent implements OnInit {
-  constructor(private patientService: PatientService, private router:Router) {}
+  constructor(private patientService: PatientService, private router: Router) {}
   dataSource: any;
   PATIENT_DATA: PatientInterface[] = [];
   ngOnInit(): void {
     this.patientService.getAllPatient().subscribe((data) => {
-      //  this.PATIENT_DATA = data;
-
       this.dataSource = new MatTableDataSource<PatientInterface>(data);
 
       console.log(this.dataSource);
     });
-    //this.PATIENT_DATA = this.patientService.patientList;
-
     console.log('patient data :' + this.PATIENT_DATA);
   }
   displayedColumns: string[] = [
@@ -38,20 +34,15 @@ export class PatientListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-editData(id:number)
-{
-console.log(id);
-this.router.navigate(['/patient/patientDemographics/'+id]);
-
-
-
-
-}
-
+  editData(id: number) {
+    console.log(id);
+    // id=1;
+    this.router.navigate(['/patient/patientDemographics/' + id]);
+  }
 }
 
 export class PatientInterface {
-  patientId: number;
+  id: number;
   title: string;
   firstName: string;
   lastName: string;

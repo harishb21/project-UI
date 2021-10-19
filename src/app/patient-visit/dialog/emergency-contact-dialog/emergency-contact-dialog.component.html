@@ -1,0 +1,57 @@
+<p class="heading">EMERGENCY CONTACT DETAILS</p>
+
+<table style="width: 100%">
+  <tr>
+    <th>Title</th>
+    <td>{{ patient.emgrTitle }}</td>
+  </tr>
+
+  <tr>
+    <th>First Name</th>
+    <td>{{ patient.emgrFname }}</td>
+  </tr>
+  <tr>
+    <th>Last Name</th>
+    <td>{{ patient.emgrLname }}</td>
+  </tr>
+
+  <tr>
+    <th>Email</th>
+    <td>{{ patient.emgrEmail }}</td>
+  </tr>
+
+  <tr>
+    <th>Relationship</th>
+    <td>{{ patient.emgrRelation }}</td>
+  </tr>
+
+  <tr>
+    <th>Address</th>
+    <td>{{ patient.emgrAddress }}</td>
+  </tr>
+
+  <tr>
+    <th>City</th>
+    <td>{{ patient.emgrCity }}</td>
+  </tr>
+
+  <tr>
+    <th>Pin code</th>
+    <td>{{ patient.emgrPincode }}</td>
+  </tr>
+
+  <tr>
+    <th>State</th>
+    <td>{{ patient.emgrState }}</td>
+  </tr>
+
+  <tr>
+    <th>Country</th>
+    <td>{{ patient.emgrCountry }}</td>
+  </tr>
+
+  <button class="btn btn-danger" (click)="onNoClick()">
+    Close
+  </button>
+
+</table>

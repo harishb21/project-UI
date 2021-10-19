@@ -1,0 +1,26 @@
+<p class="heading">Add Procedure</p>
+
+<form [formGroup]="Form" (submit)="onSubmit()">
+  <input
+    type="text"
+    formControlname="procedureCode"
+    placeholder="Procedure Code"
+  /><br />
+  <input
+    type="text"
+    formControlname="procedureName"
+    placeholder="Procedure Name"
+  /><br />
+  <input
+    type="text"
+    formControlname="discription"
+    placeholder="Procedure Description"
+  /><br />
+
+  <div class="row" style="margin-top: 50px">
+    <div class="col text-center">
+      <button type="submit" class="primary">Save</button>&nbsp;
+      <button class="btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

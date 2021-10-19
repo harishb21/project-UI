@@ -1,62 +1,119 @@
-.example-full-width{
-    width: 60%;
-    height: 5%;
+.example-full-width {
+  width: 80%;
+  height: 5%;
 }
 
-.top-padding{
-    padding-top: 3px;
+.classEmergency {
+  margin-left: 20%;
 }
 
-.margin-left mat-radio-button:not(:first-child){
-    margin-left:10px;
+.top-padding {
+  padding-top: 3px;
 }
 
-.form-container{
-    margin: 80px;
+.margin-left mat-radio-button:not(:first-child) {
+  margin-left: 10px;
 }
 
-.patient-form{
-    width: 40%;
+.form-container {
+  margin: 80px;
+}
+
+.patient-form {
+  width: 40%;
 }
 
 .mat-radio-button ~ .mat-radio-button {
-    margin-left: 16px;
-  }
+  margin-left: 16px;
+}
 
-  .radioButton
-  {
-      text-align: center;
-  }
+.radioButton {
+  text-align: center;
+}
+
+mat-tab-group {
+  text-align: center;
+}
+
+mat-error {
+  size: 1px;
+}
 
 
-  mat-form-field {
-    width: 60%;
-    /* padding-bottom: 0; */
-  }
-  
-  mat-card {
-    max-width: 80%;
-    margin: 1em auto;
-    background-color: rgb(255, 255, 255);
-  }
-  
-  .mat-card {
-    /* width: 40%; */
-    width: 500px;
-    /* height: 350px; */
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    padding-top: 20px;
-    /* padding-bottom: 1px; */
-  }
-  
-  .mat-radio-button ~ .mat-radio-button {
-    margin-left: 16px;
-  }
+/* mat-form-field,
+mat-radio-group,
+mat-select {
+  width: 60%;
+  padding-bottom: 10px;
+  padding-top: 15px;
+  height: 20%;
+  height: 30%;
+} */
 
-  .myButtons
-  {
-      text-align: center;
-  }
+.image {
+  padding: 72px;
+
+  background: transparent;
+  background: url("../images/healthcare.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  background-position: center;
+
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+.heading {
+  color: rgb(26, 65, 192);
+  size: 4px;
+  font-size: 20px;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 1em auto;
+  background-color: rgb(255, 255, 255);
+}
+
+.mat-card {
+  /* width: 40%; */
+  width: 500px;
+  /* height: 350px; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 20px;
+  /* padding-bottom: 1px; */
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.myButtons {
+  text-align: center;
+}
+
+table, th, td {
+  border:1px solid black;
+}
+
+
+h2 {
+  font-size: small;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}

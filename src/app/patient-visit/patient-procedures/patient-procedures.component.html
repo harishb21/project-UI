@@ -1,0 +1,22 @@
+<br />
+<br />
+<table>
+  <tr>
+    <th>Procedure Code</th>
+    <th>Procedure Name</th>
+    <th>Procedure Description</th>
+    <th>Action</th>
+  </tr>
+
+  <tr *ngFor="let procedure of procedureList">
+    <td>{{ procedure.procedureCode }}</td>
+    <td>{{ procedure.procedureName }}</td>
+    <td>{{ procedure.description }}</td>
+    <td>
+      <button (click)="deleteProcedure(procedure.procedureCode)">Delete</button>
+    </td>
+  </tr>
+</table>
+<br />
+
+<button (click)="addProcedure()">Add Diagnosis</button>

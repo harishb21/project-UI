@@ -84,6 +84,11 @@ const router: Routes = [
     loadChildren: () =>
       import('./patient/patient.module').then((m) => m.PatientModule),
   },
+  {
+    path: 'patient-visit',
+    loadChildren: () =>
+      import('./patient-visit/patient-visit.module').then((m) => m.PatientVisitModule),
+  },
 ];
 @NgModule({
   declarations: [

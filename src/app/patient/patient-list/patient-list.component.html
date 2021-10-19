@@ -6,7 +6,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="patient ID">
       <th mat-header-cell *matHeaderCellDef>Patient ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.patientId }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <!-- Name Column -->
@@ -30,7 +30,7 @@
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element" class="action-link">
-        <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editData(element.patientId)">
+        <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editData(element.id)">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
