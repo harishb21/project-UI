@@ -47,15 +47,11 @@ export class SendNotesComponent implements OnInit {
     this.notesService.getAllPhycision().subscribe((data) => {
       this.phycision.splice(0, this.phycision.length);
       this.phycision.push(...data);
+      console.log(this.phycision)
     });
   }
-  addValues(roleId: number) {
-    if (roleId === 2) this.desgination = 'PHYSICIAN';
-    else {
-      if (roleId === 1) this.desgination = 'ADMIN';
-      else if (roleId === 3) this.desgination = 'NURSE';
-      else this.desgination = '';
-    }
+  addValues(roleName: string) {
+   this.desgination="PHYSICIAN"
   }
   onSubmit(){
     const notes =new Notes();

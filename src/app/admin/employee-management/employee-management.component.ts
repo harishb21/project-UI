@@ -36,14 +36,14 @@ export class EmployeeManagementComponent implements OnInit {
   currentIndex = -1;
   id = '';
   page = 1;
-  count =0;
+  count = 0;
   pageSize = 5;
-  pageSizes =[5,10,50,100]
+  pageSizes = [5, 10, 50, 100];
   index: number;
   newrecord: number = 5;
   value = 5;
   columnName: string = 'userId';
-  direction: string = "ASC";
+  direction: string = 'ASC';
   staffId: number;
   allStaffs: User[] = [];
   disableSelect = new FormControl(true);
@@ -59,7 +59,8 @@ export class EmployeeManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private adminService: AdminserviceService,
-    private authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
   ) {}
   ngOnInit() {
     this.authService.userInfo.subscribe((user) => {
@@ -75,25 +76,24 @@ export class EmployeeManagementComponent implements OnInit {
 
   loadUser() {
     //const params =this.getRequestParams(this.page,this.pageSizes)
-    this.adminService.getAllUsers(this.page,this.pageSize,this.columnName,this.direction).subscribe((data) => {
-      const{staffs,totalElements} =data
-      this.allEmployee =staffs;
-      this.count = totalElements;
-      //this.allEmployee = data;
-      
-    });
+    this.adminService
+      .getAllUsers(this.page, this.pageSize, this.columnName, this.direction)
+      .subscribe((data) => {
+        const { staffs, totalElements } = data;
+        this.allEmployee = staffs;
+        this.count = totalElements;
+        //this.allEmployee = data;
+      });
   }
-  handlePageChange(event:any): void {
+  handlePageChange(event: any): void {
     this.page = event;
     this.loadUser();
   }
-  handlePageSizeChange(event:any): void {
+  handlePageSizeChange(event: any): void {
     this.pageSizes = event.target.value;
     this.page = 1;
     this.loadUser();
   }
- 
-
 
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
@@ -103,16 +103,18 @@ export class EmployeeManagementComponent implements OnInit {
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   changeStatus() {
+    
     this.adminService.editEmployeeStatus(this.allStaffs).subscribe((data) => {
-      console.log(data);
+      this._snackBar.open(data.msg);
+      this.loadUser();
     });
   }
-  // addValues(patientId: number) {
-  //   const obj = new User();
-  //   //obj.userId = patientId;
-  //   //obj.status = this.selectedValue;
-  //   this.allStaffs.push(obj);
-  // }
+  addValues(patientId: number) {
+    const obj = new User();
+    obj.userId = patientId;
+    obj.status = this.selectedValue;
+    this.allStaffs.push(obj);
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
 
@@ -133,24 +135,22 @@ export class EmployeeManagementComponent implements OnInit {
   // }
   changeRecord(value: any) {
     this.newrecord = value;
-    this.pageSize=value;
+    this.pageSize = value;
     this.loadUser();
   }
-  addValues(userId: number) {
-    const obj = new User();
-    //obj.userId = patientId;
-    //obj.status = this.selectedValue;
-    this.allStaffs.push(obj);
-  }
+  // addValues(userId: number) {
+  //   const obj = new User();
+  //   //obj.userId = patientId;
+  //   //obj.status = this.selectedValue;
+  //   this.allStaffs.push(obj);
+  // }
   getSort(key: any) {
-    if(this.columnName===key){
-      if(this.direction==="ASC")
-        this.direction="DESC"
-      else
-      this.direction="ASC"
+    if (this.columnName === key) {
+      if (this.direction === 'ASC') this.direction = 'DESC';
+      else this.direction = 'ASC';
     }
     this.columnName = key;
-    
+
     this.loadUser();
   }
 }

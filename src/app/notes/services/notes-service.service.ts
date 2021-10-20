@@ -1,5 +1,4 @@
-
-import { Notes } from '../../model/notes.model';
+import { Notes } from './../../model/notes.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
@@ -34,5 +33,11 @@ return this.http.delete(`${this.baseurl}notes/delete/${notesId}`,{responseType: 
  }
  sendReply(notes:Notes):Observable<any>{
    return this.http.put(`${this.baseurl}notes/reply/`,notes,{responseType: 'text'});
+ }
+ getNonReadCount(userId:number):Observable<any>{
+   return this.http.get(`${this.baseurl}notes/nonreadcount/${userId}`);
+ }
+ updateRead(notesId:number):Observable<any>{
+   return this.http.put(`${this.baseurl}/notes/updateread/${notesId}`,new Notes());
  }
 }

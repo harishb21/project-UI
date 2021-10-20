@@ -1,32 +1,61 @@
 <title>Employee List</title>
-<div class="maindiv ">
-    <h2>Employee List</h2>
-  
-    <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Search with employee id or employee name"
-        #input
-      />
-    </mat-form-field>
-     
-    <table class="table table-hover table-bordered text-center table-responsive mat-elevation-z15 ">
-      <tr style="cursor: pointer;" >
-        
-        <th (click)= "getSort('empId')">Employee ID &nbsp;<i class='fa fa-sort'></i></th>
-        <th (click)= "getSort('firstName')">Employee Name &nbsp;<i class="fa fa-sort"></i></th>
-        <th (click)= "getSort('createdOn')" >Date Of registration &nbsp;<i class="fa fa-sort"></i></th>
-        <th (click)= "getSort('status')">Status &nbsp;<i class="fa fa-sort"></i></th>
-        <th >Edit Status</th>
-      </tr>
-      <tr *ngFor="let employee of allEmployee | orderBy: columnName | paginate: { itemsPerPage: newrecord, currentPage: page,totalItems: count }; let i=index">
-        <td>{{ employee.empId }}</td>
-        <td><b>{{ employee.firstName |uppercase}}&nbsp;{{ employee.lastName |uppercase}}</b></td>
-        <td>{{ employee.createdOn | date}}</td>
-        <td><h3
-          class=" status-button label-success"
+<div class="maindiv">
+  <h2>Employee List</h2>
+
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Search with employee id or employee name"
+      #input
+    />
+  </mat-form-field>
+
+  <table
+    class="
+      table table-hover table-bordered
+      text-center
+      table-responsive
+      mat-elevation-z15
+    "
+  >
+    <tr style="cursor: pointer">
+      <th (click)="getSort('empId')">
+        Employee ID &nbsp;<i class="fa fa-sort"></i>
+      </th>
+      <th (click)="getSort('firstName')">
+        Employee Name &nbsp;<i class="fa fa-sort"></i>
+      </th>
+      <th (click)="getSort('createdOn')">
+        Date Of registration &nbsp;<i class="fa fa-sort"></i>
+      </th>
+      <th (click)="getSort('status')">
+        Status &nbsp;<i class="fa fa-sort"></i>
+      </th>
+      <th>Edit Status</th>
+    </tr>
+    <tr
+      *ngFor="
+        let employee of allEmployee
+          | orderBy: columnName
+          | paginate
+            : { itemsPerPage: newrecord, currentPage: page, totalItems: count };
+        let i = index
+      "
+    >
+      <td>{{ employee.empId }}</td>
+      <td>
+        <b
+          >{{ employee.firstName | uppercase }}&nbsp;{{
+            employee.lastName | uppercase
+          }}</b
+        >
+      </td>
+      <td>{{ employee.createdOn | date }}</td>
+      <td>
+        <h3
+          class="status-button label-success"
           *ngIf="employee.status == 'active'"
         >
           <span>Active</span>
@@ -42,32 +71,37 @@
           *ngIf="employee.status == 'block'"
         >
           <span>Blocked</span>
-        </h3></td>
-        <td>
-          <button mat-button class="menu-button" (click)="onClick(i)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <mat-form-field *ngIf="!disableSelect.value && index == i" appearance="fill">
-            <mat-label>Choose an option</mat-label>
-            <mat-select
-              [(ngModel)]="selectedValue"
-              [formControl]="selected"
-              [errorStateMatcher]="matcher"
+        </h3>
+      </td>
+      <td>
+        <button mat-button class="menu-button" (click)="onClick(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <mat-form-field
+          *ngIf="!disableSelect.value && index == i"
+          appearance="fill"
+        >
+          <mat-label>Choose an option</mat-label>
+          <mat-select
+            [(ngModel)]="selectedValue"
+            [formControl]="selected"
+            [errorStateMatcher]="matcher"
+          >
+            <mat-option
+              *ngFor="let status of allStatus"
+              [value]="status.value"
+              (click)="addValues(employee.userId)"
+              >{{ status.viewValue }}</mat-option
             >
-              <mat-option
-                *ngFor="let status of allStatus"
-                [value]="status.value"
-                (click)="addValues(employee.userId)"
-                >{{ status.viewValue }}</mat-option
-              >
-            </mat-select>
-            <mat-error *ngIf="selectedValue === employee.status">
-              User has already {{ employee.status }}
-            </mat-error>
-          </mat-form-field> </td>
-        
-      </tr><br>
-      <span style="float: right; margin-right: 1%;"
+          </mat-select>
+          <mat-error *ngIf="selectedValue === employee.status">
+            User has already {{ employee.status }}
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <br />
+    <span style="float: right; margin-right: 1%"
       ><button
         style="width: 100px"
         (click)="changeStatus()"
@@ -79,29 +113,35 @@
     <div class="text-right">
       <div class="row">
         <div>
-          <label for="record" class="font-weight-bold text-dark">Select Number of Record&nbsp;</label>
-          <select class="bg-info text-light" name="record" id="record" [(ngModel)]="value" (ngModelChange) = "changeRecord(value)">
+          <label for="record" class="font-weight-bold text-dark"
+            >Select Number of Record&nbsp;</label
+          >
+          <select
+            
+            name="record"
+            id="record"
+            [(ngModel)]="value"
+            (ngModelChange)="changeRecord(value)"
+          >
             <option value="5" selected>5</option>
             <option value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
-            </select>
-        </div>  
-      <pagination-controls
-       (pageChange)="handlePageChange($event)" 
-       previousLabel="Prev"
-      nextLabel="Next"
-      [responsive]="true"
-      ></pagination-controls>
-      
-       </div>
+          </select>
+        </div>
+        <pagination-controls
+          (pageChange)="handlePageChange($event)"
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+        ></pagination-controls>
+      </div>
     </div>
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="2">
         No data matching the filter "{{ input.value }}"
       </td>
     </tr>
-    </table>
-    <br><br>
-   
- </div>
+  </table>
+  <br /><br />
+</div>

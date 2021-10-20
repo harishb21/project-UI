@@ -9,7 +9,7 @@
           <mat-label>Select Physician</mat-label>
           <mat-select disableRipple matNativeControl required formControlName="recieverId">
             <mat-option></mat-option>
-            <mat-option *ngFor="let staff of phycision" (click)="addValues(staff.roleId)" [value]="staff.userId">
+            <mat-option *ngFor="let staff of phycision" (click)="addValues(staff.roleName)" [value]="staff.userId">
              {{staff.title}} {{ staff.firstName }}  {{staff.lastName}}
             </mat-option>
        

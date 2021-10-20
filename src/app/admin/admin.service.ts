@@ -18,45 +18,51 @@ export class AdminserviceService {
     this.baseurl = 'http://localhost:8085/admin/';
   }
 
-  getAllPatient(page:any,size:any,columnName:any,direction:any): Observable<any> {
+  getAllPatient(
+    page: any,
+    size: any,
+    columnName: any,
+    direction: any
+  ): Observable<any> {
     const params = {
       page,
       size,
       columnName,
-      direction
-    }
-    return this.http.get(`${this.baseurl}patient-list`,{params});
+      direction,
+    };
+    return this.http.get(`${this.baseurl}patient-list`, { params });
   }
 
-  getAllUsers(page:any,size:any,columnName:any,direction:any): Observable<any> {
+  getAllUsers(
+    page: any,
+    size: any,
+    columnName: any,
+    direction: any
+  ): Observable<any> {
     const params = {
       page,
       size,
       columnName,
-      direction
-    }
-    return this.http.get(`${this.baseurl}user-list`,{params});
+      direction,
+    };
+    return this.http.get(`${this.baseurl}user-list`, { params });
   }
 
-  editPatientStatus(allPatient: User[]) {
-    return this.http.put<User>(
-      `${this.baseurl}patient/editstatus`,
-        allPatient
-    );
+  editPatientStatus(allPatient: User[]): Observable<any>  {
+    return this.http.put(`${this.baseurl}patient/editstatus`, allPatient);
   }
-  editEmployeeStatus(allEmployee : User[]) {
-    return this.http.put<User>(
-      `${this.baseurl}/employee/editstatus/`,allEmployee
+  editEmployeeStatus(allEmployee: User[]) : Observable<any> {
+    
+    return this.http.put(
+      `${this.baseurl}/employee/editstatus/`,
+      allEmployee
     );
   }
 
-  getPatientCount(){
-    return this.http.get<Response>(this.baseurl+'patients/patientcount');
-    
+  getPatientCount(): Observable<any>  {
+    return this.http.get(this.baseurl + 'patients/patientcount');
   }
-  getEmployeeCount(){
-    return this.http.get<Number>(this.baseurl+'user/usercount');
-    
+  getEmployeeCount(): Observable<any>  {
+    return this.http.get(this.baseurl + 'user/usercount');
   }
-  
 }

@@ -50,7 +50,6 @@ export class RecievedNotesComponent implements OnInit {
   loadNotes() {
     this.notesService.getRecievedNotes(this.user.userId).subscribe(
       (data) => {
-        console.log(data);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -68,16 +67,22 @@ export class RecievedNotesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     
   }
-  onRowClicked(row:any) {
-    console.log('Row clicked: ', row);
+  onRowClicked(notesId:any) {
+    console.log('Row clicked: ', notesId);
+    this.notesService.updateRead(notesId).subscribe(
+      (res)=>{
+        
+      }
+    )
 }
 openDialog(note:Notes): void {
+  this.onRowClicked(note.notesid)
   const dialogRef = this.dialog.open(MessageDailogComponent, {
     data: note
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    console.log(result)
+    
   });
 }
 
