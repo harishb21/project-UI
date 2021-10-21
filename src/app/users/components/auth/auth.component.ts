@@ -89,7 +89,7 @@ export class AuthComponent implements OnInit {
 
     if (this.form.valid) {
       this.http
-        .post<User>(`${GlobalConstants.USER_SERVER_URL}/auth/verify`, {
+        .post<any>(`${GlobalConstants.USER_SERVER_URL}/auth/verify`, {
           email: email,
           password: password,
         })
@@ -98,18 +98,20 @@ export class AuthComponent implements OnInit {
             console.log('Response Received');
 
             console.log(res);
-            this.authService.userInfo.next(res);
-            // localStorage.setItem('user', JSON.stringify(res));
+            this.authService.userInfo.next(res.user);
+            sessionStorage.setItem('user', JSON.stringify(res.user));
+            sessionStorage.setItem('token', JSON.stringify(res.token));
             verified = true;
 
             this.errorMessage = '';
 
-            if (res.attempt === -1) {
+            if (res.user.attempt === -1) {
               // new user redirect update password page
               this.router.navigate(['/users/update']);
             } else {
               window.location.reload();
               this.router.navigate(['/']);
+              console.log('INSIDE ELSE Auth');
             }
 
             this._snackBar.open('Successfully Authenticated');
