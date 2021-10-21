@@ -147,6 +147,10 @@ export class PatientRegComponent implements OnInit {
     }
   }
 
+  errorContactNo() {
+    return '';
+  }
+
   errorBirthDate() {
     if (this.form.controls.birthDate.errors?.required) {
       return ErrorMessage.VALID_DATE_REQUITED;

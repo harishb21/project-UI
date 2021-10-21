@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
 
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required]),
-      password: new FormControl('Welcome@123', [
+      password: new FormControl('', [
         Validators.required,
         Validators.pattern(
           '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
@@ -86,6 +86,7 @@ export class AuthComponent implements OnInit {
 
     // console.log(this.form);
     // return false;
+
     if (this.form.valid) {
       this.http
         .post<User>(`${GlobalConstants.USER_SERVER_URL}/auth/verify`, {
