@@ -21,9 +21,6 @@ export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean>; //{1}
   isLoggedIn: boolean = false;
 
-  isLoginPage: boolean = true;
-  redirectUrl: string = '/users/auth';
-
   // isPatient: boolean = false;
   // isAdmin: boolean = false;
 
@@ -118,7 +115,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.router.navigate(['/users/auth']);
     window.location.reload();
     // event.preventDefault();
@@ -138,15 +135,4 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickNotes() {}
-
-  loginActionPage() {
-    if (this.isLoginPage) {
-      this.redirectUrl = '/users/signup';
-    } else {
-      this.redirectUrl = '/users/auth';
-    }
-    return this.isLoginPage
-      ? 'Not a member? Sign up'
-      : 'Already a member? Sign in';
-  }
 }

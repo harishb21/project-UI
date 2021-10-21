@@ -19,8 +19,8 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     // If user found in session
-    if (localStorage.getItem('user')) {
-      const str: string | null = localStorage.getItem('user');
+    if (sessionStorage.getItem('user')) {
+      const str: string | null = sessionStorage.getItem('user');
       const user: User = JSON.parse(str === null ? '{}' : str);
       this.user = user;
 
