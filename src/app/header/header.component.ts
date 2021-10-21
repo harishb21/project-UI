@@ -21,6 +21,9 @@ export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean>; //{1}
   isLoggedIn: boolean = false;
 
+  isLoginPage: boolean = true;
+  redirectUrl: string = '/users/auth';
+
   // isPatient: boolean = false;
   // isAdmin: boolean = false;
 
@@ -29,8 +32,6 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
-
- 
 
   ngAfterContentInit() {
     if (this.user) {
@@ -66,7 +67,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.userInfo.subscribe((res) => {
-      this.user = res;});
+      this.user = res;
+    });
     // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 
@@ -136,4 +138,15 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickNotes() {}
+
+  loginActionPage() {
+    if (this.isLoginPage) {
+      this.redirectUrl = '/users/signup';
+    } else {
+      this.redirectUrl = '/users/auth';
+    }
+    return this.isLoginPage
+      ? 'Not a member? Sign up'
+      : 'Already a member? Sign in';
+  }
 }
