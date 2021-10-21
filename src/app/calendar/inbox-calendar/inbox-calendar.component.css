@@ -45,3 +45,12 @@
     overflow-y: hidden !important;
   
   }
+
+  #books_Error{
+    top: 188px; left: 232.5px;
+  }
+
+  .e-input .e-error{
+    color: black !important;
+    border-color: #181616
+  }
