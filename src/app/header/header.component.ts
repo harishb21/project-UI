@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
+import { Roles } from '../model/roles.enum';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -20,8 +21,8 @@ export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean>; //{1}
   isLoggedIn: boolean = false;
 
-  isPatient: boolean = false;
-  isAdmin: boolean = false;
+  // isPatient: boolean = false;
+  // isAdmin: boolean = false;
 
   constructor(
     private observer: BreakpointObserver,
@@ -74,8 +75,8 @@ export class HeaderComponent implements OnInit {
       this.user = res;
       if (res) {
         this.isLoggedIn = true;
-        this.isPatient = this.user.roleId === 4 ? true : false;
-        this.isAdmin = this.user.roleId === 1 ? true : false;
+        // this.isPatient = this.user.roleId === 4 ? true : false;
+        // this.isAdmin = this.user.roleId === 1 ? true : false;
       }
     });
 
@@ -96,6 +97,22 @@ export class HeaderComponent implements OnInit {
           }
         });
     }
+  }
+
+  isAdmin() {
+    return this.user.roleId === Roles.ADMIN ? true : false;
+  }
+
+  isPhysician() {
+    return this.user.roleId === Roles.PHYSICIAN ? true : false;
+  }
+
+  isNurse() {
+    return this.user.roleId === Roles.NURSE ? true : false;
+  }
+
+  isPatient() {
+    return this.user.roleId === Roles.PATIENT ? true : false;
   }
 
   onLogout() {
