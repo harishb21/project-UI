@@ -60,7 +60,8 @@ export class EmployeeManagementComponent implements OnInit {
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private toastr:ToastrService
   ) {}
   ngOnInit() {
     this.authService.userInfo.subscribe((user) => {
@@ -75,14 +76,12 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   loadUser() {
-    //const params =this.getRequestParams(this.page,this.pageSizes)
     this.adminService
       .getAllUsers(this.page, this.pageSize, this.columnName, this.direction)
       .subscribe((data) => {
         const { staffs, totalElements } = data;
         this.allEmployee = staffs;
         this.count = totalElements;
-        //this.allEmployee = data;
       });
   }
   handlePageChange(event: any): void {
@@ -101,11 +100,14 @@ export class EmployeeManagementComponent implements OnInit {
   onClick(i: number) {
     this.index = i;
     this.disableSelect = new FormControl(!this.disableSelect.value);
+    this.selected.reset();
   }
   changeStatus() {
     
     this.adminService.editEmployeeStatus(this.allStaffs).subscribe((data) => {
-      this._snackBar.open(data.msg);
+      //this._snackBar.open(data.msg);
+      this.toastr.success(data.msg)
+      this.selected.reset();
       this.loadUser();
     });
   }
@@ -117,8 +119,13 @@ export class EmployeeManagementComponent implements OnInit {
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-
-    console.log(filterValue);
+    this.adminService
+    .getFilterEmployeeRecord(filterValue)
+    .subscribe((data) => {
+      const { staffs, totalElements } = data;
+      this.allEmployee = staffs;
+      this.count = totalElements;
+    });
   }
 
   // getRequestParams(page:any,pageSize:any):any{

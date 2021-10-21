@@ -43,7 +43,7 @@ export class MessageDailogComponent implements OnInit {
   }
   onDeleteClick(){
     this.notesService.deleteNotes(this.note.notesid).subscribe((data)=>{
-      console.log(data)
+      this.onNoClick();
     })
     this.onNoClick();
   }

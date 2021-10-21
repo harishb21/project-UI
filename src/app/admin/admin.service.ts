@@ -65,4 +65,16 @@ export class AdminserviceService {
   getEmployeeCount(): Observable<any>  {
     return this.http.get(this.baseurl + 'user/usercount');
   }
+  getFilterPatientRecord(filterValue:any):Observable<any>{
+    const params = {
+      filterValue
+    };
+    return this.http.get(`${this.baseurl}patient-list`,{params});
+  }
+  getFilterEmployeeRecord(filterValue:any):Observable<any>{
+    const params = {
+      filterValue
+    };
+    return this.http.get(`${this.baseurl}user-list`,{params});
+  }
 }

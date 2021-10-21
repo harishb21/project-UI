@@ -3,6 +3,7 @@
   margin: auto;
   padding: 10px;
   height: 80%;
+  width: 90%;
 }
 
 .mat-form-field {
@@ -11,11 +12,17 @@
 }
 
 .status-button {
+  color: aliceblue;
   float: none;
   text-align: center;
+  font-size: 18px;
 }
 
 td,
 th {
   width: 150px;
+}
+
+.blue-snackbar {
+  background: #2196F3;
 }

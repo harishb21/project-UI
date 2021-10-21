@@ -136,13 +136,15 @@ export class PatientManagementComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.adminService
+    .getFilterPatientRecord(filterValue)
+    .subscribe((res) => {
+      this.dataSource = res.patients;
+        this.pageIndex = res.page;
+        this.pageSize = res.size;
+        this.length = res.totalItems;
+    });
+    
   }
   changeStatus() {
     this.adminService.editPatientStatus(this.allPatient).subscribe(

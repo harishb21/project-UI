@@ -119,7 +119,10 @@
           <mat-icon>question_answer</mat-icon>
           <span>Notes</span>
         </button>
-
+        <button mat-button class="menu-button" routerLink="/notes/notification">
+          <mat-icon>question_answer</mat-icon>
+          <span>Send Notification</span>
+        </button>
         <button mat-button class="menu-button" routerLink="/app-inbox-calendar">
           <mat-icon>event</mat-icon>
           <span>Schedule</span>
@@ -160,23 +163,9 @@
     <!-- Main content here!head -->
     <div class="appDiv">
       <router-outlet></router-outlet>
+      
     </div>
-    <!-- </div> -->
-    <!-- <div class="content mat-elevation-z8">  -->
-    <!-- Main content here!head -->
-    <!-- <div class="appDiv"> -->
-
-    <!-- </div> -->
-    <!-- <app-inbox></app-inbox> -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
-                  <div class="container-fluid">
-                      <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:void(0)">header</a> 
-                       
-                       
-                      </div>
-                  </div>
-              </nav> 
-    </div> -->
+   
   </mat-sidenav-content>
+  
 </mat-sidenav-container>

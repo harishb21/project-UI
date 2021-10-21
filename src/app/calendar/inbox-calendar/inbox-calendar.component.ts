@@ -155,7 +155,11 @@ export class InboxCalendarComponent implements OnInit {
   public dateParser(data: string) {
     return new Date(data);
   }
-
+  public getHeaderTitle(data: { [key: string]: Object }): string {
+    return data.elementType === 'cell'
+      ? 'Add Appointment'
+      : 'Appointment Details';
+  }
   //Bind the filter event
   public onFiltering: EmitType<FilteringEventArgs> = (
     e: FilteringEventArgs

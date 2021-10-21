@@ -15,7 +15,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="date header">
           Date
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.date |date }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.date |date:'EEE, MMM d, y, h:mm:a' }}</td>
       </ng-container>
   
       <!-- Name Column -->
@@ -41,9 +41,10 @@
       <!-- Urgency Flag -->
       <ng-container matColumnDef="reply">
         <th mat-header-cell *matHeaderCellDef class="header">
+          Reply
         </th>
         <td mat-cell *matCellDef="let row">
-        <div>{{row.reply}}</div>  
+        <div style="color: dimgrey; font-size: large;">{{row.reply}}</div>  
         </td>
       </ng-container>
       
@@ -62,6 +63,7 @@
     
     <div>
       <mat-paginator
+      class="content"
         style="float: right"
         [pageSizeOptions]="[5, 10, 25, 100]"
         aria-label="Select page of users"

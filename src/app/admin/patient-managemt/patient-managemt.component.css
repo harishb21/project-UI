@@ -3,6 +3,7 @@ table {
 }
 
 .mat-form-field {
+  width: 100%;
   font-size: 14px;
 }
 
@@ -14,4 +15,10 @@ table {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 15px;
   color: rgb(68, 63, 63);
+}
+.maindiv {
+ width: 90%;
+  margin: auto;
+  padding: 10px;
+  height: 80%;
 }

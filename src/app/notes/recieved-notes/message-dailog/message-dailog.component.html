@@ -9,9 +9,9 @@
   
 <div class="input-full-width" mat-dialog-content>
   <span>Hi <b>{{note.sender.firstName}}</b></span>
-  <p>{{note.message}}</p><br>
+  <p style="font: message-box;;">{{note.message}}</p><br>
   <p [hidden]="note.reply.length ==0" style="color: red;">Previous Reply on this Note</p>
-  <div >
+  <div style="color: dimgrey;">
     <p *ngFor="let r of note.reply">{{r}}</p>
   </div>
   <form [formGroup]="replyform" (ngSubmit)="onSendClick()">
