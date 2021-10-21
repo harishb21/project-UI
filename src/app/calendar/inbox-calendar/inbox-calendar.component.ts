@@ -43,6 +43,7 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ChangeEventArgs } from '@syncfusion/ej2-calendars';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { TimeSlotResponse } from 'src/app/model/timeslot.model';
 
 L10n.load({
   'en-US': {
@@ -125,10 +126,11 @@ export class InboxCalendarComponent implements OnInit {
   slotEndDate:Date;
   slotStartTime:Date;
   slotEndTime:Date;
-  timeSlotflag:boolean=false;
+  showTimeSlotflag:boolean=false;
   showPatientDisable=false;
   showPatientName:string='';
   public validator: FormValidator;
+  timeServiceRes:TimeSlotResponse;
   eventSettings: EventSettingsModel;
 
   loadUser() {
@@ -258,11 +260,21 @@ export class InboxCalendarComponent implements OnInit {
     return obj;
   }
 
-  paientChangeEvent(event: any) {
+  physicianChangeEvent(event: any) {
     //console.log(event.target.;
+    console.log(event);
+    
     if (event.value != null && event.value != undefined) {
       this.physicianValue = event.value;
       this.physicianStringVal = event.value;
+      this.inboxService.timeCheck.physicianEmpId = event.value;
+      if(event.isInteracted){
+      this.inboxService.timeSlotcheck(this.inboxService.timeCheck).subscribe(
+        data=>{
+          this.showTimeSlotflag =  data.timeSlotFlag;
+          console.log("-----physicianChangeEvent-----");
+        });
+      }
     }
   }
 
@@ -290,36 +302,45 @@ export class InboxCalendarComponent implements OnInit {
 
   isValidAction1(date: Date,bool:boolean) {
     if(bool){
-      return !(date >= new Date() && this.startDate<= date);
+     
+      return !(date >= new Date() && this.startDate<= date && this.startDate.getTime()<date.getTime());
     }else{
-      return !(date > new Date());
+      return !(date >= new Date());
     }
   }
   public onDateChange(args: ChangeEventArgs): void {
-   
+
     if (!isNullOrUndefined(args.event)) {
       if (args.element.id === 'startTime') {
         this.startDate = args.value;
         this.startDateCheck = this.isValidAction1(this.startDate,false);
+        this.inboxService.timeCheck.startDateTime=args.value.toISOString();
         //console.log(this.startDateCheck);
       } else if (args.element.id === 'endTime') {
         this.endDate = args.value;
         this.endDateCheck = this.isValidAction1(this.endDate,true);
-        
+        this.inboxService.timeCheck.endDateTime=args.value.toISOString();
+      }
+      if(this.startDate <= this.endDate && this.physicianValue != undefined){
+      this.inboxService.timeSlotcheck(this.inboxService.timeCheck).subscribe(
+        data=>{
+          this.showTimeSlotflag =  data.timeSlotFlag;
+          console.log("-----chnage 322-----");
+        }
+      );
       }
     }
 
   }
-  isValidAction(date: any) {
+  isValidAction(date: Date) {
     return !(date.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
+    console.log(args);
+    
     args.element.querySelector('.e-event-save').classList.add('e-custom-display');
     this.showPatientError=false;
     //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
-    
-    
-     
     if(this.inboxService.disablePhysician){
       console.log(this.inboxService.userEmpId.toString());
       this.showPhysicianName=this.inboxService.uPhyisicanName;
@@ -333,12 +354,16 @@ export class InboxCalendarComponent implements OnInit {
     // if (['QuickInfo', 'Editor'].indexOf(args.type) > -1) {
     //disable all previous days appointments
     // args.cancel = this.isValidAction(args.data.startTime);
-
-    if (
-      ((args.data.id != null && args.data.physicianId != null) ||
+    if(args.data.startTime != null && args.data.startTime != undefined && args.data.startTime != ''
+    && args.data.endTime != null && args.data.endTime != undefined && args.data.endTime != ''){
+      this.startDate  = args.data.startTime;
+      this.endDate =args.data.endTime;
+      this.inboxService.timeCheck.startDateTime = args.data.startTime.toISOString();
+      this.inboxService.timeCheck.endDateTime = args.data.endTime.toISOString();
+    } 
+    if (((args.data.id != null && args.data.physicianId != null) ||
         (args.data.id != undefined && args.data.physicianId != undefined)) &&
-      args.data.id &&
-      args.data.physicianId
+         args.data.id && args.data.physicianId
     ) {
       this.value = args.data.physicianId;
       this.physicianStringVal = args.data.physicianId;
@@ -352,7 +377,7 @@ export class InboxCalendarComponent implements OnInit {
       if(!this.inboxService.disablePhysician){
       this.validator.addRules('Status', {required: [true, 'This field is required.'],});
     }
-      this.validator.addRules('books', {required: [true, 'This field is required.'],});
+      this.validator.addRules('books', {required: true});
       if (args.target.classList.contains('e-work-cells')) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
       } else {
@@ -375,6 +400,7 @@ export class InboxCalendarComponent implements OnInit {
     this.PatientNamePopUp = '';
     this.showPatientError = false;
     this.showPhysicianName='';
+    this.showTimeSlotflag=false;
   }
   public onEventRendered(args: EventRenderedArgs): void {
   }
@@ -391,14 +417,19 @@ export class InboxCalendarComponent implements OnInit {
 
   //==================patient Name=======================
   onchangeName(event:any){
-  
   if (!event.isInteracted && (event.itemData === null || event.itemData.pId === event.itemData.patientName))
   {
     this.showPatientError = true;
-  }else {
+  } else {
     this.showPatientError = false;
   }
 }
+
+// keyupDatecheck(args:any){
+// console.log("keyupDatecheck---------------");
+// console.log(args);
+// //$("#datePickerInput").datepicker('getDate');
+// }
   //==================patient Name===================
 
   //========save button disbale code=====================
@@ -449,10 +480,13 @@ export class InboxCalendarComponent implements OnInit {
         break;
       }
     }
+    let trueFlag :boolean = false;
+      if(this.showTimeSlotflag || this.startDateCheck ||  this.endDateCheck || this.showPatientError){
+        trueFlag = true;
+      }
     let saveBtn = document.querySelector('.e-custom-disable');
     console.log('showPatientError---' + this.showPatientError);
-
-    if (isValidated && saveBtn && !this.showPatientError) {
+    if (isValidated && saveBtn && !trueFlag) {
       saveBtn.classList.remove('e-custom-disable');
       console.log(404);
     } else if (!isValidated && !saveBtn) {

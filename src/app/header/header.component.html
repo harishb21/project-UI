@@ -11,7 +11,41 @@
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  CT General Hospital
+  <span>CT General Hospital</span>
+  <span class="example-spacer"></span>
+
+  <button
+    mat-button
+    class="example-icon"
+    routerLink="/users/auth"
+    *ngIf="!user"
+  >
+    <span>Sign in</span>
+  </button>
+
+  <button
+    mat-button
+    class="example-icon"
+    routerLink="/users/signup"
+    *ngIf="!user"
+  >
+    <span>Sign up</span>
+  </button>
+
+  <!-- <button
+    mat-button
+    class="example-icon"
+    [routerLink]="redirectUrl"
+    *ngIf="!user"
+    (click)="isLoginPage = !isLoginPage"
+  >
+    <span>{{ loginActionPage() }}</span>
+  </button> -->
+
+  <button mat-button class="example-icon" (click)="onLogout()" *ngIf="user">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -32,7 +66,7 @@
           <span>Dashboard</span>
         </button>
 
-        <mat-expansion-panel class="mat-expanded-panel" *ngIf="!isPatient">
+        <mat-expansion-panel class="mat-expanded-panel" *ngIf="isAdmin()">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>people</mat-icon>
@@ -53,19 +87,17 @@
           </button>
         </mat-expansion-panel>
 
-        <mat-expansion-panel class="mat-expanded-panel">
+        <mat-expansion-panel
+          class="mat-expanded-panel"
+          *ngIf="isPhysician() || isNurse()"
+        >
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>people</mat-icon>
               <span>Patient</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <button
-            mat-button
-            class="menu-button"
-            routerLink="/users/patient"
-            *ngIf="!isPatient"
-          >
+          <button mat-button class="menu-button" routerLink="/users/patient">
             <mat-icon>person_add</mat-icon>
             <span>Register</span>
           </button>
@@ -110,7 +142,12 @@
           </button>
         </mat-expansion-panel>
 
-        <button mat-button class="menu-button" routerLink="/app-inbox">
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/app-inbox"
+          *ngIf="!isAdmin()"
+        >
           <mat-icon>inbox</mat-icon>
           <span>Inbox</span>
         </button>
@@ -119,18 +156,28 @@
           <mat-icon>question_answer</mat-icon>
           <span>Notes</span>
         </button>
+<<<<<<< HEAD
         <button mat-button class="menu-button" routerLink="/notes/notification">
           <mat-icon>question_answer</mat-icon>
           <span>Send Notification</span>
         </button>
         <button mat-button class="menu-button" routerLink="/app-inbox-calendar">
+=======
+
+        <button
+          mat-button
+          class="menu-button"
+          routerLink="/app-inbox-calendar"
+          *ngIf="!isAdmin()"
+        >
+>>>>>>> 6af63ea1d61d2de59d85f31c530d101370c0ed47
           <mat-icon>event</mat-icon>
           <span>Schedule</span>
         </button>
 
         <mat-divider></mat-divider>
 
-        <button
+        <!-- <button
           mat-button
           class="menu-button"
           routerLink="/users/signup"
@@ -138,8 +185,8 @@
         >
           <mat-icon>person_add_alt</mat-icon>
           <span>Sign up</span>
-        </button>
-
+        </button> -->
+        <!-- 
         <button
           mat-button
           class="menu-button"
@@ -148,7 +195,7 @@
         >
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
-        </button>
+        </button> -->
 
         <button mat-button class="menu-button">
           <mat-icon>help</mat-icon>
@@ -158,7 +205,7 @@
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content >
+  <mat-sidenav-content>
     <!-- <div class="content mat-elevation-z8"> -->
     <!-- Main content here!head -->
     <div class="appDiv">

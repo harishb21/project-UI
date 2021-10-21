@@ -11,15 +11,6 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
   public userInfo = new BehaviorSubject<User | null>(null);
-  // private loggedIn = new BehaviorSubject<boolean>(false); // {1}
-
-  // get isLoggedIn() {
-  //   return this.loggedIn.asObservable(); // {2}
-  // }
-
-  // getUser() {
-  //   return this.userInfo.asObservable();
-  // }
 
   HOST_URL = 'http://localhost:8082';
 
@@ -34,12 +25,12 @@ export class AuthService {
 
     this.userInfo.subscribe((res) => {
       if (res) {
-        localStorage.setItem('user', JSON.stringify(res));
+        sessionStorage.setItem('user', JSON.stringify(res));
       }
     });
 
-    if (localStorage.getItem('user')) {
-      const str: string | null = localStorage.getItem('user');
+    if (sessionStorage.getItem('user')) {
+      const str: string | null = sessionStorage.getItem('user');
       const user: User = JSON.parse(str === null ? '{}' : str);
       this.userInfo.next(user);
     }
@@ -76,7 +67,7 @@ export class AuthService {
 
           console.log(res);
           this.userInfo.next(res);
-          localStorage.setItem('user', JSON.stringify(res));
+          sessionStorage.setItem('user', JSON.stringify(res));
           verified = true;
 
           this._snackBar.open('Successfully Authenticated');
@@ -101,7 +92,7 @@ export class AuthService {
     //   user.firstName = 'admin';
     //   user.roleId = 1;
     //   this.userInfo.next(user);
-    //   // localStorage.setItem('user', JSON.stringify(user));
+    //   // sessionStorage.setItem('user', JSON.stringify(user));
     //   // this.loggedIn.next(true);
     //   return true;
     // }

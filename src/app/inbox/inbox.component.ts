@@ -14,8 +14,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { InboxService } from '../inbox.service';
+
 import { Inbox } from '../inbox.model';
+import { InboxService } from './inbox.service';
 
 @Component({
   selector: 'app-inbox',
@@ -47,7 +48,9 @@ export class InboxComponent implements OnInit, AfterViewInit {
 
   expandedElement: Inbox | null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private inboxService: InboxService) {}
+  constructor(private inboxService: InboxService) {
+    this.inboxService.onloadFun();
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
