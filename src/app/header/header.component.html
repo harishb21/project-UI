@@ -1,12 +1,6 @@
-<!-- <app-inbox></app-inbox> -->
 
-<!-- <mat-toolbar class="mat-elevation-z8" *ngIf="isLoggedIn$ | async as isLoggedIn"> -->
 <mat-toolbar class="mat-elevation-z8">
-  <!-- <button
-    mat-icon-button
-    *ngIf="sidenav.mode === 'over'"
-    (click)="sidenav.toggle()"
-  > -->
+
   <button mat-icon-button (click)="sidenav.toggle()" *ngIf="user">
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
@@ -31,16 +25,6 @@
   >
     <span>Sign up</span>
   </button>
-
-  <!-- <button
-    mat-button
-    class="example-icon"
-    [routerLink]="redirectUrl"
-    *ngIf="!user"
-    (click)="isLoginPage = !isLoginPage"
-  >
-    <span>{{ loginActionPage() }}</span>
-  </button> -->
 
   <button mat-button class="example-icon" (click)="onLogout()" *ngIf="user">
     <mat-icon>logout</mat-icon>
@@ -156,46 +140,20 @@
           <mat-icon>question_answer</mat-icon>
           <span>Notes</span>
         </button>
-<<<<<<< HEAD
         <button mat-button class="menu-button" routerLink="/notes/notification">
           <mat-icon>question_answer</mat-icon>
           <span>Send Notification</span>
         </button>
-        <button mat-button class="menu-button" routerLink="/app-inbox-calendar">
-=======
-
         <button
           mat-button
           class="menu-button"
           routerLink="/app-inbox-calendar"
-          *ngIf="!isAdmin()"
-        >
->>>>>>> 6af63ea1d61d2de59d85f31c530d101370c0ed47
+          *ngIf="!isAdmin()">
           <mat-icon>event</mat-icon>
           <span>Schedule</span>
         </button>
 
         <mat-divider></mat-divider>
-
-        <!-- <button
-          mat-button
-          class="menu-button"
-          routerLink="/users/signup"
-          *ngIf="!user"
-        >
-          <mat-icon>person_add_alt</mat-icon>
-          <span>Sign up</span>
-        </button> -->
-        <!-- 
-        <button
-          mat-button
-          class="menu-button"
-          (click)="onLogout()"
-          *ngIf="user"
-        >
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button> -->
 
         <button mat-button class="menu-button">
           <mat-icon>help</mat-icon>
@@ -206,13 +164,9 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- <div class="content mat-elevation-z8"> -->
-    <!-- Main content here!head -->
     <div class="appDiv">
       <router-outlet></router-outlet>
-      
     </div>
-   
   </mat-sidenav-content>
   
 </mat-sidenav-container>

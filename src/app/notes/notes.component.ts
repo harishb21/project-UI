@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
 
-declare const hide: any;
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -28,10 +28,11 @@ export class NotesComponent implements OnInit {
       this.user = user;
     });
     this.getNonReadCount();
+    setTimeout(function(){
+      window.location.reload();
+    },10000);
   }
-  hideBar() {
-    hide();
-  }
+  
 
   activatatedeSendNotes() {
     this.activateSendNotes = true;

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../../model/user.model';
 import {
   AfterViewInit,
@@ -61,8 +62,11 @@ export class EmployeeManagementComponent implements OnInit {
     private adminService: AdminserviceService,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private toastr:ToastrService
-  ) {}
+    private toastr:ToastrService,
+    private router:Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
   ngOnInit() {
     this.authService.userInfo.subscribe((user) => {
       this.user = user;
@@ -99,8 +103,7 @@ export class EmployeeManagementComponent implements OnInit {
   ]);
   onClick(i: number) {
     this.index = i;
-    this.disableSelect = new FormControl(!this.disableSelect.value);
-    this.selected.reset();
+    this.disableSelect = new FormControl(false);
   }
   changeStatus() {
     
@@ -108,7 +111,7 @@ export class EmployeeManagementComponent implements OnInit {
       //this._snackBar.open(data.msg);
       this.toastr.success(data.msg)
       this.selected.reset();
-      this.loadUser();
+      window.location.reload();
     });
   }
   addValues(patientId: number) {
