@@ -7,7 +7,7 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
+  background: rgba(223, 223, 218, 0.877);
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
@@ -39,7 +39,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
-  padding: 16px;
+  padding: 10px;
 }
 
 .example-element-description-attribution {
@@ -65,4 +65,8 @@ th{
 }
 .inboxDiv{
   width: 95%;
+}
+
+.highlightRow{
+  background-color: rgb(233, 228, 203);
 }
