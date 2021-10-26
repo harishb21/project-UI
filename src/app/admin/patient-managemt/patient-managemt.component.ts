@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../model/user.model';
 import { tap } from 'rxjs/operators';
@@ -69,8 +70,11 @@ export class PatientManagementComponent implements OnInit {
     private adminService: AdminserviceService,
     private authService: AuthService,
     private toastr: ToastrService,
-    private _snackBar: MatSnackBar
-  ) {}
+    private _snackBar: MatSnackBar,
+    private router:Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
   ]);
@@ -83,24 +87,7 @@ export class PatientManagementComponent implements OnInit {
   public getServerData(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-
     this.loadPatient();
-    // this.adminService.getAllPatient(event.pageIndex,event.pageSize,this.sort).subscribe(
-    //   response =>{
-    //     if(response.error) {
-    //       console.log(response.error);
-
-    //     } else {
-    //       this.dataSource=response.patients
-    //       this.pageIndex = response.page;
-    //       this.pageSize = response.size;
-    //       this.length = response.totalItems;
-    //     }
-    //   },
-    //   error =>{
-    //     console.log(error);
-    //   }
-    // );
     return event;
   }
 
@@ -137,7 +124,10 @@ export class PatientManagementComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.adminService
-    .getFilterPatientRecord(filterValue)
+    .getFilterPatientRecord(this.pageIndex,
+      this.pageSize,
+      this.direction,
+      filterValue)
     .subscribe((res) => {
       this.dataSource = res.patients;
         this.pageIndex = res.page;
@@ -151,6 +141,7 @@ export class PatientManagementComponent implements OnInit {
       pipe((data:any) => {
         this._snackBar.open(data.msg);
         this.ngOnInit();
+       // window.location.reload();
       })
     );
   }

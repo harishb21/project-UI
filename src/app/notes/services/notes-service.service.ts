@@ -1,9 +1,10 @@
 import { Notes } from './../../model/notes.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, throwError} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import { User } from 'src/app/model/user.model';
+import { Email } from 'src/app/model/email.model';
 
 
 @Injectable({
@@ -11,6 +12,11 @@ import { User } from 'src/app/model/user.model';
 })
 export class NotesServiceService {
   private baseurl: string;
+  errorData: {};
+
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   constructor(private http:HttpClient) { 
     this.baseurl = 'http://localhost:8084/';
   }
@@ -19,7 +25,6 @@ export class NotesServiceService {
     return this.http.get<User[]>(`${this.baseurl}inbox/physicians`);
   }
   saveNotes(notes:Notes):Observable<Notes>{
-    console.log(notes)
       return this.http.post<Notes>(`${this.baseurl}notes/save`,notes);
   }
  getRecievedNotes(userId:number){
@@ -40,4 +45,7 @@ return this.http.delete(`${this.baseurl}notes/delete/${notesId}`,{responseType: 
  updateRead(notesId:number):Observable<any>{
    return this.http.put(`${this.baseurl}/notes/updateread/${notesId}`,new Notes());
  }
+ sendMail(email:Email){
+  return this.http.post<any>(`${this.baseurl}notes/sendMail`,email);
+  } 
 }

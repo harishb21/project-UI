@@ -13,27 +13,26 @@
     />
   </mat-form-field>
   <div class="table-responsive">
-  <table
+  <table 
     class="table 
       table-striped
       table-hover 
       table-bordered
-      border-primary
       text-center
       "
   >
-    <tr  style="cursor: pointer">
+    <tr  >
       <th   (click)="getSort('empId')">
-        Employee ID &nbsp;
+        Employee ID &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
       </th>
       <th (click)="getSort('firstName')">
-        Employee Name &nbsp;
+        Employee Name &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
       </th>
       <th (click)="getSort('createdOn')">
-        Date Of registration &nbsp;
+        Date Of registration &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
       </th>
       <th (click)="getSort('status')">
-        Status &nbsp;
+        Status &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
       </th>
       <th>Edit Status</th>
     </tr>
@@ -42,7 +41,7 @@
         let employee of allEmployee
           | orderBy: columnName
           | paginate
-            : { itemsPerPage: newrecord, currentPage: page, totalItems: count };
+            : { itemsPerPage: pageSize, currentPage: page, totalItems: count };
         let i = index
       "
     >
@@ -114,7 +113,7 @@
     > -->
     
   
-    <tr class="mat-row" *matNoDataRow>
+    <tr class="mat-row" *ngIf="count==0">
       <td class="mat-cell" colspan="2">
         No data matching the filter "{{ input.value }}"
       </td>
@@ -139,8 +138,8 @@
       
       name="record"
       id="record"
-      [(ngModel)]="value"
-      (ngModelChange)="changeRecord(value)"
+      [(ngModel)]="pageSize"
+      (ngModelChange)="changeRecord(pageSize)"
     >
       <option value="5" selected>5</option>
       <option value="10">10</option>

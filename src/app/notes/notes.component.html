@@ -1,4 +1,4 @@
-<div class="maindiv containermt-5 mat-elevation-z15">
+<div class="maindiv containermt-5 mat-elevation-z5">
   <div class="row">
   <div class="col-sm-3" style="background-color: #7386d5">
     <nav id="sidebar">
@@ -13,7 +13,7 @@
             send notes
           </a>
         </li>
-        <li>
+        <li *ngIf="user.roleName=='ADMIN'">
           <a style="cursor: pointer" (click)="activatatedeRecievedNotes()">
             <i class="fa fa-download" aria-hidden="true"></i>
             <span 
@@ -38,7 +38,7 @@
       </ul>
     </nav>
   </div>
-  <div class="col-sm-9" style="background-color: beige;">
+  <div class="col-sm-9 backgroundimage" >
     <app-send-notes *ngIf="activateSendNotes"></app-send-notes>
     <app-recieved-notes *ngIf="activateRecievedNotes"></app-recieved-notes>
     <app-sent-notes *ngIf="activateSentNotes"></app-sent-notes>

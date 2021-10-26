@@ -65,16 +65,42 @@ export class AdminserviceService {
   getEmployeeCount(): Observable<any>  {
     return this.http.get(this.baseurl + 'user/usercount');
   }
-  getFilterPatientRecord(filterValue:any):Observable<any>{
+  getFilterPatientRecord(
+    page: any,
+    size: any,
+    direction: any,
+    filterValue:any):Observable<any>{
     const params = {
+      page,
+      size,
+      direction,
       filterValue
     };
-    return this.http.get(`${this.baseurl}patient-list`,{params});
+    return this.http.get(`${this.baseurl}filter/patient-list`,{params});
   }
-  getFilterEmployeeRecord(filterValue:any):Observable<any>{
+  getFilterEmployeeRecord(
+    page: any,
+    size: any,
+    direction: any,
+    filterValue:any):Observable<any>{
     const params = {
+      page,
+      size,
+      direction,
       filterValue
     };
-    return this.http.get(`${this.baseurl}user-list`,{params});
+    return this.http.get(`${this.baseurl}filter/user-list`,{params});
+  }
+  getAllPatientEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}patient/allpatients`)
+  }
+  getAllActivePatientEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}patient/allactivepatients`)
+  }
+  getAllEmployeeEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}employees/allemployees`)
+  }
+  getAllActiveEmployeeEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}employees/allactiveemployees`)
   }
 }

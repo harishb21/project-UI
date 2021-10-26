@@ -33,8 +33,8 @@ export class SentNotesComponent implements OnInit {
   }
   loadNotes() {
     this.notesService.getSentNotes(this.userId).subscribe(
-      (data) => {
-        this.dataSource = new MatTableDataSource(data);
+      (data:any) => {
+        this.dataSource = new MatTableDataSource(data.notes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }

@@ -47,7 +47,6 @@ export class SendNotesComponent implements OnInit {
     this.notesService.getAllPhycision().subscribe((data) => {
       this.phycision.splice(0, this.phycision.length);
       this.phycision.push(...data);
-      console.log(this.phycision)
     });
   }
   addValues(roleName: string) {
@@ -63,6 +62,7 @@ export class SendNotesComponent implements OnInit {
     notes.receiver = reciever;
    this.notesService.saveNotes(notes).subscribe(
      (data) =>{
+       console.log(data)
      }
    )
    this.notesform.reset();
