@@ -70,13 +70,7 @@ export class HeaderComponent implements OnInit {
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 
     this.authService.userInfo.subscribe((res) => {
-      console.log('Header Component User : ', res);
       this.user = res;
-      if (res) {
-        this.isLoggedIn = true;
-        // this.isPatient = this.user.roleId === 4 ? true : false;
-        // this.isAdmin = this.user.roleId === 1 ? true : false;
-      }
     });
 
     // this.user = localStorage.getItem('user');
