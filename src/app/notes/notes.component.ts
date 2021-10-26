@@ -28,9 +28,9 @@ export class NotesComponent implements OnInit {
       this.user = user;
     });
     this.getNonReadCount();
-    setTimeout(function(){
-      window.location.reload();
-    },10000);
+    // setTimeout(function(){
+    //   window.location.reload();
+    // },100000);
   }
   
 

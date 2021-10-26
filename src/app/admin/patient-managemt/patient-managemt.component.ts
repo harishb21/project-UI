@@ -87,24 +87,7 @@ export class PatientManagementComponent implements OnInit {
   public getServerData(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-
     this.loadPatient();
-    // this.adminService.getAllPatient(event.pageIndex,event.pageSize,this.sort).subscribe(
-    //   response =>{
-    //     if(response.error) {
-    //       console.log(response.error);
-
-    //     } else {
-    //       this.dataSource=response.patients
-    //       this.pageIndex = response.page;
-    //       this.pageSize = response.size;
-    //       this.length = response.totalItems;
-    //     }
-    //   },
-    //   error =>{
-    //     console.log(error);
-    //   }
-    // );
     return event;
   }
 
@@ -141,7 +124,10 @@ export class PatientManagementComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.adminService
-    .getFilterPatientRecord(filterValue)
+    .getFilterPatientRecord(this.pageIndex,
+      this.pageSize,
+      this.direction,
+      filterValue)
     .subscribe((res) => {
       this.dataSource = res.patients;
         this.pageIndex = res.page;

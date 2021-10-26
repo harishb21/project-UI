@@ -22,3 +22,9 @@ table {
   padding: 10px;
   height: 80%;
 }
+.status-button {
+  color: aliceblue;
+  float: none;
+  text-align: center;
+  font-size: 18px;
+}

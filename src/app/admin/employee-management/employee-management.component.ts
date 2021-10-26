@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { AdminserviceService } from '../admin.service';
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
     return !!control;
@@ -36,12 +37,12 @@ export class EmployeeManagementComponent implements OnInit {
   currentEmployee: null;
   currentIndex = -1;
   id = '';
-  page = 1;
+  page = 0;
   count = 0;
   pageSize = 5;
   pageSizes = [5, 10, 50, 100];
   index: number;
-  newrecord: number = 5;
+  noValue: boolean = false;
   value = 5;
   columnName: string = 'userId';
   direction: string = 'ASC';
@@ -62,8 +63,8 @@ export class EmployeeManagementComponent implements OnInit {
     private adminService: AdminserviceService,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private toastr:ToastrService,
-    private router:Router
+    private toastr: ToastrService,
+    private router: Router
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -83,18 +84,14 @@ export class EmployeeManagementComponent implements OnInit {
     this.adminService
       .getAllUsers(this.page, this.pageSize, this.columnName, this.direction)
       .subscribe((data) => {
-        const { staffs, totalElements } = data;
+        const { staffs, totalElements, page, size } = data;
         this.allEmployee = staffs;
         this.count = totalElements;
+        (this.page = page), (this.pageSize = size);
       });
   }
   handlePageChange(event: any): void {
     this.page = event;
-    this.loadUser();
-  }
-  handlePageSizeChange(event: any): void {
-    this.pageSizes = event.target.value;
-    this.page = 1;
     this.loadUser();
   }
 
@@ -106,12 +103,10 @@ export class EmployeeManagementComponent implements OnInit {
     this.disableSelect = new FormControl(false);
   }
   changeStatus() {
-    
     this.adminService.editEmployeeStatus(this.allStaffs).subscribe((data) => {
       //this._snackBar.open(data.msg);
-      this.toastr.success(data.msg)
+      this.toastr.success(data.msg);
       this.selected.reset();
-      window.location.reload();
     });
   }
   addValues(patientId: number) {
@@ -120,40 +115,36 @@ export class EmployeeManagementComponent implements OnInit {
     obj.status = this.selectedValue;
     this.allStaffs.push(obj);
   }
-  applyFilter(event: Event) {
+  applyFilter(event: Event) :any{
     const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue === "")
+      {
+        this.loadUser();
+      return false;
+      }
     this.adminService
-    .getFilterEmployeeRecord(filterValue)
-    .subscribe((data) => {
-      const { staffs, totalElements } = data;
-      this.allEmployee = staffs;
-      this.count = totalElements;
-    });
+      .getFilterEmployeeRecord(
+        this.page,
+        this.pageSize,
+        this.direction,
+        filterValue
+      )
+      .subscribe((data) => {
+        console.log(data);
+        const { staffs, totalElements, page, size } = data;
+        this.allEmployee = staffs;
+        this.count = totalElements;
+        (this.page = page), (this.pageSize = size);
+        if (totalElements === 0) this.noValue = true;
+      });
+      
   }
 
-  // getRequestParams(page:any,pageSize:any):any{
-  //   let params:any = {};
-
-  //   if(page){
-  //     params[`page`]=page-1;
-  //   }
-  //   if (pageSize) {
-  //     params[`size`] = pageSize;
-  //   }
-  //   return params;
-
-  // }
   changeRecord(value: any) {
-    this.newrecord = value;
     this.pageSize = value;
     this.loadUser();
   }
-  // addValues(userId: number) {
-  //   const obj = new User();
-  //   //obj.userId = patientId;
-  //   //obj.status = this.selectedValue;
-  //   this.allStaffs.push(obj);
-  // }
+
   getSort(key: any) {
     if (this.columnName === key) {
       if (this.direction === 'ASC') this.direction = 'DESC';

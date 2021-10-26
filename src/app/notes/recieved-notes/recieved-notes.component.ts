@@ -49,8 +49,9 @@ export class RecievedNotesComponent implements OnInit {
   }
   loadNotes() {
     this.notesService.getRecievedNotes(this.user.userId).subscribe(
-      (data) => {
-        this.dataSource = new MatTableDataSource(data);
+      (data:any) => {
+        console.log(data)
+        this.dataSource = new MatTableDataSource(data.notes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -76,7 +77,6 @@ export class RecievedNotesComponent implements OnInit {
     )
 }
 openDialog(note:Notes): void {
-  this.onRowClicked(note.notesid)
   const dialogRef = this.dialog.open(MessageDailogComponent, {
     data: note
   });
