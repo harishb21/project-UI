@@ -16,6 +16,7 @@ import {
 
 import { DashboardInbox } from '../model/inbox.model';
 import { InboxServiceBoard } from './inbox.dashboard-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inbox',
@@ -33,7 +34,7 @@ import { InboxServiceBoard } from './inbox.dashboard-service';
   ],
 })
 export class InboxComponent implements OnInit, AfterViewInit {
-  ngOnInit(): void {}
+
  // ELEMENT_DATA1: Inbox[] = this.inboxService.getAllappointments();
   //dataSource = new MatTableDataSource<Inbox>(this.ELEMENT_DATA1);
   dataSource = new MatTableDataSource<DashboardInbox>();
@@ -48,9 +49,10 @@ export class InboxComponent implements OnInit, AfterViewInit {
 
   expandedElement: DashboardInbox | null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private inboxServiceBoard: InboxServiceBoard) {
+  constructor(private inboxServiceBoard: InboxServiceBoard, private router: Router) {
     this.inboxServiceBoard.onloadFun();
     this.getUIData();
+    this.onloadUIFields();
   }
   
   ngAfterViewInit() {
@@ -65,14 +67,42 @@ export class InboxComponent implements OnInit, AfterViewInit {
     alert('args-' + args);
     this.expandedElement = args;
   }
-  onClickDelete(args:DashboardInbox){
-    this.expandedElement = args;
-   // this.inboxService.deleteRecord(args);
-    ///this.ELEMENT_DATA1 = this.inboxService.getAllappointments();
-    //this.dataSource = new MatTableDataSource<Inbox>(this.ELEMENT_DATA1);
-    alert(" component record deleted");
-  }
-
+  ngOnInit(): void {
+    console.log(this.patientUIFlag);
+    
+        if(this.patientUIFlag){
+          this.columnsToDisplay=[
+            'Sno',
+            'MeetingTitle',
+            'Physician', 
+            'Date',
+            'Time',
+            'action',
+          ];
+        }else if(this.pysicianUIFlag){
+          this.columnsToDisplay=[
+            'Sno',
+            'MeetingTitle',
+            'Patient', 
+            'Date',
+            'Time',
+            'action',
+          ];
+        }else{
+          this.columnsToDisplay=[
+            'Sno',
+            'MeetingTitle',
+            'Physician', 
+            'Patient', 
+            'Date',
+            'Time',
+            'action',
+          ];
+        }
+     }
+  patientUIFlag:boolean = false;
+  pysicianUIFlag:boolean =false;
+  nurseUIFlag:boolean = false;
   elementdata:DashboardInbox[]=[];
    obj:DashboardInbox ;
    getUIData(){
@@ -86,6 +116,7 @@ export class InboxComponent implements OnInit, AfterViewInit {
            dashboardEtime : this.getUIDate(data.endTime),
            description : data.description,
            physicianName : this.getUIPhysicianName(data.physicianId),
+           patientName:this.getUIPatientName(data.patientId),
            declined: false
          }
          this.elementdata.push(obj);
@@ -94,7 +125,21 @@ export class InboxComponent implements OnInit, AfterViewInit {
      });
      
    }
+   onloadUIFields(){
  
+     if(this.inboxServiceBoard.userRoleId != null && this.inboxServiceBoard.userRoleId != undefined){
+       if(this.inboxServiceBoard.userRoleId === 4){
+         this.patientUIFlag = true;
+     
+       }else if(this.inboxServiceBoard.userRoleId === 2){
+         this.pysicianUIFlag = true;
+  
+       }else if(this.inboxServiceBoard.userRoleId === 3){
+         this.nurseUIFlag = true;
+     
+       }
+     }
+   }
    physicianName:String;
  getUIPhysicianName(physicianId:number){
    this.physicianName ='';
@@ -109,5 +154,28 @@ export class InboxComponent implements OnInit, AfterViewInit {
    getUIDate(date:String){
      return new Date(date.toString())
    }
-   
+   patientName:String="";
+   getUIPatientName(patientId:number){
+    this.patientName='';
+    this.inboxServiceBoard.patientNameList
+    .filter(data=>data.pId === patientId).map(
+      val=>{
+        this.patientName = val.patientName;
+      });
+      return this.patientName; 
+   }
+   highlight(args:DashboardInbox):boolean{
+    if(args.dashboardStime.toDateString() ===  new Date().toDateString()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  onClickDetails(args:DashboardInbox){
+    this.expandedElement = args;
+  }
+  onClickEdit(args:DashboardInbox){
+    this.expandedElement = args;
+    this.router.navigate(['app-inbox-calendar']);
+  }
 }
