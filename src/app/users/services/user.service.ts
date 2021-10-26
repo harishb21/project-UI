@@ -11,7 +11,7 @@ import { User } from '../../model/user.model';
 export class UserService {
   public roles = new BehaviorSubject<Role[] | []>([]);
 
-  HOST_URL = 'http://localhost:8082';
+  HOST_URL = 'http://localhost:8888';
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
     this.loadData();
@@ -37,10 +37,28 @@ export class UserService {
   addEmployee(employee: User) {
     console.log('INSNIDE addEmployee');
 
-    this.http.post<User>(`${this.HOST_URL}/employees/`, employee).subscribe(
+    this.http
+      .post<User>(`${this.HOST_URL}/users//employees/`, employee)
+      .subscribe(
+        (res) => {
+          console.log('Response Created');
+          // res = JSON.parse(res);
+          this._snackBar.open(res?.message);
+          console.log(res);
+        },
+        (err) => {
+          console.error('Error Occured');
+          console.error(err);
+        }
+      );
+  }
+
+  addPatient(patient: User) {
+    console.log(patient);
+
+    this.http.post<User>(`${this.HOST_URL}/users/patients/`, patient).subscribe(
       (res) => {
         console.log('Response Created');
-        // res = JSON.parse(res);
         this._snackBar.open(res?.message);
         console.log(res);
       },
@@ -51,20 +69,22 @@ export class UserService {
     );
   }
 
-  addPatient(patient: User) {
+  signupPatient(patient: User) {
     console.log(patient);
 
-    this.http.post<User>(`${this.HOST_URL}/patients/`, patient).subscribe(
-      (res) => {
-        console.log('Response Created');
-        this._snackBar.open(res?.message);
-        console.log(res);
-      },
-      (err) => {
-        console.error('Error Occured');
-        console.error(err);
-      }
-    );
+    this.http
+      .post<User>(`${this.HOST_URL}/users/patients/signup/`, patient)
+      .subscribe(
+        (res) => {
+          console.log('Response Created');
+          this._snackBar.open(res?.message);
+          console.log(res);
+        },
+        (err) => {
+          console.error('Error Occured');
+          console.error(err);
+        }
+      );
   }
 
   /**
