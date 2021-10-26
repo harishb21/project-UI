@@ -154,7 +154,8 @@
           mat-button
           class="menu-button"
           routerLink="/app-inbox-calendar"
-          *ngIf="isPhysician() || isNurse()">
+          *ngIf="!isAdmin()"
+        >
           <mat-icon>event</mat-icon>
           <span>Schedule</span>
         </button>
@@ -174,5 +175,4 @@
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
-  
 </mat-sidenav-container>

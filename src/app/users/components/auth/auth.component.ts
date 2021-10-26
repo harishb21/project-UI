@@ -7,6 +7,7 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { AuthService } from '../../../services/auth.service';
 import { ErrorMessage } from '../../../model/error.enum';
 import { User } from '../../../model/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,8 @@ export class AuthComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -60,109 +62,83 @@ export class AuthComponent implements OnInit {
     //   this.router.navigate(['/admin']);
     // }
 
-    let email = this.form.value.email;
-    let password = this.form.value.password;
-    let verified: boolean = false;
+    // let email =this.form.value.email;
+    // let password =this.form.value.password;
 
-    // let res: User = new User();
-
-    // res.attempt = -1;
-    // res.title = 'Mr.';
-    // res.firstName = 'Admin';
-    // res.lastName = 'LastName';
-    // res.roleId = 1;
-    // res.roleName = 'ADMIN';
-    // res.email = 'admin@admin';
-
-    // this.authService.userInfo.next(res);
-
-    // if (res.attempt === -1) {
-    //   this.router.navigate(['/users/update']);
-    // } else {
-    //   this.router.navigate(['/']);
-    // }
-
-    // return true;
-
-    // console.log(this.form);
-    // return false;
+    let user: User = new User();
+    user.email = this.form.value.email;
+    user.password = this.form.value.password;
 
     if (this.form.valid) {
-      this.http
-        .post<any>(`${GlobalConstants.USER_SERVER_URL}/auth/verify`, {
-          email: email,
-          password: password,
-        })
-        .subscribe(
-          (res) => {
-            console.log('Response Received');
+      this.userService.authenticate(user).subscribe(
+        (res) => {
+          console.log('Response Received');
 
-            console.log(res);
-            this.authService.userInfo.next(res.user);
-            sessionStorage.setItem('user', JSON.stringify(res.user));
-            sessionStorage.setItem('token', JSON.stringify(res.token));
-            verified = true;
+          console.log(res);
+          this.authService.userInfo.next(res.user);
+          sessionStorage.setItem('user', JSON.stringify(res.user));
+          sessionStorage.setItem('token', JSON.stringify(res.token));
 
-            this.errorMessage = '';
+          this.errorMessage = '';
 
-            if (res.user.attempt === -1) {
-              // new user redirect update password page
-              this.router.navigate(['/users/update']);
-            } else {
-              window.location.reload();
-              this.router.navigate(['/']);
-              console.log('INSIDE ELSE Auth');
-            }
-
-            this._snackBar.open('Successfully Authenticated');
-
-            // If res shows user not found set user null and login fail
-            // If successfully then fetch that user update for global access
-          },
-          (err) => {
-            console.log('Error Received');
-            console.log(err);
-
-            if (err.error.attempt) {
-              console.log('Inside attempt');
-
-              // Error Message when user tries more than one time with wrong crendials
-              if (err.error.attempt >= this.MAX_ATTEMPT) {
-                this.errorMessage =
-                  'Your account has been locked. Please contact the hospital administrator or call helpdesk on 123456 for more information.';
-              } else if (err.error.attempt > 0) {
-                this.errorMessage = `${
-                  this.MAX_ATTEMPT - err.error.attempt
-                } login attempts remaining`;
-              } else {
-                this.errorMessage = '';
-              }
-
-              this.attempt = err.error.attempt;
-            } else {
-              this.errorMessage = err.error;
-            }
-
-            // alert(err.error.title + '\n' + err.error.detail);
-
-            this.authService.userInfo.next(null);
-            verified = false;
-
-            // this._snackBar.open(this.errorMessage);
+          if (res.user.attempt === -1) {
+            // new user redirect update password page
+            this.router.navigate(['/users/update']);
+          } else {
+            window.location.reload();
+            this.router.navigate(['/']);
+            console.log('INSIDE ELSE Auth');
           }
-        );
 
-      // let authenticated = this.authService.authenticate(email, password);
-      // if (authenticated) {
-      //   // Navigation after successful login
-      //   this.router.navigate(['/']);
-      // } else {
-      //   console.log('Waiting ', authenticated);
-      // }
+          this._snackBar.open('Successfully Authenticated');
+
+          // If res shows user not found set user null and login fail
+          // If successfully then fetch that user update for global access
+        },
+        (err) => {
+          console.log('Error Received');
+          console.log(err);
+
+          if (err.error.attempt) {
+            console.log('Inside attempt');
+
+            // Error Message when user tries more than one time with wrong crendials
+            if (err.error.attempt >= this.MAX_ATTEMPT) {
+              this.errorMessage =
+                'Your account has been locked. Please contact the hospital administrator or call helpdesk on 123456 for more information.';
+            } else if (err.error.attempt > 0) {
+              this.errorMessage = `${
+                this.MAX_ATTEMPT - err.error.attempt
+              } login attempts remaining`;
+            } else {
+              this.errorMessage = '';
+            }
+
+            this.attempt = err.error.attempt;
+          } else {
+            this.errorMessage = err.error;
+          }
+
+          // alert(err.error.title + '\n' + err.error.detail);
+
+          this.authService.userInfo.next(null);
+
+          // this._snackBar.open(this.errorMessage);
+        }
+      );
     }
-    //  else {
-    //   this.attempt++;
-    // }
+
+    // Errors
+    // Might possible user not found
+
+    // Might possible credentials mismatch
+
+    // Redirection URLS
+    // Normal Login send to dashboard
+
+    // First Time Login Redirect To Change Password
+
+    // Forget Password First time Login send to change password
   }
 
   // Register

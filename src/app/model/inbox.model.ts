@@ -25,4 +25,29 @@ export class Appointment {
         public reason:String
     ){}
 }
+export class DashboardInbox{  
+    constructor(){}
+            public id: string;
+            public title: String;
+            public dashboardDate:Date;
+            public dashboardStime: Date;
+            public dashboardEtime: Date;
+            public description: String;
+            public physicianName:string;
+            public patientName:number;
+            public declined:boolean;
+    }
+export class StaffName{
+
+    public staffName:String;
+    public id:number;
+    constructor(){}
+}
+
+export class PatientName{
+    public patientName:String;
+    public pId:number;
+    constructor(){}
+}
+
 
