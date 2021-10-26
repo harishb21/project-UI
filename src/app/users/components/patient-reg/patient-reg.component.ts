@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ErrorMessage } from '../../../model/error.enum';
 import { User } from '../../../model/user.model';
 import { UserService } from '../../services/user.service';
@@ -23,6 +24,7 @@ export class PatientRegComponent implements OnInit {
   user: User;
 
   constructor(
+    private authService: AuthService,
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router
@@ -32,11 +34,9 @@ export class PatientRegComponent implements OnInit {
     this.todayDate = new Date();
 
     // If user found in session
-    if (localStorage.getItem('user')) {
-      const str: string | null = localStorage.getItem('user');
-      const user: User = JSON.parse(str === null ? '{}' : str);
-      this.user = user;
-    }
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;
+    });
 
     this.form = this.fb.group(
       {
@@ -95,12 +95,17 @@ export class PatientRegComponent implements OnInit {
       newPatient.username = this.form.value.username;
       newPatient.password = this.form.value.password;
 
-      this.userService.addPatient(newPatient);
+      // this.userService.addPatient(newPatient);
 
       // When no user in session redirect after signup to login page
       // Redirect to Login Page when Sign up by new Patient
       if (!this.user) {
-        this.router.navigate(['/']);
+        console.log('Signup For new PAtient');
+
+        // this.router.navigate(['/']);
+        this.userService.signupPatient(newPatient);
+      } else {
+        this.userService.addPatient(newPatient);
       }
 
       // Redirect To Dashboard after registration
