@@ -35,7 +35,8 @@ export class AdminComponent implements OnInit {
 
   loadPatientData() {
     this.adminService.getPatientCount().subscribe(
-      pipe((data) => {
+      pipe((res:any) => {
+       
         this.patientData = {
           labels: ['Total Patient', 'Active Patient', 'Need to be Activated'],
           datasets: [
@@ -43,7 +44,7 @@ export class AdminComponent implements OnInit {
               label: 'Patient Overview',
               backgroundColor: '#42A5F5',
               borderColor: '#1E88E5',
-              data: data,
+              data: res.count
             },
           ],
         };
@@ -52,7 +53,7 @@ export class AdminComponent implements OnInit {
   }
   loadUserData() {
     this.adminService.getEmployeeCount().subscribe(
-      pipe((data) => {
+      pipe((res:any) => {
         this.userData = {
           labels: ['Total Employee', 'Active Employee', 'Need to be Activated'],
           datasets: [
@@ -60,7 +61,7 @@ export class AdminComponent implements OnInit {
               label: 'Hospital User Overview',
               backgroundColor: '#42A5F5',
               borderColor: '#1E88E5',
-              data: data,
+              data: res.count
             },
           ],
         };

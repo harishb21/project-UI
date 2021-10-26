@@ -1,7 +1,6 @@
-<div class="container">
+<div class="container maindiv">
   <h1 >New Notes</h1>
-  <div class="row">
-    <div class="col-md-6">
+  
       <div class="example-container">
         <form [formGroup]="notesform" (ngSubmit)="onSubmit()">
       
@@ -9,7 +8,7 @@
           <mat-label>Select Physician</mat-label>
           <mat-select disableRipple matNativeControl required formControlName="recieverId">
             <mat-option></mat-option>
-            <mat-option *ngFor="let staff of phycision" (click)="addValues(staff.roleId)" [value]="staff.userId">
+            <mat-option *ngFor="let staff of phycision" (click)="addValues(staff.roleName)" [value]="staff.userId">
              {{staff.title}} {{ staff.firstName }}  {{staff.lastName}}
             </mat-option>
        
@@ -34,7 +33,5 @@
         <button type="submit" mat-raised-button color="primary">Send Note</button>
        </form>
       </div>
-      
-      <div>
-  </div>
+ 
 </div>

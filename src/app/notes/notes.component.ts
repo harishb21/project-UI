@@ -1,10 +1,11 @@
+import { NotesServiceService } from './services/notes-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
 
-declare const hide: any;
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -13,22 +14,25 @@ declare const hide: any;
 export class NotesComponent implements OnInit {
   user: User | null = null;
 
-  nonReadCount : number= 7;
+  nonReadCount : number= 0;
   activateSendNotes : boolean = true;
   activateSentNotes : boolean = false;
   activateRecievedNotes : boolean = false;
  
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private notesService:NotesServiceService, private router: Router) {}
 
 
   ngOnInit(): void {
+
     this.authService.userInfo.subscribe((user) => {
       this.user = user;
     });
+    this.getNonReadCount();
+    // setTimeout(function(){
+    //   window.location.reload();
+    // },100000);
   }
-  hideBar() {
-    hide();
-  }
+  
 
   activatatedeSendNotes() {
     this.activateSendNotes = true;
@@ -49,7 +53,19 @@ export class NotesComponent implements OnInit {
     hidden = false;
     
     toggleBadgeVisibility() {
+
       this.hidden = true;
+    }
+
+    getNonReadCount(){
+      this.notesService.getNonReadCount(this.user.userId).subscribe(
+        (res)=>{
+          this.nonReadCount=res.nonreadcount;
+          if(this.nonReadCount===0)
+            this.hidden=true
+          
+        }
+      )
     }
 
 }

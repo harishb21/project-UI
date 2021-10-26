@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../model/user.model';
 import { tap } from 'rxjs/operators';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +18,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { pipe } from 'rxjs';
 import { AdminserviceService } from '../admin.service';
 import { AuthService } from '../../services/auth.service';
-
+import { Sort } from 'src/app/model/page';
+import { PaginationDataSource } from 'src/app/model/PaginationDataSource.datasource';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
@@ -43,12 +46,18 @@ export class PatientManagementComponent implements OnInit {
     'editstatus',
   ];
   dataSource: MatTableDataSource<User>;
+  pageEvent: PageEvent;
+  pageIndex: number = 0;
+  pageSize: number = 5;
+  length: number;
+  columnName: string = 'userId';
+  direction: string = 'ASC';
+
   patienId: number;
   tempId: number;
   id: number = 0;
   allPatient: User[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   disableSelect = new FormControl(true);
   matcher = new MyErrorStateMatcher();
   selectedValue: string;
@@ -60,8 +69,12 @@ export class PatientManagementComponent implements OnInit {
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private _snackBar: MatSnackBar,
+    private router:Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
   selected = new FormControl('selected.value', [
     Validators.pattern('selected.value'),
   ]);
@@ -70,13 +83,18 @@ export class PatientManagementComponent implements OnInit {
       this.user = user;
     });
     this.loadPatient();
-    this.toastr.success('All Data loaded successfully');
+  }
+  public getServerData(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadPatient();
+    return event;
   }
 
   addValues(patientId: number) {
     const obj: User = new User();
-    // obj.userId = patientId;
-    // obj.status = this.selectedValue;
+    obj.userId=patientId;
+    obj.status=this.selectedValue
     this.allPatient.push(obj);
   }
 
@@ -88,52 +106,54 @@ export class PatientManagementComponent implements OnInit {
     this.disableSelect = new FormControl(!this.disableSelect.value);
   }
   loadPatient() {
-    this.adminService.getAllPatient().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    this.adminService
+      .getAllPatient(
+        this.pageIndex,
+        this.pageSize,
+        this.columnName,
+        this.direction
+      )
+      .subscribe((res) => {
+        this.dataSource = res.patients;
+        this.pageIndex = res.page;
+        this.pageSize = res.size;
+        this.length = res.totalItems;
+      });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.adminService
+    .getFilterPatientRecord(this.pageIndex,
+      this.pageSize,
+      this.direction,
+      filterValue)
+    .subscribe((res) => {
+      this.dataSource = res.patients;
+        this.pageIndex = res.page;
+        this.pageSize = res.size;
+        this.length = res.totalItems;
+    });
+    
   }
   changeStatus() {
     this.adminService.editPatientStatus(this.allPatient).subscribe(
-      pipe((data) => {
-        console.log(data);
-        this.loadPatient();
+      pipe((data:any) => {
+        this._snackBar.open(data.msg);
+        this.ngOnInit();
+       // window.location.reload();
       })
     );
-
-    // tap((data) => {
-    //         console.log(data);
-    //        this.loadPatient();
-    //      }),
-    //   (error :any) => {
-    //    console.log(error);
-    //    this.loadPatient();
-    //    });
   }
-  // acivatePatient(patientId: number) {
-  //   this.adminService.activatePatient(patientId).subscribe(
-  //     tap((data) => {
-  //       console.log(data);
-  //       this.loadPatient();
-  //     }),
-  //     (error) => {
-  //       console.log(error);
-  //       this.loadPatient();
-  //     }
-  //   );
-  // }
+  getSort(sort: string) {
+    if (this.columnName === sort) {
+      if (this.direction === 'ASC') this.direction = 'DESC';
+      else this.direction = 'ASC';
+    }
+    this.columnName = sort;
+
+    this.loadPatient();
+  }
 }
 
 /** Builds and returns a new User. */

@@ -40,6 +40,7 @@ import { CommonModule } from '@angular/common';
     ChartModule,
     CardModule,
     HttpClientModule,
+    ToastrModule
   ],
   providers: [
     CdkColumnDef,
@@ -47,7 +48,7 @@ import { CommonModule } from '@angular/common';
     AuthService,
     AuthGuard,
     UserGuard,
-    ToastrModule,
+    
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 500 } },
   ],
   bootstrap: [],

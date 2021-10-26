@@ -4,9 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-
-
+import { Page, PageRequest } from '../model/page';
 
 @Injectable({
   providedIn: 'root',
@@ -20,38 +18,89 @@ export class AdminserviceService {
     this.baseurl = 'http://localhost:8085/admin/';
   }
 
-  getAllPatient(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseurl}patient-list`);
+  getAllPatient(
+    page: any,
+    size: any,
+    columnName: any,
+    direction: any
+  ): Observable<any> {
+    const params = {
+      page,
+      size,
+      columnName,
+      direction,
+    };
+    return this.http.get(`${this.baseurl}patient-list`, { params });
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseurl}user-list`);
+  getAllUsers(
+    page: any,
+    size: any,
+    columnName: any,
+    direction: any
+  ): Observable<any> {
+    const params = {
+      page,
+      size,
+      columnName,
+      direction,
+    };
+    return this.http.get(`${this.baseurl}user-list`, { params });
   }
 
-  editPatientStatus(allPatient: User[]) {
-    return this.http.put<User>(
-      `${this.baseurl}patient/editstatus`,
-        allPatient
+  editPatientStatus(allPatient: User[]): Observable<any>  {
+    return this.http.put(`${this.baseurl}patient/editstatus`, allPatient);
+  }
+  editEmployeeStatus(allEmployee: User[]) : Observable<any> {
+    
+    return this.http.put(
+      `${this.baseurl}/employee/editstatus/`,
+      allEmployee
     );
   }
-  editEmployeeStatus(allEmployee : User[]) {
-    return this.http.put<User>(
-      `${this.baseurl}/employee/editstatus/`,allEmployee
-    );
-  }
 
-  getOnePatient(patient_id: number) {
-    return this.http.get<User>(this.baseurl + 'patient/' + patient_id);
+  getPatientCount(): Observable<any>  {
+    return this.http.get(this.baseurl + 'patients/patientcount');
   }
-  getOneUser(staffId: number) {
-    return this.http.get<User>(this.baseurl + 'user/' + staffId);
+  getEmployeeCount(): Observable<any>  {
+    return this.http.get(this.baseurl + 'user/usercount');
   }
-  getPatientCount(){
-    return this.http.get<Response>(this.baseurl+'patients/patientcount');
-    
+  getFilterPatientRecord(
+    page: any,
+    size: any,
+    direction: any,
+    filterValue:any):Observable<any>{
+    const params = {
+      page,
+      size,
+      direction,
+      filterValue
+    };
+    return this.http.get(`${this.baseurl}filter/patient-list`,{params});
   }
-  getEmployeeCount(){
-    return this.http.get<Number>(this.baseurl+'user/usercount');
-    
+  getFilterEmployeeRecord(
+    page: any,
+    size: any,
+    direction: any,
+    filterValue:any):Observable<any>{
+    const params = {
+      page,
+      size,
+      direction,
+      filterValue
+    };
+    return this.http.get(`${this.baseurl}filter/user-list`,{params});
+  }
+  getAllPatientEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}patient/allpatients`)
+  }
+  getAllActivePatientEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}patient/allactivepatients`)
+  }
+  getAllEmployeeEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}employees/allemployees`)
+  }
+  getAllActiveEmployeeEmail():Observable<any>{
+    return this.http.get(`${this.baseurl}employees/allactiveemployees`)
   }
 }

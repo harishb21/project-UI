@@ -1,4 +1,14 @@
-.fa {
+.maindiv{
+  height: 40px; 
+  background-color: black; 
+ color: gainsboro;
+  text-align: center;
+}
+.content{
+  padding-top: 10px;
+  
+}
+/* .fa {
     padding: 20px;
     font-size: 20px;
     width: 50px;
@@ -12,7 +22,24 @@
     bottom: 0;
     width: 100%;
     background-color: rgb(10, 10, 10); 
-    height: 50px;
+    height: 10px;
     color: white;
     text-align: center;
-  }
+  } */
+.fa {
+  padding: 20px;
+  font-size: 20px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.panel-footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(10, 10, 10);
+  height: 50px;
+  color: white;
+  text-align: center;
+}

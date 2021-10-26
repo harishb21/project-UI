@@ -1,3 +1,4 @@
+import { NotificationComponent } from './notification/notification.component';
 import { NotesComponent } from './notes.component';
 import { RecievedNotesComponent } from './recieved-notes/recieved-notes.component';
 import { SentNotesComponent } from './sent-notes/sent-notes.component';
@@ -40,6 +41,15 @@ const routes: Routes = [
       role: [Roles.ADMIN, Roles.PHYSICIAN, Roles.NURSE],
     },
   },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+    canActivate: [UserGuard],
+    data: {
+      role: [Roles.ADMIN],
+    },
+  },
+
 ];
 
 @NgModule({

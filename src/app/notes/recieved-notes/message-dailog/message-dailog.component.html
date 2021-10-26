@@ -6,21 +6,26 @@
   {{note.receiver.lastName}}
 </h1>
 <div>
+  
 <div class="input-full-width" mat-dialog-content>
   <span>Hi <b>{{note.sender.firstName}}</b></span>
-  <p>{{note.message}}</p><br>
-  <!-- <mat-form-field appearance="fill">
-    <mat-label>reply</mat-label>
-    <textarea matInput [value]="note.receiver.firstName"></textarea>
-  </mat-form-field> -->
+  <p style="font: message-box;;">{{note.message}}</p><br>
+  <p [hidden]="note.reply.length ==0" style="color: red;">Previous Reply on this Note</p>
+  <div style="color: dimgrey;">
+    <p *ngFor="let r of note.reply">{{r}}</p>
+  </div>
+  <form [formGroup]="replyform" (ngSubmit)="onSendClick()">
   <mat-form-field class="input-full-width" appearance="fill">
     <mat-label>Reply to this note</mat-label>
-    <textarea [value]="reply" matInput placeholder="Enter....."></textarea>
+    <textarea matInput placeholder="Enter....." formControlName="reply"></textarea>
   </mat-form-field>
+  <button type="submit" color="primary" mat-button ><mat-icon>send</mat-icon>&nbsp; Send</button>
+</form>
 </div><br>
 <div mat-dialog-actions>
-  <button color="primary" mat-button (click)="onSendClick()" >Send</button>
+ 
   <button mat-icon-button color="accent" mat-button (click)="onDeleteClick()">Delete</button>
-  <button style="float: right;" color="warn" mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button style="float: right;" color="warn" mat-button mat-dialog-close cdkFocusInitial>Close</button>
 </div>
+
 </div>

@@ -6,48 +6,61 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/app/model/roles.enum';
 import { AuthService } from 'src/app/services/auth.service';
+import { TimeslotCheck, TimeSlotResponse } from 'src/app/model/timeslot.model';
 
 
 @Injectable({ providedIn: 'root' })
 export class InboxService implements OnInit {
   userphysician:number=0;
   public user: User;
+  timeCheck:TimeslotCheck = new TimeslotCheck();
+  timeSlotServiceRes:TimeSlotResponse;
   constructor(private http: HttpClient,private authService: AuthService) {
     //this.getAllAppointmentData();
     this.getAllStaffData();
     this.getAllPaientData();
-   // this.onloadFun();
-   
   }
   ngOnInit(): void {
     this.loadStaffData();
-   
-    
-  }
+    }
   staffNameList: User[] = [];
   patientNameList: User[] = [];
- 
   userEmpId:number=0;
   userRoleId:number=0;
   userEmp:number=0;
   uPhyisicanName:string='';
   disablePhysician:boolean=false;
+  //---patient data-----
+  patientId:number=0;
+  patientName:string='';
+  disablePatient:boolean=false;
   onloadFun(){
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
-      console.log(this.user);
-      
     });
      if( this.user.roleId === 2){
         this.disablePhysician=true;
         this.uPhyisicanName = this.user.title+" "+this.user.firstName+" "+this.user.lastName;
         this.userEmpId=this.user.empId;
+        this.timeCheck.physicianEmpId = this.user.empId;
+        this.timeCheck.roleId=this.user.roleId;
         this.userRoleId=this.user.roleId;
        
+     }else if(this.user.roleId === 4){
+      console.log("patient details---------"); 
+      console.log(this.user); 
+      this.disablePatient=true;
+      this.patientName = this.user.firstName+" "+this.user.lastName;
+      this.patientId = this.user.userId;
+      this.userEmpId=this.user.userId;
+      this.userRoleId=this.user.roleId;
+      this.timeCheck.patientId = this.user.userId;
      }else{
       this.disablePhysician=false;
       this.userEmpId=this.user.empId;
       this.userRoleId=this.user.roleId;
+      this.timeCheck.roleId=this.user.roleId;
+      this.timeCheck.patientId = 2;
      }
    }
    getAllAppointmentData(): Observable<InboxData[]> {
@@ -108,9 +121,7 @@ export class InboxService implements OnInit {
   }
   //==================================service data========DB Data===============================================
   HOST_URL = 'http://localhost:8072/api';
-
   listOfInboxData: InboxData[] = [];
-
   // getAllAppointmentData(): Observable<InboxData[]> {
   //   return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
   //   //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/`+this.roleId+"/"+this.userEmpId);
@@ -137,7 +148,6 @@ export class InboxService implements OnInit {
     });
   }
 
-
 loadPatientNameData() {
   this.getAllPaientData().subscribe((res) => {
     res.forEach((data) => {
@@ -150,6 +160,14 @@ loadPatientNameData() {
       });
   });
 }
+
+timeSlotcheck(slotcheck: TimeslotCheck):Observable<TimeSlotResponse> {
+  return this.http .post<TimeSlotResponse>(`${this.HOST_URL}/appointments/timeSlotCheck`, slotcheck);
+}
+
+
+
+
 }
 
 //    .subscribe(

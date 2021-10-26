@@ -2,7 +2,7 @@ mat-toolbar {
   margin: 2px;
   background: #002b5c;
   color: white;
-  height: 44px;
+  height: 50px;
 }
 
 mat-sidenav {
@@ -68,7 +68,7 @@ mat-divider {
   background-color: rgba(255, 255, 255, 0.5);
 }
 .appDiv {
-  width: 95%;
+  
   margin-left: 25px;
 }
 
@@ -76,10 +76,22 @@ mat-divider {
   margin-left: 8px;
 }
 
-.mat-expanded-panel {
+mat-expanded-panel {
   width: 100%;
   align-items: center;
   justify-content: flex-start;
   font-size: 1rem;
+  background: #002b5c;
 }
 
+.example-spacer {
+  flex: 1 1 auto;
+}
+mat-expansion-panel{
+  /* background-color: #002b5c; */
+  background: #002b5c;
+  color: white;
+}
+mat-expansion-panel-header mat-panel-title{
+  color: white;
+}

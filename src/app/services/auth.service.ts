@@ -11,15 +11,6 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
   public userInfo = new BehaviorSubject<User | null>(null);
-  // private loggedIn = new BehaviorSubject<boolean>(false); // {1}
-
-  // get isLoggedIn() {
-  //   return this.loggedIn.asObservable(); // {2}
-  // }
-
-  // getUser() {
-  //   return this.userInfo.asObservable();
-  // }
 
   HOST_URL = 'http://localhost:8082';
 
@@ -34,12 +25,12 @@ export class AuthService {
 
     this.userInfo.subscribe((res) => {
       if (res) {
-        localStorage.setItem('user', JSON.stringify(res));
+        sessionStorage.setItem('user', JSON.stringify(res));
       }
     });
 
-    if (localStorage.getItem('user')) {
-      const str: string | null = localStorage.getItem('user');
+    if (sessionStorage.getItem('user')) {
+      const str: string | null = sessionStorage.getItem('user');
       const user: User = JSON.parse(str === null ? '{}' : str);
       this.userInfo.next(user);
     }
@@ -52,72 +43,6 @@ export class AuthService {
         this.userList.splice(0, this.userList.length);
         this.userList.push(...res);
       });
-  }
-
-  /**
-   * This will authenicate the user whether valid or not , If Valid will return user Details and roles , so that it gets registered for whole application and if invalid return null with error code
-   *
-   * @param email
-   * @param password
-   */
-  authenticate(email: string, password: string) {
-    console.log('Inside authenticate');
-
-    let verified: boolean = false;
-
-    this.http
-      .post<User>(`${GlobalConstants.USER_SERVER_URL}/auth/verify`, {
-        email: email,
-        password: password,
-      })
-      .subscribe(
-        (res) => {
-          console.log('Response Received');
-
-          console.log(res);
-          this.userInfo.next(res);
-          localStorage.setItem('user', JSON.stringify(res));
-          verified = true;
-
-          this._snackBar.open('Successfully Authenticated');
-          this.router.navigate(['/']);
-          // If res shows user not found set user null and login fail
-          // If successfully then fetch that user update for global access
-        },
-        (err) => {
-          console.log('Error Received');
-          console.log(err);
-
-          // alert(err.error.title + '\n' + err.error.detail);
-
-          this._snackBar.open(err.error.detail);
-          this.userInfo.next(null);
-          verified = false;
-        }
-      );
-
-    // if (email !== '' && password !== '') {
-    //   let user: User = new User();
-    //   user.firstName = 'admin';
-    //   user.roleId = 1;
-    //   this.userInfo.next(user);
-    //   // localStorage.setItem('user', JSON.stringify(user));
-    //   // this.loggedIn.next(true);
-    //   return true;
-    // }
-    return verified;
-
-    // Errors
-    // Might possible user not found
-
-    // Might possible credentials mismatch
-
-    // Redirection URLS
-    // Normal Login send to dashboard
-
-    // First Time Login Redirect To Change Password
-
-    // Forget Password First time Login send to change password
   }
 
   /**

@@ -24,6 +24,9 @@ export class SendNotesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;
+    });
     this.loadPhycision();
     this.notesform = new FormGroup({
       recieverId: new FormControl(null, [Validators.required]),
@@ -35,9 +38,7 @@ export class SendNotesComponent implements OnInit {
       urgency: new FormControl(false),
     });
 
-    this.authService.userInfo.subscribe((res) => {
-      this.user = res;
-    });
+  
   }
   get f() {
     return this.notesform.controls;
@@ -46,35 +47,25 @@ export class SendNotesComponent implements OnInit {
     this.notesService.getAllPhycision().subscribe((data) => {
       this.phycision.splice(0, this.phycision.length);
       this.phycision.push(...data);
-      console.log(data)
     });
   }
-  addValues(roleId: number) {
-    if (roleId === 2) this.desgination = 'PHYSICIAN';
-    else {
-      if (roleId === 1) this.desgination = 'ADMIN';
-      else if (roleId === 3) this.desgination = 'NURSE';
-      else this.desgination = '';
-    }
+  addValues(roleName: string) {
+   this.desgination="PHYSICIAN"
   }
   onSubmit(){
     const notes =new Notes();
-    const sender = new User();
     const reciever = new User();
-    //notes.receiver = this.f.recieverId.value
+    reciever.userId = this.f.recieverId.value
     notes.message = this.f.message.value
-  notes.urgency = this.f.urgency.value
-  //notes.senderId = this.user.userId
-   sender.userId =1;
-   reciever.userId = this.f.recieverId.value;
- // notes.sender =1;
-    notes.sender = sender;
+    notes.urgency = this.f.urgency.value
+    notes.sender = this.user;
     notes.receiver = reciever;
    this.notesService.saveNotes(notes).subscribe(
      (data) =>{
-       console.log(data);
-       this.ngOnInit;
+       console.log(data)
      }
    )
+   this.notesform.reset();
   }
+  
 }

@@ -1,19 +1,30 @@
 table {
-    width: 100%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    
-  }
-  
-  /* td, th {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+}
+
+/* td, th {
      width: 25%; 
   } */
 
-  .header{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 15px;
-    color: rgb(68, 63, 63)
-  }
-  
+.header {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 15px;
+  color: rgb(68, 63, 63);
+}
+.maindiv {
+ width: 90%;
+  margin: auto;
+  padding: 10px;
+  height: 80%;
+}
+.status-button {
+  color: aliceblue;
+  float: none;
+  text-align: center;
+  font-size: 18px;
+}

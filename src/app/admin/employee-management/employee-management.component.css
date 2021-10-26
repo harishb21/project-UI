@@ -1,31 +1,27 @@
-table {
-    width: 100%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  .active {
-    background-color: green;
-    text-align: center;
-    color: wheat;
-    width: 30px;
-  }
-  .deactive {
-    background-color: yellow;
-    text-align: center;
-    color: wheat;
-    width: 30px;
-  }
-  .block {
-    background-color: red;
-    color: wheat;
-    text-align: center;
-    width: 80px;
-  }
-  
-  /* td, th {
-      width: 25%;
-    } */
-  
+.maindiv {
+  width: max-content;
+  margin: auto;
+  padding: 10px;
+  height: 80%;
+  width: 90%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.status-button {
+  color: aliceblue;
+  float: none;
+  text-align: center;
+  font-size: 18px;
+}
+
+td,
+th {
+  width: 150px;
+}
+
+.blue-snackbar {
+  background: #2196F3;
+}

@@ -23,7 +23,7 @@ export class SentNotesComponent implements OnInit {
   notes:Notes;
   userId:number =1;
   dataSource: MatTableDataSource<Notes>;
-  displayedColumns = ["date", "reciever","message","urgency"];
+  displayedColumns = ["date", "reciever","message","reply"];
   constructor(private notesService:NotesServiceService,private route: ActivatedRoute,
     public dialog: MatDialog
     ) { }
@@ -33,8 +33,8 @@ export class SentNotesComponent implements OnInit {
   }
   loadNotes() {
     this.notesService.getSentNotes(this.userId).subscribe(
-      (data) => {
-        this.dataSource = new MatTableDataSource(data);
+      (data:any) => {
+        this.dataSource = new MatTableDataSource(data.notes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }

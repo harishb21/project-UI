@@ -34,6 +34,8 @@ import {
 } from '@angular/material/form-field';
 import { AuthInterceptor } from './users/auth.interceptor';
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
+import { CalendarModule } from './model/calendar.module';
+import { NotificationComponent } from './notes/notification/notification.component';
 
 const router: Routes = [
   // {
@@ -107,10 +109,11 @@ const router: Routes = [
     RecievedNotesComponent,
     SentNotesComponent,
     SendNotesComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(router),
     MatSelectModule,
     MatCardModule,
@@ -121,10 +124,9 @@ const router: Routes = [
     ChartModule,
     CommonModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot(),
-
     MatInputModule,
+    
   ],
   providers: [
     AuthGuard,

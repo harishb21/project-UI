@@ -23,20 +23,18 @@ export class UserGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (localStorage.getItem('user')) {
-      const str: string | null = localStorage.getItem('user');
+    if (sessionStorage.getItem('user')) {
+      const str: string | null = sessionStorage.getItem('user');
       const user: User = JSON.parse(str === null ? '{}' : str);
       this.user = user;
-
-      // this.router.navigate(['/']);
     }
 
-    this.authService.userInfo.subscribe((res) => {
-      if (res) {
-        this.user = res;
-      }
-      console.log('INSIDE USER GUARD Subscribe Res: ', res);
-    });
+    // this.authService.userInfo.subscribe((res) => {
+    //   if (res) {
+    //     this.user = res;
+    //   }
+    //   console.log('INSIDE USER GUARD Subscribe Res: ', res);
+    // });
 
     if (this.user === null) {
       this.router.navigate(['/users/auth']);

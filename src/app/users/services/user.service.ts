@@ -1,9 +1,9 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { Role } from 'src/app/model/role.model';
 import { User } from '../../model/user.model';
 
@@ -107,6 +107,32 @@ export class UserService {
   }
 
   getUserByEmail(value: any) {
-    return this.http.get(`${this.HOST_URL}/auth/valid/${value}`);
+    return this.http.get(
+      `${GlobalConstants.USER_SERVER_URL}/auth/valid/${value}`
+    );
+  }
+
+  updatePasssword(user: User, oldPassword: string, newPassword: string) {
+    return this.http.post<User>(
+      `${GlobalConstants.USER_SERVER_URL}/auth/update`,
+      {
+        email: user.email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      }
+    );
+  }
+
+  /**
+   * This will authenicate the user whether valid or not , If Valid will return user Details and roles , so that it gets registered for whole application and if invalid return null with error code
+   *
+   * @param user
+   * @returns
+   */
+  authenticate(user: User) {
+    return this.http.post<any>(
+      `${GlobalConstants.USER_SERVER_URL}/auth/verify`,
+      user
+    );
   }
 }

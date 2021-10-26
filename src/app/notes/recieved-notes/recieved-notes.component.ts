@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Notes } from './../../model/notes.model';
 
 import { NotesServiceService } from './../services/notes-service.service';
@@ -11,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageDailogComponent } from './message-dailog/message-dailog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { User } from 'src/app/model/user.model';
 
 export interface DialogData {
   animal: string;
@@ -29,23 +31,27 @@ export class RecievedNotesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @ViewChild('input', { static: true }) input: ElementRef;
-
+  public user: User;
 
   notes:Notes;
-  userId:number =1;
   dataSource: MatTableDataSource<Notes>;
   displayedColumns = ["date", "sender","message","urgency"];
   constructor(private notesService:NotesServiceService,private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService:AuthService
     ) { }
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;
+    });
     this.loadNotes();
   }
   loadNotes() {
-    this.notesService.getRecievedNotes(this.userId).subscribe(
-      (data) => {
-        this.dataSource = new MatTableDataSource(data);
+    this.notesService.getRecievedNotes(this.user.userId).subscribe(
+      (data:any) => {
+        console.log(data)
+        this.dataSource = new MatTableDataSource(data.notes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -62,8 +68,13 @@ export class RecievedNotesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     
   }
-  onRowClicked(row:any) {
-    console.log('Row clicked: ', row);
+  onRowClicked(notesId:any) {
+    console.log('Row clicked: ', notesId);
+    this.notesService.updateRead(notesId).subscribe(
+      (res)=>{
+        
+      }
+    )
 }
 openDialog(note:Notes): void {
   const dialogRef = this.dialog.open(MessageDailogComponent, {
@@ -71,8 +82,7 @@ openDialog(note:Notes): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    console.log(note.reply)
+    
   });
 }
 
