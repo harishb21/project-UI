@@ -1,38 +1,7 @@
-<!-- <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-vital" aria-selected="false">Vital Sings</button>
-      </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-diagnosis" type="button" role="tab" aria-controls="pills-procedure" aria-selected="true">Diagnosis</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Procedure</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-medication" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Medications</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link " id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Patient Details</button>
-      </li>
-  </ul>
-   <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade " id="pills-diagnosis" role="tabpanel" aria-labelledby="pills-home-tab"><app-diagnosis [appointmentId]="aptId"></app-diagnosis></div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"><app-patient-procedures [appointmentId]="aptId"></app-patient-procedures></div>
-    <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"><app-vital-signs [appointmentId]="aptId"></app-vital-signs></div>
-    <div class="tab-pane fade " id="pills-details" role="tabpanel" aria-labelledby="pills-contact-tab"><app-patient-detail [appointmentId]="aptId" [patientId]="patientId"></app-patient-detail></div>
-    <div class="tab-pane fade" id="pills-medication" role="tabpanel" aria-labelledby="pills-contact-tab"><app-medications [appointmentId]="aptId"></app-medications></div>
-  </div> 
-
-  <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade " id="pills-diagnosis" role="tabpanel" aria-labelledby="pills-home-tab"><app-diagnosis></app-diagnosis></div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"><app-patient-procedures></app-patient-procedures></div>
-    <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"><app-vital-signs></app-vital-signs></div>
-    <div class="tab-pane fade " id="pills-details" role="tabpanel" aria-labelledby="pills-contact-tab"><app-patient-detail></app-patient-detail></div>
-    <div class="tab-pane fade" id="pills-medication" role="tabpanel" aria-labelledby="pills-contact-tab"><app-medications></app-medications></div>
-  </div> -->
-
-
 <mat-tab-group>
+  <mat-tab label="Patient Visit History">
+    <app-visit-history></app-visit-history>
+  </mat-tab>
   <mat-tab label="Patient Details">
     <app-patient-detail></app-patient-detail>
   </mat-tab>

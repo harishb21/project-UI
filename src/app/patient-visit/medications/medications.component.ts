@@ -1,11 +1,10 @@
-import { stringify } from '@angular/compiler/src/util';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ToastService } from 'src/app/toast/toast.service';
 import { MedicationsDialogComponent } from '../dialog/medications-dialog/medications-dialog.component';
 import { Medications } from '../model/medications';
+import { AppointmentService } from '../services/appointment.service';
 import { MedicationsService } from '../services/medications.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { MedicationsService } from '../services/medications.service';
   styleUrls: ['./medications.component.css'],
 })
 export class MedicationsComponent implements OnInit {
-  @Input() appointmentId: number;
+  appointmentId: string;
   public Form: FormGroup;
   isPopupOpened = true;
   MedicationList: Medications[] = [];
@@ -23,27 +22,28 @@ export class MedicationsComponent implements OnInit {
   constructor(
     private dialog?: MatDialog,
     private formBuilder?: FormBuilder,
-    private medService?: MedicationsService
+    private medService?: MedicationsService,
+    private appointmentService?: AppointmentService
   ) {}
 
   ngOnInit() {
     this.Form = this.formBuilder.group({
-      // DrugID: ['', Validators.required],
+      drugId: ['', Validators.required],
       drugName: ['', Validators.required],
+      drugGenericName: ['', Validators.required],
+      drugBrandName: ['', Validators.required],
       drugForm: ['', Validators.required],
-      discription: [''],
     });
-
+    this.appointmentId = this.appointmentService.appointmentId;
     this.getMedicationList();
   }
 
   getMedicationList() {
     this.medService
       .getByAppointmentId(this.appointmentId)
-      .subscribe((value) => (this.MedicationList = value));
-    console.log('medication : ');
-
-    console.log(this.MedicationList);
+      .subscribe((value) => {
+        this.MedicationList = value;
+      });
   }
 
   addMedication() {
@@ -52,7 +52,7 @@ export class MedicationsComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '380px';
+    dialogConfig.height = '400px';
     dialogConfig.data = this.appointmentId;
     dialogConfig.position = {};
 
@@ -68,24 +68,9 @@ export class MedicationsComponent implements OnInit {
     });
   }
 
-  deleteMedication(drugId: number) {
-    this.medService.deleteMedication(drugId).subscribe((value) => {
-      //   this.toastService.show(value['statusMessage'],{ classname: 'bg-danger text-light', delay: 1000 });
+  deleteMedication(id: number) {
+    this.medService.deleteMedication(id).subscribe((value) => {
       this.getMedicationList();
     });
-  }
-
-  editMedication(drugId: number) {
-    this.isPopupOpened = true;
-    const medicine = this.medService
-      .getAllMedList()
-      .find((m) => m.drugId === drugId);
-    const dialogRef = this.dialog.open(MedicationsDialogComponent, {
-      data: medicine,
-    });
-  }
-
-  save() {
-    console.log(this.MedicationList);
   }
 }

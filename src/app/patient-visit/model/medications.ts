@@ -1,8 +1,9 @@
 export class Medications {
-
-    drugId: Number;
-    drugName: string;
-    drugForm: string;
-    discription: string;
-    appointmentId:number;
+  id: number;
+  drugId: number;
+  drugName: string;
+  drugGenericName: string;
+  drugBrandName: string;
+  drugForm: string;
+  appointmentId: number;
 }

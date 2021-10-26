@@ -20,8 +20,9 @@ export class PatientVisitComponent implements OnInit {
   patientId: string;
 
   ngOnInit(): void {
-    this.patientId = this.activatedroute.snapshot.paramMap.get('id');
-
-    this.appointmentService.patientId = this.patientId;
+    this.appointmentService.patientId =
+      this.activatedroute.snapshot.paramMap.get('patientId');
+    this.appointmentService.appointmentId =
+      this.activatedroute.snapshot.paramMap.get('appointmentId');
   }
 }

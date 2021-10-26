@@ -25,8 +25,8 @@ export class MedicationsService {
     
   }
 
-  deleteMedication(medicationId:number){
-    return this.http.delete(`${this.baseVisitUrl}/drug/deleteMedication/${medicationId}`);
+  deleteMedication(id:number):Observable<any>{
+    return this.http.delete(`${this.baseVisitUrl}/drug/deleteMedication/${id}`);
   }
 
   getData():Observable<any>{

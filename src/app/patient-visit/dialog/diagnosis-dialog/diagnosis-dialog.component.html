@@ -1,27 +1,39 @@
 <p class="heading">Add Diagnosis</p>
 
-
 <form [formGroup]="Form" (submit)="onSubmit()">
   <input
-    type="text"
-    formControlname="diagnosisCode"
-    placeholder="Diagnosis Code"
-  /><br />
-  <input
-    type="text"
-    formControlname="diagnosisName"
-    placeholder="Diagnosis Name"
-  /><br />
-  <input
-    type="text"
-    formControlname="description"
-    placeholder="Diagnosis Description"
-  /><br />
+    class="form-control"
+    list="diagnosisCodeId"
+    formControlName="diagnosisCode"
+    placeholder="select diagnosis code"
+  />
+  <datalist id="diagnosisCodeId">
+    <option *ngFor="let option of activeDiagnosisList">
+      {{ option.diagnosisCode }}
+    </option>
+  </datalist>
 
-  <div class="row" style="margin-top: 50px">
+  <br />
+
+  <input
+    class="form-control"
+    list="diagnosisDescriptionId"
+    formControlName="description"
+    placeholder="Select Diagnosis Description"
+  />
+  <datalist id="diagnosisDescriptionId">
+    <option *ngFor="let option of activeDiagnosisList">
+      {{ option.description }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <div class="row">
     <div class="col text-center">
-      <button type="submit" class="primary">Save</button>&nbsp;
-      <button class="btn-danger" (click)="onClose()">Close</button>
+      <button type="submit" class="btn btn-success">Save</button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onNoClick()">Close</button>
     </div>
   </div>
 </form>
+

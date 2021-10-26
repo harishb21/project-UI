@@ -1,0 +1,23 @@
+<p class="heading">Add Procedure</p>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input  class="form-control"
+    type="text" 
+    formControlName="procedureCode"
+    placeholder="Procedure Code"
+  /><br />
+  <input  class="form-control"
+    type="text"
+    formControlName="description"
+    placeholder="Procedure Description"
+  /><br />
+
+  <input type="hidden" formControlName="isDepricated" value="no" /><br />
+
+  <div class="row">
+    <div class="col text-center">
+      <button class="btn btn-success">Save</button>&nbsp;
+      <button class="btn btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

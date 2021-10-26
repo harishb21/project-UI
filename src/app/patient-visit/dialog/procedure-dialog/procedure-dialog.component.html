@@ -1,26 +1,36 @@
 <p class="heading">Add Procedure</p>
 
 <form [formGroup]="Form" (submit)="onSubmit()">
-  <input
-    type="text"
-    formControlname="procedureCode"
-    placeholder="Procedure Code"
-  /><br />
-  <input
-    type="text"
-    formControlname="procedureName"
-    placeholder="Procedure Name"
-  /><br />
-  <input
-    type="text"
-    formControlname="discription"
-    placeholder="Procedure Description"
-  /><br />
+  <input class="form-control"
+    list="procedureCodeId"
+    formControlName="procedureCode"
+    placeholder="select procedure code"
+  />
+  <datalist id="procedureCodeId">
+    <option *ngFor="let option of activeProcedureList">
+      {{ option.procedureCode }}
+    </option>
+  </datalist>
 
-  <div class="row" style="margin-top: 50px">
+  <br />
+
+  <input class="form-control"
+    list="procedureDescriptionId"
+    formControlName="description"
+    placeholder="Select Procedure Description"
+  />
+  <datalist id="procedureDescriptionId">
+    <option *ngFor="let option of activeProcedureList">
+      {{ option.description }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <div class="row">
     <div class="col text-center">
-      <button type="submit" class="primary">Save</button>&nbsp;
-      <button class="btn-danger" (click)="onClose()">Close</button>
+      <button type="submit" class="btn btn-success">Save</button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
     </div>
   </div>
 </form>

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PatientProceduresService {
-  baseVisitUrl: string='http://localhost:8083'; //visit
+  baseVisitUrl: string = 'http://localhost:8083'; //visit
 
   procedureList: Procedure[] = [];
 
@@ -21,9 +21,12 @@ export class PatientProceduresService {
     return this.procedureList;
   }
 
-  deleteProcedure(procedureCode: number) {
+  deleteProcedure(procedureId: number): Observable<any> {
+    console.log('delete procedure service called!!');
+    console.log(procedureId);
+
     return this.http.delete(
-      `${this.baseVisitUrl}/procedure/deleteProcedure/${procedureCode}`
+      `${this.baseVisitUrl}/procedure/deleteProcedure/${procedureId}`
     );
   }
 
@@ -47,9 +50,9 @@ export class PatientProceduresService {
       );
   }
 
-  saveProcedures(procedure: Procedure, id: number): Observable<any> {
+  saveProcedures(procedure: Procedure): Observable<any> {
     return this.http.post(
-      `${this.baseVisitUrl}/procedure/saveProcedures/${id}`,
+      `${this.baseVisitUrl}/procedure/saveProcedures`,
       procedure
     );
   }
@@ -62,7 +65,7 @@ export class PatientProceduresService {
     return this.http.get(`${this.baseVisitUrl}/procedure/getByName/${value}`);
   }
 
-  getByAppointmentId(appointmentId: number): Observable<any> {
+  getByAppointmentId(appointmentId: string): Observable<any> {
     return this.http.get(
       `${this.baseVisitUrl}/procedure/getByAppointmentId/${appointmentId}`
     );

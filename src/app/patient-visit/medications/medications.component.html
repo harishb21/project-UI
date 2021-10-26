@@ -1,22 +1,30 @@
 <br />
+<button class="btn btn-primary" (click)="addMedication()">Add Medication</button>
+<br>
 <br />
 <table>
   <tr>
+    <th>Drug Id</th>
     <th>Drug Name</th>
+    <th>Drug Generic Name</th>
+    <th>Drug Brand Name</th>
     <th>Drug Form</th>
-    <th>Drug Description</th>
+
     <th>Action</th>
   </tr>
 
-  <!-- <tr *ngFor="let medication of MedicationList">
+  <tr *ngFor="let medication of MedicationList">
+    <td>{{ medication.drugId }}</td>
     <td>{{ medication.drugName }}</td>
+    <td>{{ medication.drugGenericName }}</td>
+    <td>{{ medication.drugBrandName }}</td>
     <td>{{ medication.drugForm }}</td>
-    <td>{{ medication.description }}</td>
     <td>
-     <button (click)="deleteProcedure(procedure.procedureCode)">Delete</button> 
+      <mat-icon class="deleteButton" (click)="deleteMedication(medication.id)"
+        >delete</mat-icon
+      >
     </td>
-  </tr> -->
+  </tr>
 </table>
 <br />
 
-<button (click)="addMedication()">Add Diagnosis</button>

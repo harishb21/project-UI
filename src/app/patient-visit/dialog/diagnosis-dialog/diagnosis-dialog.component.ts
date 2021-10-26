@@ -1,13 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastService } from 'src/app/toast/toast.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { DiagnosisMasterService } from 'src/app/master/services/diagnosis-master.service';
 import { Diagnosis } from '../../model/diagnosis';
+import { AppointmentService } from '../../services/appointment.service';
 import { DiagnosisService } from '../../services/diagnosis.service';
 
 @Component({
@@ -19,33 +15,56 @@ export class DiagnosisDialogComponent implements OnInit {
   Form: FormGroup = new FormGroup({});
   submitted: boolean = false;
   filterDiagnosisCode: any = [];
+  activeDiagnosisList: any[];
+
+  appointmentId: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DiagnosisDialogComponent>,
     private dialog: MatDialogRef<DiagnosisDialogComponent>,
+    private diagnosisMasterService: DiagnosisMasterService,
+    private diagnosisService: DiagnosisService,
+    private appointmentService: AppointmentService,
   ) {}
 
   ngOnInit() {
     this.Form = this.formBuilder.group({
       diagnosisCode: ['', Validators.required],
-      diagnosisName: ['', Validators.required],
       description: [''],
     });
+
+    this.getActiveDiagnosis();
+    this.appointmentId = this.appointmentService.patientId;
   }
 
-  onClose() {
-    this.dialog.close();
-    this.Form.reset();
-  }
+  // onClose() {
+  //   this.dialog.close();
+  //   this.Form.reset();
+  // }
 
   onNoClick() {
     this.dialogRef.close();
   }
 
+  obj: Diagnosis = new Diagnosis();
+
   onSubmit() {
-    console.log(this.Form.value.diagnosisCode);
-    console.log(this.Form.value.diagnosisName);
-    console.log(this.Form.value.description);
+    this.obj.diagnosisCode = this.Form.value.diagnosisCode;
+    this.obj.description = this.Form.value.description;
+    this.obj.appointmentId = this.appointmentId;
+
+    if (this.obj != null) {
+      this.diagnosisService.saveDiagnosis(this.obj).subscribe((response) => {
+        
+      });
+      this.onNoClick();
+    }
+  }
+
+  getActiveDiagnosis() {
+    this.diagnosisMasterService.getActiveDiagnosis().subscribe((data) => {
+      this.activeDiagnosisList = data;
+    });
   }
 }

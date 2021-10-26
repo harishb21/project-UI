@@ -3,6 +3,8 @@ td,
 th {
   border: 1px solid black;
   size: 10px;
+  text-align: center;
+
 }
 
 table {
@@ -10,4 +12,9 @@ table {
   border-collapse: collapse;
 }
 
+
+.deleteButton
+{
+  cursor: pointer;
+}
 

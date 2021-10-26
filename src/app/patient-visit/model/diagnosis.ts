@@ -1,5 +1,6 @@
 export class Diagnosis {
+    id:number;
+    appointmentId:number;
     diagnosisCode: number;
-    diagnosisName: string;
     description : string;
 }

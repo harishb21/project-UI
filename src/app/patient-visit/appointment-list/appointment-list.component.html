@@ -1,13 +1,20 @@
-<br>
-<p class="heading">Appointments</p><br />
+<br />
+<p class="heading">Appointments</p>
+<br />
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>id</th>
-      <td mat-cell *matCellDef="let element">{{ element.patientId }}</td>
+    <ng-container matColumnDef="Appointment Id">
+      <th mat-header-cell *matHeaderCellDef>Appointment Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="patient Id">
+        <th mat-header-cell *matHeaderCellDef>patient Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.patientId }}</td>
+      </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="start time">
@@ -21,14 +28,28 @@
       <td mat-cell *matCellDef="let element">{{ element.endTime }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>action</th>
+    <!-- <ng-container matColumnDef="history">
+      <th mat-header-cell *matHeaderCellDef>history</th>
       <td mat-cell *matCellDef="let element" class="action-link">
         <button
           mat-icon-button
           matTooltip="Click to Edit"
           class="iconbutton"
-          (click)="editData(element.patientId)"
+          (click)="visitHistory(element.id, element.patientId)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="visit">
+      <th mat-header-cell *matHeaderCellDef>visit</th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <button
+          mat-icon-button
+          matTooltip="Click to Edit"
+          class="iconbutton"
+          (click)="editData(element.patientId, element.id)"
         >
           <mat-icon>edit</mat-icon>
         </button>

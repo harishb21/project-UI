@@ -8,7 +8,6 @@ import { Diagnosis } from '../model/diagnosis';
   providedIn: 'root',
 })
 export class DiagnosisService {
- 
   baseVisitUrl: string = 'http://localhost:8083'; //visit
 
   diagnosislist: Diagnosis[] = [];
@@ -28,51 +27,30 @@ export class DiagnosisService {
     );
   }
 
-  getAllData() {
-    console.log('inside ser');
-    return this.http
-      .get(`${this.baseVisitUrl}/diagnosis/diagnosiss`)
-      .pipe(
-        map<any, any>((response: []) =>
-          response.map((item) => item['diagnosisName'])
-        )
-      );
-  }
+  saveDiagnosis(diagnosis: Diagnosis): Observable<any> {
+    console.log(diagnosis);
 
-  getAllDiagnosisCode() {
-    return this.http
-      .get(`${this.baseVisitUrl}/diagnosis/diagnosiss`)
-      .pipe(
-        map<any, any>((response: []) =>
-          response.map((item) => item['diagnosisCode'])
-        )
-      );
-  }
-
-  saveDiagnosis(diagnosis: Diagnosis, id: number): Observable<any> {
     return this.http.post(
-      `${this.baseVisitUrl}/diagnosis/saveDaignosis/${id}`,
+      `${this.baseVisitUrl}/diagnosis/saveDiagnosis`,
       diagnosis
     );
   }
 
-  onSelectDiagnosisCode(value: any): Observable<any> {
-    return this.http.get(
-      `${this.baseVisitUrl}/diagnosis/getByDiagnosisCode/${value}`
-    );
-  }
+  // onSelectDiagnosisCode(value: any): Observable<any> {
+  //   return this.http.get(
+  //     `${this.baseVisitUrl}/diagnosis/getByDiagnosisCode/${value}`
+  //   );
+  // }
 
-  onSelectDiagnosisName(value: any): Observable<any> {
-    return this.http.get(
-      `${this.baseVisitUrl}/diagnosis/getByDiagnosisName/${value}`
-    );
-  }
+  // onSelectDiagnosisName(value: any): Observable<any> {
+  //   return this.http.get(
+  //     `${this.baseVisitUrl}/diagnosis/getByDiagnosisName/${value}`
+  //   );
+  // }
 
   getByAppointmentId(appointmentId: any): Observable<any> {
-    console.log('service');
-    console.log('appointment id : ' + appointmentId);
     return this.http.get(
-      this.baseVisitUrl + '/diagnosis/getByAppointmentId/' + 1
+      this.baseVisitUrl + '/diagnosis/getByAppointmentId/' + appointmentId
     );
   }
 }

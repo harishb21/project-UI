@@ -1,0 +1,29 @@
+<p class="heading">Add Diagnosis</p>
+
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input
+    type="text"   class="form-control"
+    formControlName="diagnosisCode"
+    placeholder="Diagnosis Code"
+  /><br />
+  <input
+    type="text"   class="form-control"
+    formControlName="description"
+    placeholder="Diagnosis Description"
+  /><br />
+
+  <input
+    type="hidden"
+    formControlName="isDepricated"
+    value="no"
+  /><br />
+
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="submit" class="btn btn-success">Save</button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

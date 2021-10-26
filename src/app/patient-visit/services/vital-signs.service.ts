@@ -15,6 +15,6 @@ export class VitalSignsService {
   addVitals(vital: Vitals):Observable<any>{
     return this.http.post(`${this.baseVisitUrl}/vital/save`,vital);
   }
-  getByAppointmentId(appointmentId:number): Observable<any> {
+  getByAppointmentId(appointmentId:string): Observable<any> {
     return this.http.get(`${this.baseVisitUrl}/vital/getByAppointmentId/${appointmentId}`)
   }}

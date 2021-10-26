@@ -1,22 +1,22 @@
 <br />
-<br />
+<button class="btn btn-primary" (click)="addDiagnosis()">Add Diagnosis</button>
+<br>
+<br>
 <table>
   <tr>
     <th>Diagnosis Code</th>
-    <th>Diagnosis Name</th>
     <th>Diagnosis Description</th>
     <th>Action</th>
   </tr>
 
   <tr *ngFor="let diagnosis of diagnosisList">
     <td>{{ diagnosis.diagnosisCode }}</td>
-    <td>{{ diagnosis.diagnosisName }}</td>
     <td>{{ diagnosis.description }}</td>
     <td>
-      <button (click)="deleteDiagnosis(diagnosis.diagnosisCode)">Delete</button>
+      <mat-icon class="deleteButton" (click)="deleteDiagnosis(diagnosis.id)">delete</mat-icon>
     </td>
+
+
   </tr>
 </table>
-<br />
 
-<button (click)="addDiagnosis()">Add Diagnosis</button>

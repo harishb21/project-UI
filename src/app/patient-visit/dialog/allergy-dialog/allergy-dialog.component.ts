@@ -8,17 +8,17 @@ import { AppointmentService } from '../../services/appointment.service';
 @Component({
   selector: 'app-allergy-dialog',
   templateUrl: './allergy-dialog.component.html',
-  styleUrls: ['./allergy-dialog.component.css']
+  styleUrls: ['./allergy-dialog.component.css'],
 })
 export class AllergyDialogComponent implements OnInit {
-
-  constructor(private patientService:PatientService,
+  constructor(
+    private patientService: PatientService,
     private appointmentService: AppointmentService,
     private dialogRef: MatDialogRef<AllergyDialogComponent>
-    ) { }
+  ) {}
 
   patient: User = new User();
-  allergies:Allergy[];
+  allergies: Allergy[];
 
   ngOnInit(): void {
     this.loadPatient(this.appointmentService.patientId);
@@ -27,11 +27,8 @@ export class AllergyDialogComponent implements OnInit {
   loadPatient(id: string) {
     this.patientService.fetchPatient(id).subscribe(
       (data) => {
-        console.log(data);
         this.patient = data;
-        this.allergies=this.patient.allergies;
-        console.log(this.allergies);
-        
+        this.allergies = this.patient.allergies;
       },
       (error) => console.log(error)
     );
@@ -40,5 +37,4 @@ export class AllergyDialogComponent implements OnInit {
   onNoClick() {
     this.dialogRef.close();
   }
-
 }

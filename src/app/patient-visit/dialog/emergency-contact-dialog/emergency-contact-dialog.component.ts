@@ -7,15 +7,15 @@ import { AppointmentService } from '../../services/appointment.service';
 @Component({
   selector: 'app-emergency-contact-dialog',
   templateUrl: './emergency-contact-dialog.component.html',
-  styleUrls: ['./emergency-contact-dialog.component.css']
+  styleUrls: ['./emergency-contact-dialog.component.css'],
 })
 export class EmergencyContactDialogComponent implements OnInit {
-
-  constructor(private patientService: PatientService,
+  constructor(
+    private patientService: PatientService,
     private appointmentService: AppointmentService,
 
     private dialogRef: MatDialogRef<EmergencyContactDialogComponent>
-    ) {}
+  ) {}
 
   patient: User = new User();
 
@@ -26,7 +26,6 @@ export class EmergencyContactDialogComponent implements OnInit {
   loadPatient(id: string) {
     this.patientService.fetchPatient(id).subscribe(
       (data) => {
-        console.log(data);
         this.patient = data;
       },
       (error) => console.log(error)
@@ -36,5 +35,4 @@ export class EmergencyContactDialogComponent implements OnInit {
   onNoClick() {
     this.dialogRef.close();
   }
-
 }

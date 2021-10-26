@@ -33,6 +33,8 @@ import { EmergencyContactDialogComponent } from './dialog/emergency-contact-dial
 import { AllergyDialogComponent } from './dialog/allergy-dialog/allergy-dialog.component';
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { VisitHistoryComponent } from './visit-history/visit-history.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     EmergencyContactDialogComponent,
     AllergyDialogComponent,
     AppointmentListComponent,
+    VisitHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -77,6 +80,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,
+    MatGridListModule
   ],
   exports: [RouterModule],
   providers: [MedicationsService],

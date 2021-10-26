@@ -1,27 +1,82 @@
-<p class="heading">Add Medication</p>
-
+<p class="heading">Add Drug</p>
 
 <form [formGroup]="Form" (submit)="onSubmit()">
   <input
-    type="text"
-    formControlname="drugName"
-    placeholder="drug name"
-  /><br />
-  <input
-    type="text"
-    formControlname="drugForm"
-    placeholder="Drug form"
-  /><br />
-  <input
-    type="text"
-    formControlname="description"
-    placeholder="Drug Description"
-  /><br />
+    class="form-control"
+    list="drugDataListId"
+    formControlName="drugId"
+    placeholder="Select Drug ID"
+  />
+  <datalist id="drugDataListId">
+    <option *ngFor="let option of drugList">
+      {{ option.drugId }}
+    </option>
+  </datalist>
 
-  <div class="row" style="margin-top: 50px">
+  <br />
+
+  <input
+    class="form-control"
+    list="drugNameDataListId"
+    formControlName="drugName"
+    placeholder="Select Drug Name"
+  />
+  <datalist id="drugNameDataListId">
+    <option *ngFor="let option of drugList">
+      {{ option.drugName }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <input
+    class="form-control"
+    list="drugGenericNameDataListId"
+    formControlName="drugGenericName"
+    placeholder="Select Drug Generic Name"
+  />
+  <datalist id="drugGenericNameDataListId">
+    <option *ngFor="let option of drugList">
+      {{ option.drugGenericName }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <input
+    class="form-control"
+    list="drugBrandNameDataListId"
+    formControlName="drugBrandName"
+    placeholder="Select Drug Brand Name"
+  />
+  <datalist id="drugBrandNameDataListId">
+    <option *ngFor="let option of drugList">
+      {{ option.drugBrandName }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <input
+  class="form-control"
+  list="drugFormDataListId"
+  formControlName="drugForm"
+  placeholder="Select Drug Form"
+/>
+<datalist id="drugFormDataListId">
+  <option *ngFor="let option of drugList">
+    {{ option.drugForm }}
+  </option>
+</datalist>
+
+<br />
+
+
+  <div class="row">
     <div class="col text-center">
-      <button type="submit" class="primary">Save</button>&nbsp;
-      <button class="btn-danger" (click)="onClose()">Close</button>
+      <button type="submit" class="btn btn-success">Save</button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onNoClick()">Close</button>
     </div>
   </div>
 </form>
+

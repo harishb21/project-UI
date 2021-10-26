@@ -1,0 +1,103 @@
+<br />
+<!-- <input
+  class="form-control"
+  list="appointmentsDateList"
+  name="selectedVisitDate"
+  placeholder="Select Visit Date"
+  (change)="getAppointmentIdByVisitDate(selectedVisitDate)"
+  [(ngModel)]='selectedVisitDate'
+
+/>
+<datalist id="appointmentsDateList">
+  <option *ngFor="let option of visitDateList" [value]="option">
+    {{ option }}
+  </option>
+</datalist>
+
+<br> -->
+
+<select
+  placeholder="Select Visit Date"
+  (change)="getAppointmentIdByVisitDate(selectedVisitDate)"
+  [(ngModel)]="selectedVisitDate"
+>
+  <option
+    class="dropdown-item"
+    *ngFor="let option of visitDateList"
+    [value]="option"
+  >
+    {{ option }}
+  </option>
+</select>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <p class="heading">Vital Signs</p>
+    <br>
+    
+    <table>
+      <tr>
+        <th>Heigth</th>
+        <th>Weight</th>
+        <th>Blood Pressure</th>
+        <th>Body Temperature</th>
+        <th>Respiration Rate</th>
+      </tr>
+      <tr>
+        <td>{{ heigth }}</td>
+        <td>{{ weigth }}</td>
+        <td>{{ bloodPressure }}</td>
+        <td>{{ bodyTemperature }}</td>
+        <td>{{ respirationRate }}</td>
+      </tr>
+    </table>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <p class="heading">Diagnosis Details</p>
+
+    <table>
+      <tr>
+        <th>Diagnosis Code</th>
+        <th>Description</th>
+      </tr>
+      <tr *ngFor="let diagnosiss of diagnosis">
+        <td>{{ diagnosiss.diagnosisCode }}</td>
+        <td>{{ diagnosiss.description }}</td>
+      </tr>
+    </table>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <p class="heading">Procedures Details</p>
+
+    <table>
+      <tr>
+        <th>Procedure Code</th>
+        <th>Description</th>
+      </tr>
+
+      <tr *ngFor="let procedure of procedures">
+        <td>{{ procedure.procedureCode }}</td>
+        <td>{{ procedure.description }}</td>
+      </tr>
+    </table>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <p class="heading">Medication Details</p>
+
+    <table>
+      <tr>
+        <th>Drug Name</th>
+        <th>Drug Generic Name</th>
+        <th>Drug Brand Name</th>
+        <th>Drug Form</th>
+      </tr>
+
+      <tr *ngFor="let drug of medications">
+        <td>{{ drug.drugName }}</td>
+    <td>{{ drug.drugGenericName }}</td>
+    <td>{{ drug.drugBrandName }}</td>
+    <td>{{ drug.drugForm }}</td>
+      </tr>
+    </table>
+  </mat-grid-tile>
+</mat-grid-list>

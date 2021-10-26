@@ -1,7 +1,6 @@
 export class Procedure {
-    procedureCode: number;
-    procedureName: string;
-    discription: string;
+  id: number;
+  appointmentId: number;
+  procedureCode: string;
+  description: string;
 }
-
-

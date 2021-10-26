@@ -24,7 +24,6 @@ export class PatientDetailDialogComponent implements OnInit {
   loadPatient(id: string) {
     this.patientService.fetchPatient(id).subscribe(
       (data) => {
-        console.log(data);
         this.patient = data;
       },
       (error) => console.log(error)

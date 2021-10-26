@@ -4,6 +4,6 @@ export class Vitals {
     bloodPressure: string;
     bodyTemperature:number;
     respirationRate:number;
-    appointmentId:number;
+    appointmentId:string;
     vitalId:number;
 }

@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ToastService } from 'src/app/toast/toast.service';
 import { ProcedureDialogComponent } from '../dialog/procedure-dialog/procedure-dialog.component';
 import { Procedure } from '../model/procedure';
+import { AppointmentService } from '../services/appointment.service';
 import { PatientProceduresService } from '../services/patient-procedures.service';
 @Component({
   selector: 'app-patient-procedures',
@@ -10,17 +10,19 @@ import { PatientProceduresService } from '../services/patient-procedures.service
   styleUrls: ['./patient-procedures.component.css'],
 })
 export class PatientProceduresComponent implements OnInit {
-  @Input() appointmentId: number;
+  appointmentId: string;
   isPopupOpened = true;
-  procedureList: any = [];
+  procedureList: Procedure[] = [];
 
   constructor(
     private dailog?: MatDialog,
     private service?: PatientProceduresService,
-    private to?: ToastService
+    private appointmentService?: AppointmentService
   ) {}
 
   ngOnInit(): void {
+    this.appointmentId = this.appointmentService.appointmentId;
+
     this.getProcedureList();
   }
 
@@ -30,7 +32,7 @@ export class PatientProceduresComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '380px';
+    dialogConfig.height = '250px';
     dialogConfig.data = this.appointmentId;
     dialogConfig.position = {};
 
@@ -39,6 +41,7 @@ export class PatientProceduresComponent implements OnInit {
       .open(ProcedureDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe((value) => {
+        this.isPopupOpened = false;
         this.getProcedureList();
       });
   }

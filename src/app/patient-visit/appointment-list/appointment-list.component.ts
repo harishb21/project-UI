@@ -25,6 +25,7 @@ export class AppointmentListComponent implements OnInit {
     this.patientId = this.activatedroute.snapshot.paramMap.get('id');
     this.appointmentService.patientId = this.patientId;
 
+
     this.appointmentService.getAllList().subscribe((data) => {
       console.log(data);
 
@@ -34,16 +35,26 @@ export class AppointmentListComponent implements OnInit {
     });
     console.log('Appointment data :' + this.APPOINTMENT_DATA);
   }
-  displayedColumns: string[] = ['id', 'start time', 'end time', 'action'];
+  displayedColumns: string[] = [
+    'Appointment Id',
+    'patient Id',
+    'start time',
+    'end time',
+    'visit',
+  ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  editData(id: number) {
-    console.log(id);
-    // id=1;
-    this.router.navigate(['patient-visit/visit/' + id]);
+  editData(patientId: number, appointmentId: number) {
+    
+    this.router.navigate(['patient-visit/visit/' + patientId + '/' + appointmentId]);
+  }
+
+  visitHistory(id: number, patientId:number) {
+
+    this.router.navigate(['patient-visit/patient-history/' + id+"/"+patientId]);
   }
 }

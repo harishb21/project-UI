@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ToastService } from 'src/app/toast/toast.service';
 import { DiagnosisDialogComponent } from '../dialog/diagnosis-dialog/diagnosis-dialog.component';
+import { Diagnosis } from '../model/diagnosis';
+import { AppointmentService } from '../services/appointment.service';
 import { DiagnosisService } from '../services/diagnosis.service';
 
 @Component({
@@ -11,19 +11,19 @@ import { DiagnosisService } from '../services/diagnosis.service';
   styleUrls: ['./diagnosis.component.css'],
 })
 export class DiagnosisComponent implements OnInit {
-  @Input() appointmentId: number;
+  appointmentId: string;
   isPopupOpened = true;
-  diagnosisList: any = [];
+  diagnosisList: Diagnosis[] = [];
 
   constructor(
     private dialog?: MatDialog,
     private service?: DiagnosisService,
-    private to?: ToastService
+    private appointmentService?: AppointmentService
   ) {}
 
   ngOnInit(): void {
+    this.appointmentId = this.appointmentService.appointmentId;
     this.getDiagnosisList();
-
   }
 
   addDiagnosis() {
@@ -32,7 +32,7 @@ export class DiagnosisComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '380px';
+    dialogConfig.height = '250px';
     dialogConfig.data = this.appointmentId;
     dialogConfig.position = {};
 
@@ -41,24 +41,19 @@ export class DiagnosisComponent implements OnInit {
     const dialogRef = this.dialog.open(DiagnosisDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((data) => {
-      console.log('Dialog output:', data);
+      this.isPopupOpened = false;
       this.getDiagnosisList();
     });
   }
 
   getDiagnosisList() {
-    console.log('get diagnosis component');
-    this.appointmentId=1;
     this.service.getByAppointmentId(this.appointmentId).subscribe((value) => {
       this.diagnosisList = value;
-      console.log(this.diagnosisList);
     });
   }
 
   deleteDiagnosis(id: number) {
-    console.log(id);
-    this.service.deleteDiagnosis(id).subscribe((value) => {
-      this.to.show(value, { classname: 'bg-success text-light', delay: 1000 });
+    this.service.deleteDiagnosis(id).subscribe(() => {
       this.getDiagnosisList();
     });
   }
