@@ -13,6 +13,8 @@ import { ErrorMessage } from '../../model/error.enum';
 import { PatientService } from '../patient.service';
 import { Allergy } from 'src/app/model/allergy.model';
 import { Observable } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddAllergyDialogComponent } from '../add-allergy-dialog/add-allergy-dialog.component';
 
 @Component({
   selector: 'app-patient-demographics',
@@ -24,13 +26,15 @@ export class PatientDemographicsComponent implements OnInit {
   address = 'ketannnnnnnnnn';
   address2 = '';
 
-  allergyList: Allergy[] = [];
+  allergyList: any[];
 
   form: FormGroup = new FormGroup({});
   selected: string = 'no';
 
+  isPopupOpened = true;
+
   toppings: FormGroup;
-  reactiveForm: FormGroup=new FormGroup({});
+  reactiveForm: FormGroup = new FormGroup({});
   isDisableAllergy: boolean = false;
   isDisableAllergyTab: boolean = false;
   checked: boolean = false;
@@ -57,7 +61,8 @@ export class PatientDemographicsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private patientService: PatientService,
     private router: Router,
-    private activatedroute: ActivatedRoute
+    private activatedroute: ActivatedRoute,
+    private dialog?: MatDialog
   ) {
     this.toppings = fb.group({});
 
@@ -68,14 +73,14 @@ export class PatientDemographicsComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientId = this.activatedroute.snapshot.paramMap.get('id');
-
+    this.patientService.patientIdToAddAllergy = this.patientId;
+    this.getAllAllergiesOfPatient(this.patientId);
     this.loadPatient(this.patientId);
-    // this.fetchAllAllergyIds();
-
     this.reactiveForm = this.formBuilder.group({
-      allergyCode: [' '],
+      allergyId: [' '],
       allergyName: [' '],
       allergyType: [''],
+      allergyDesc: [''],
     });
 
     this.patientService.getAllergy().subscribe((allergy_idlist) => {
@@ -148,7 +153,7 @@ export class PatientDemographicsComponent implements OnInit {
         Validators.minLength(3),
       ]),
       emgrEmail: new FormControl(null, [Validators.required, Validators.email]),
-      emgrContactNo: new FormControl(null, [
+      emgrPhnumber: new FormControl(null, [
         Validators.required,
         Validators.minLength(7),
       ]),
@@ -160,10 +165,34 @@ export class PatientDemographicsComponent implements OnInit {
     });
   }
 
+  addAllergyPopUp() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '350px';
+    dialogConfig.height = '350px';
+    dialogConfig.position = {};
+
+    this.isPopupOpened = true;
+    const dialogRef = this.dialog.open(AddAllergyDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.isPopupOpened = false;
+      this.getAllAllergiesOfPatient(this.patientId);
+    });
+  }
+
+  getAllAllergiesOfPatient(patientId: string) {
+    this.patientService
+      .getAllAllergiesOfPatient(patientId)
+      .subscribe((data) => {
+        this.allergyList = data;
+      });
+  }
+
   fetchAllAllergyIds() {
     this.patientService.fetchAllAllergyIds().subscribe((ids) => {
-      console.log('allergy ids : ' + ids);
-
       this.allergyIds = ids;
     });
   }
@@ -235,7 +264,7 @@ export class PatientDemographicsComponent implements OnInit {
     patientObject.emgrFname = this.form.value.emgrFname;
     patientObject.emgrLname = this.form.value.emgrLname;
     patientObject.emgrEmail = this.form.value.emgrEmail;
-    patientObject.emgrContactNo = this.form.value.emgrContactNo;
+    patientObject.emgrPhnumber = this.form.value.emgrPhnumber;
     patientObject.emgrRelation = this.form.value.emgrRelation;
     patientObject.emgrAddress = this.form.value.emgrAddress;
     patientObject.emgrCity = this.form.value.emgrCity;
@@ -246,13 +275,16 @@ export class PatientDemographicsComponent implements OnInit {
 
     console.log('All data : ' + patientObject);
     console.log(patientObject);
-    
 
     const res = confirm('Are you sure?');
     if (res) {
       this.patientService.updatePatientDetails(patientObject);
       this.router.navigate(['/patient/landingPage']);
     }
+  }
+
+  allergyFunction() {
+    this.getAllAllergiesOfPatient(this.patientId);
   }
 
   errorTitle() {
@@ -427,26 +459,20 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   deleteAllergy(value: string) {
-    const allergyCode = this.listAllergies.findIndex(
-      (v: { allergyId: string }) => v.allergyId === value
-    );
-    this.listAllergies.splice(allergyCode, 1);
+    this.patientService.deleteAllergy(value);
+    this.getAllAllergiesOfPatient(this.patientId);
   }
 
   setOption(e: string): void {
     this.selected = e;
   }
 
-  displayedColumns: string[] = ['1', '2', '3', '4','5'];
-
+  displayedColumns: string[] = ['1', '2', '3', '4', '5'];
 
   listAllergies: Allergy[] = [];
 
   addAllergy() {
-
-console.log("add allergies");
-
-
+    console.log('add allergies');
 
     let patientAllergy = {
       // allergyCode: this.reactiveForm.get('allergyCode').value,

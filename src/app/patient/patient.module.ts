@@ -31,9 +31,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientListComponent } from './patient-list/patient-list.component';
+import { AddAllergyDialogComponent } from './add-allergy-dialog/add-allergy-dialog.component';
 
 @NgModule({
-  declarations: [PatientDemographicsComponent, PatientListComponent],
+  declarations: [PatientDemographicsComponent, PatientListComponent,AddAllergyDialogComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,
