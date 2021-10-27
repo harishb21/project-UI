@@ -38,14 +38,14 @@ import { CalendarModule } from './model/calendar.module';
 import { NotificationComponent } from './notes/notification/notification.component';
 
 const router: Routes = [
-  // {
-  //   path: '',
-  //   component: InboxComponent,
-  //   canActivate: [UserGuard],
-  //   data: {
-  //     role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
-  //   },
-  //},
+  {
+    path: '',
+    component: InboxComponent,
+    canActivate: [UserGuard],
+    data: {
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
+    },
+  },
   {
     path: 'app-inbox',
     component: InboxComponent,
@@ -69,12 +69,12 @@ const router: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
-  {
-    path: '',
-    component: InboxCalendarComponent,
-    loadChildren: () =>
-      import('./model/calendar.module').then((m) => m.CalendarModule),
-  },
+  // {
+  //   path: '',
+  //   component: InboxCalendarComponent,
+  //   loadChildren: () =>
+  //     import('./model/calendar.module').then((m) => m.CalendarModule),
+  // },
   {
     path: 'app-inbox-calendar',
     component: InboxCalendarComponent,
