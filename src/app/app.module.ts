@@ -89,7 +89,9 @@ const router: Routes = [
   {
     path: 'patient-visit',
     loadChildren: () =>
-      import('./patient-visit/patient-visit.module').then((m) => m.PatientVisitModule),
+      import('./patient-visit/patient-visit.module').then(
+        (m) => m.PatientVisitModule
+      ),
   },
   {
     path: 'master',
@@ -102,7 +104,7 @@ const router: Routes = [
     AppComponent,
     InboxComponent,
     NotesComponent,
-    
+
     HeaderComponent,
     AdminComponent,
     FooterComponent,
@@ -126,7 +128,6 @@ const router: Routes = [
     HttpClientModule,
     ToastrModule.forRoot(),
     MatInputModule,
-    
   ],
   providers: [
     AuthGuard,
