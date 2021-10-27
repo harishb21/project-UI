@@ -109,7 +109,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    sessionStorage.removeItem('user');
+    this.authService.logout();
+    // sessionStorage.removeItem('user');
     this.router.navigate(['/users/auth']);
     window.location.reload();
     // event.preventDefault();

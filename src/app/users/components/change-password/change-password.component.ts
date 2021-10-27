@@ -84,8 +84,8 @@ export class ChangePasswordComponent implements OnInit {
       let oldPassword = this.form.value.oldPassword;
       let newPassword = this.form.value.password;
 
-      this.authService
-        .updatePassswordObservable(this.user, oldPassword, newPassword)
+      this.userService
+        .updatePasssword(this.user, oldPassword, newPassword)
         .subscribe(
           (res) => {
             console.log('Response Created');

@@ -70,7 +70,7 @@ export class AuthComponent implements OnInit {
     user.password = this.form.value.password;
 
     if (this.form.valid) {
-      this.userService.authenticate(user).subscribe(
+      this.authService.authenticate(user).subscribe(
         (res) => {
           console.log('Response Received');
 
@@ -142,9 +142,9 @@ export class AuthComponent implements OnInit {
   }
 
   // Register
-  onRegister() {
-    this.router.navigate(['/patient-registration']);
-  }
+  // onRegister() {
+  //   this.router.navigate(['/patient-registration']);
+  // }
 
   removeForgetValidation() {
     if (this.isForget) {
@@ -157,11 +157,24 @@ export class AuthComponent implements OnInit {
     this.removeForgetValidation();
 
     let email = this.form.value.email;
+
     // send mail to provided username with default one time password and when they click on link redirect to change password page
-    if (this.authService.forgetPassword(email)) {
-      // alert('Email link send to change password');
-    } else {
-    }
+    this.userService.forgetPassword(email).subscribe(
+      (res) => {
+        console.log('Response Received');
+        console.log(res);
+
+        // After Successful, Sending Email for forget email link
+      },
+      (err) => {
+        console.error('Error Received');
+        console.error(err);
+
+        // After Failed, Sending Email for forget email link
+
+        // User Not Found with that username
+      }
+    );
   }
 
   isFieldInvalid(field: string) {
