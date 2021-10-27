@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ErrorMessage } from '../../../model/error.enum';
 import { User } from '../../../model/user.model';
 import { UserService } from '../../services/user.service';
+import { Roles } from 'src/app/model/roles.enum';
 
 @Component({
   selector: 'app-auth',
@@ -75,18 +76,28 @@ export class AuthComponent implements OnInit {
           console.log('Response Received');
 
           console.log(res);
-          this.authService.userInfo.next(res.user);
-          sessionStorage.setItem('user', JSON.stringify(res.user));
-          sessionStorage.setItem('token', JSON.stringify(res.token));
+          this.authService.userInfo.next(res);
+          sessionStorage.setItem('user', JSON.stringify(res));
+          sessionStorage.setItem('token', JSON.stringify(res.accessToken));
 
           this.errorMessage = '';
 
-          if (res.user.attempt === -1) {
+          if (res.attempt === -1) {
             // new user redirect update password page
             this.router.navigate(['/users/update']);
           } else {
+            let redirectLink = '/';
+            if (res.roleId == Roles.ADMIN) {
+              redirectLink = '/admin';
+            }
+            // this.router
+            //   .navigateByUrl('/', { skipLocationChange: true })
+            //   .then(() => {
+            //     this.router.navigate([redirectLink]);
+            //   });
+            this.router.navigate([redirectLink]);
+
             window.location.reload();
-            this.router.navigate(['/']);
             console.log('INSIDE ELSE Auth');
           }
 

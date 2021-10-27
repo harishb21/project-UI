@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
@@ -65,15 +65,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
+      // this.isLoggedIn$.next(true);
     });
     // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 
-    this.authService.userInfo.subscribe((res) => {
-      this.user = res;
-    });
-
-    // this.user = localStorage.getItem('user');
+    this.user = this.authService.getUserFromSession();
 
     if (this.user) {
       this.observer

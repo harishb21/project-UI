@@ -52,4 +52,15 @@ export class AuthService {
     this.userInfo.next(null);
     sessionStorage.clear();
   }
+
+  getUserFromSession() {
+    let sessionUser: User;
+    if (sessionStorage.getItem('user')) {
+      const str: string | null = sessionStorage.getItem('user');
+      const user: User = JSON.parse(str === null ? '{}' : str);
+      sessionUser = user;
+    }
+
+    return sessionUser;
+  }
 }
