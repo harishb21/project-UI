@@ -1,3 +1,4 @@
+import { ExportService } from './../../services/export.service';
 import { Router } from '@angular/router';
 import { User } from './../../model/user.model';
 import {
@@ -56,15 +57,15 @@ export class EmployeeManagementComponent implements OnInit {
     { value: 'deactive', viewValue: 'Deactivate' },
     { value: 'block', viewValue: 'Blocked' },
   ];
-
+  @ViewChild('userTable') userTable: ElementRef;
   @ViewChild('RecordNumber', { static: false }) recordnum: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private exportService : ExportService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -104,8 +105,7 @@ export class EmployeeManagementComponent implements OnInit {
   }
   changeStatus() {
     this.adminService.editEmployeeStatus(this.allStaffs).subscribe((data) => {
-      //this._snackBar.open(data.msg);
-      this.toastr.success(data.msg);
+      this._snackBar.open(data.msg);
       this.selected.reset();
     });
   }
@@ -153,5 +153,8 @@ export class EmployeeManagementComponent implements OnInit {
     this.columnName = key;
 
     this.loadUser();
+  }
+  exportElmToExcel(): void {
+    this.exportService.exportTableElmToExcel(this.userTable, 'user_data');
   }
 }

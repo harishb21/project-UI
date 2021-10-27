@@ -35,6 +35,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
     <div *ngIf="user">
+      
       <img
         class="avatar mat-elevation-z8"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfhnnb_9Wy7toeAbYmtM-4dJ5Nwty-rf8HVlhkSuHZDygLfAwGBm4wrcB6HHfwK1johMU&usqp=CAU"
@@ -45,7 +46,7 @@
 
       <mat-divider></mat-divider>
       <mat-accordion mat-button>
-        <button mat-button class="menu-button" routerLink="/admin">
+        <button *ngIf="isAdmin()" mat-button class="menu-button" routerLink="/admin">
           <mat-icon>dashboard</mat-icon>
           <span>Dashboard</span>
         </button>
@@ -73,7 +74,7 @@
 
         <mat-expansion-panel
           class="mat-expanded-panel"
-          *ngIf="isPhysician() || isNurse() || isAdmin()"
+          
         >
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -82,7 +83,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <button 
-          *ngIf="!isAdmin()"
+          *ngIf="!isAdmin() && user.roleName !='PATIENT'"
           mat-button class="menu-button" routerLink="/users/patient">
             <mat-icon>person_add</mat-icon>
             <span>Register</span>
@@ -115,7 +116,7 @@
 
 <!-- ------------------------------------------------------------- -->
 
-        <mat-expansion-panel class="mat-expanded-panel">
+        <mat-expansion-panel *ngIf="!isPatient()" class="mat-expanded-panel">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>people</mat-icon>
@@ -185,7 +186,7 @@
 
         
 
-        <button mat-button class="menu-button" routerLink="/notes">
+        <button mat-button *ngIf="!isPatient()" class="menu-button" routerLink="/notes">
           <mat-icon>question_answer</mat-icon>
           <span>Notes</span>
         </button>

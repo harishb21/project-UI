@@ -1,3 +1,4 @@
+import { ExportService } from './services/export.service';
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './footer/footer.component';
 import { NgModule, Component } from '@angular/core';
@@ -131,6 +132,7 @@ const router: Routes = [
   providers: [
     AuthGuard,
     UserGuard,
+    ExportService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

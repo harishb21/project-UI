@@ -6,6 +6,7 @@ import { NotesServiceService } from './../services/notes-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Email } from 'src/app/model/email.model';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-notification',
@@ -17,15 +18,16 @@ export class NotificationComponent implements OnInit {
   model = new Email();
   submitted = false;
   value : string[] =  [];
-  message = '';
   users :User[] =[];
   allPatientButton : boolean = false;
   ActivePatientButton : boolean =false;
   allEmployeeButton : boolean = false;
   activeEmployeebutton: boolean = false;
+  dataFetch : boolean = false;
   disabledInput:boolean=false;
   constructor(private router: Router,
     private notesSerive:NotesServiceService,
+    private _snackBar: MatSnackBar,
     private adminService:AdminserviceService
     ) { }
 
@@ -50,22 +52,18 @@ export class NotificationComponent implements OnInit {
     //this.model.receipt=this.f.email.value;
     this.model.subject=this.f.subject.value;
     this.model.body=this.f.body.value;
-    // this.f.email.value.forEach((element:any) => {
-    //   console.log(element)
-    // });
+    if(this.dataFetch)
+    {
     this.model.multipleTo=this.f.email.value
-    // const emailId:string[] = this.f.email.value.split(" ");
-    // console.log(emailId);
-    // this.model.multipleTo =emailId;
+    }
+    else{
+    const emailId:string[] = this.f.email.value.split(" ");
+    this.model.multipleTo =emailId;
+    }
     this.notesSerive.sendMail(this.model).subscribe(
       (data) =>{
-        this.message=data.success;
       this.router.navigate(['admin'])
-
-     },
-     (error)=>{
-       this.message=error
-      console.log(error)
+      this._snackBar.open(data.success);
      }
     );
   }
@@ -77,6 +75,7 @@ this.adminService.getAllPatientEmail().subscribe(
     this.allPatientButton=true;
     this.ActivePatientButton=true;
     this.disabledInput=true;
+    this.dataFetch = true;
   })
   }
   getAllActivePatient(){
@@ -87,6 +86,7 @@ this.adminService.getAllPatientEmail().subscribe(
         this.allPatientButton=true;
         this.ActivePatientButton=true;
         this.disabledInput=true;
+        this.dataFetch = true;
       })
   }
   getAllEmployee(){
@@ -97,6 +97,7 @@ this.adminService.getAllPatientEmail().subscribe(
        this.activeEmployeebutton=true
        this.allEmployeeButton=true
        this.disabledInput=true;
+       this.dataFetch = true;
       })
   }
   getAllActiveEmployee(){
@@ -107,6 +108,7 @@ this.adminService.getAllPatientEmail().subscribe(
         this.activeEmployeebutton=true
         this.allEmployeeButton=true
         this.disabledInput=true;
+        this.dataFetch = true;
       })
   }
   clearInput(){
@@ -116,5 +118,6 @@ this.adminService.getAllPatientEmail().subscribe(
     this.activeEmployeebutton=false
        this.allEmployeeButton=false
        this.disabledInput=false;
+       this.dataFetch = false;
   }
 }
