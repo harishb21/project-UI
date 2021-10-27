@@ -54,7 +54,7 @@ export class InboxServiceBoard {
     //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
     console.log(this.userEmpId);
     console.log(this.userRoleId);
-    return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/`+this.userRoleId+"/"+this.userEmpId);
+    return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/sorted/`+this.userRoleId+"/"+this.userEmpId);
   }
 
   getAllStaffData(): Observable<User[]> {

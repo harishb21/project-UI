@@ -26,6 +26,7 @@ export class NotesComponent implements OnInit {
 
     this.authService.userInfo.subscribe((user) => {
       this.user = user;
+      
     });
     this.getNonReadCount();
     // setTimeout(function(){

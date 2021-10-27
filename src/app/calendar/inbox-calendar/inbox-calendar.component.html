@@ -90,7 +90,10 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td> <div *ngIf="showTimeSlotflag" id='timeSlot' >please provide another time slot for to book a appointment</div></td>
+                            <td>
+                                <div *ngIf=" physicianSlotflag " id='timeSlot'>This slot is not available for Physician at this moment</div>
+                                <div *ngIf="patientSlotfalg " id='timeSlot'>This slot is not available for Patient at this moment</div>
+                                </td>
                         </tr>
                         
                     </tbody>

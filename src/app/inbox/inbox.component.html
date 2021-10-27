@@ -1,105 +1,106 @@
 <div class="inboxDiv">
-<mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
-</mat-form-field>
-<div class="mat-elevation-z8" >
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows >
-   
-    <!-- Position Column -->
-    <ng-container matColumnDef="Sno">
-      <th mat-header-cell *matHeaderCellDef> Sno </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    <!-- Name Column -->
-    <ng-container matColumnDef="MeetingTitle">
-      <th mat-header-cell *matHeaderCellDef> Meeting Title </th>
-      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="Physician">
-      <th mat-header-cell *matHeaderCellDef> Physician </th>
-      <td mat-cell *matCellDef="let element"> {{element.physicianName}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="Date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.dashboardDate | date:'mediumDate'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="Time">
-      <th mat-header-cell *matHeaderCellDef> Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.dashboardStime| date:'shortTime'}} - {{element.dashboardEtime| date:'shortTime'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element" class="action-link"> 
-        <button mat-icon-button matTooltip="Click to detail" 
-          class="iconbutton" (click)='onClickAction(element)'>
-          <mat-icon>person</mat-icon> 
-        </button> 
-        <button mat-icon-button matTooltip="Click to Edit" 
-          class="iconbutton" (click)='onClickAction(element)'> 
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+  </mat-form-field>
+  <div class="mat-elevation-z8" >
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows >
+     
+      <!-- Position Column -->
+      <ng-container matColumnDef="Sno">
+        <th mat-header-cell *matHeaderCellDef> Sno </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="MeetingTitle">
+        <th mat-header-cell *matHeaderCellDef> Meeting Title </th>
+        <td mat-cell *matCellDef="let element">
+          <div style="width: 150px; word-wrap: break-word">
+          {{element.title}} 
+        </div></td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Physician">
+        <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"> Physician </th>
+        <td mat-cell *matCellDef="let element" style="padding-left: 10px;">
+          <div style="width: 14 5px; word-wrap: break-word">
+          {{element.physicianName}} 
+        </div>
+        </td>
+  
+      </ng-container>
+      <ng-container matColumnDef="Patient">
+        <th mat-header-cell *matHeaderCellDef> Patient </th>
+        <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef style="padding-left: 30px;"> Date </th>
+        <td mat-cell *matCellDef="let element" style="padding-left: 30px;"> {{element.dashboardDate | date:'mediumDate'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Time">
+        <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"> Time </th>
+        <td mat-cell *matCellDef="let element" style="padding-left: 10px;"> {{element.dashboardStime| date:'shortTime'}} - {{element.dashboardEtime| date:'shortTime'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action" >
+        <th mat-header-cell *matHeaderCellDef style="padding-left: 26px;"> Action </th>
+        <td mat-cell *matCellDef="let element" class="action-link" style="padding-left: 20px;"> 
+          <button mat-icon-button matTooltip="Click to Edit Appointment" 
+          class="iconbutton" (click)='onClickEdit(element)'> 
           <mat-icon>edit</mat-icon> 
         </button> 
-        <button mat-icon-button matTooltip="Click to Delete" 
-          class="iconbutton" (click)='onClickDelete(element)'>
-           <mat-icon>delete</mat-icon> 
-        </button> 
-      </td>
-    </ng-container>
-    <!-- Expanded Content Column - 
-
-<button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
-                (click)='onClickAction("delete")'>
-                <mat-icon>delete</mat-icon>
-              </button> 
-
-
-
-      The detail row is made up of this one column that spans across all columns -->
-    <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-        <div class="example-element-detail"
-          [@detailExpand]=" element == expandedElement ? 'expanded' : 'collapsed'">
-          <!--insert here-->
-          <div class="example-element-description"><b>Description: </b>{{ element.description }}</div>
-        </div>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr
-      mat-row
-      *matRowDef="let element; columns: columnsToDisplay"
-      class="example-element-row"
-      [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element"
-      
-    ></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: ['expandedDetail']"
-      class="example-detail-row"
-    ></tr>
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="6">
-        No data matching the filter "{{ input.value }}"
-      </td>
-    </tr>
-  </table>
+          </td>
+         <!--  <td mat-cell *matCellDef="let element" class="action-link">
+         <button mat-icon-button matTooltip="Click to detail" 
+            class="iconbutton" (click)='onClickDetails(element)'>
+            <mat-icon>person</mat-icon> 
+          </button> 
+          <button mat-icon-button matTooltip="Click to Delete" 
+            class="iconbutton" (click)='onClickDelete(element)'>
+             <mat-icon>delete</mat-icon> 
+          </button> 
+        </td> -->
+      </ng-container>
+      <!-- Expanded Content Column - 
   
-</div>
-</div>
-<!--insert here-->
-<!-- <div class="example-element-diagram" >
-           <div class="example-element-sno">{{ element.Sno }}</div>
-            <div class="example-element-meet">{{ element.MeetingTitle }}</div>
-            <div class="example-element-physician">{{ element.Physician }}</div>
-             <div class="example-element-date">{{ element.Date }}</div>
-            <div class="example-element-time">{{ element.Time }}</div>
-            <div class="example-element-edit">hhh</div>
-          </div> -->
-<!--insert here-->
+        The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length"  [class.highlightRow]="highlight(element)">
+          <div class="example-element-detail"
+            [@detailExpand]=" element == expandedElement ? 'expanded' : 'collapsed'">
+            <!--insert here-->
+            <div class="example-element-description">
+              <b>Description: </b>{{ element.description }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplay" [class.highlightRow]="highlight(element)"
+        class="example-element-row" 
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+        
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="6">
+          No data matching the Name "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+  </div>
+  
+  
