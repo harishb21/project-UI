@@ -10,4 +10,5 @@ pm i ngx-order-pipe
 # installing xlsx package
 $ npm install xlsx
 # installing file-saver - a solution to saving files on the client-side
+npm i @types/file-saver
 $ npm install file-saver

@@ -76,7 +76,7 @@ export class InboxCalendarComponent implements OnInit {
     
   }
   ngOnInit(): void {
-    
+    console.log(this.inboxService.staffNameList)
   }
   @ViewChild('scheduleObj', { static: false })
   public scheduleObj: ScheduleComponent;
