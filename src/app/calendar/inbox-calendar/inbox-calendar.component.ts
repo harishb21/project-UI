@@ -392,8 +392,8 @@ export class InboxCalendarComponent implements OnInit {
       this.physicianStringVal = args.data.physicianId;
       this.physicianValue = args.data.physicianId;
       this.PatientNamePopUp = args.data.patientId;
-      this.reasonFlag=true;
-      (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '90%';
+     // this.reasonFlag=true;
+     // (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '90%';
     }
     if (args.type === 'Editor') {
       let formElement: HTMLElement = <HTMLElement>(args.element.querySelector('.e-schedule-form')
@@ -432,7 +432,7 @@ export class InboxCalendarComponent implements OnInit {
     this.reasonFlag=false;
     
     
-    (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '510px';
+   // (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '510px';
   }
   public onEventRendered(args: EventRenderedArgs): void {
   }
