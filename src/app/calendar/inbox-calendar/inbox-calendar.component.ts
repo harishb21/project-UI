@@ -338,17 +338,11 @@ export class InboxCalendarComponent implements OnInit {
         this.endDate = args.value;
         this.endDateCheck = this.isValidAction1(this.endDate,true);
         this.inboxService.timeCheck.endDateTime=args.value.toISOString();
-      }
-      console.log("role-------");
-      
-      console.log(this.inboxService.timeCheck.roleId);
-      console.log(this.inboxService.timeCheck.physicianEmpId);
-      
-      
+      }   
       if((this.startDate <= this.endDate && this.physicianValue != undefined)|| this.inboxService.timeCheck.roleId == 2){
       this.inboxService.timeSlotcheck(this.inboxService.timeCheck).subscribe(
         data=>{
-          if(this.inboxService.timeCheck.roleId == 2){
+          if(this.inboxService.timeCheck.roleId === 2){
             this.physicianSlotflag =  data.timeSlotFlag;
            }else{
             this.patientSlotfalg= data.timeSlotFlag;

@@ -6,5 +6,6 @@ export class Allergy {
   otherAllergy: string;
   allergyFatal: string;
   allergyDesc: string;
-  allergyCode:string
+  allergyCode:string;
+  patientId:string
 }

@@ -1,0 +1,70 @@
+<p class="heading">Add Allergy</p>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input
+    class="form-control"
+    list="allergyIdList"
+    formControlName="allergyId"
+    placeholder="select Allergy Id"
+  />
+  <datalist id="allergyIdList">
+    <option *ngFor="let option of allergy_idlist">
+      {{ option.allergyId }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <input
+    class="form-control"
+    list="allergyNameList"
+    formControlName="allergyName"
+    placeholder="Select Allergy Name"
+  />
+  <datalist id="allergyNameList">
+    <option *ngFor="let option of allergy_idlist">
+      {{ option.allergyName }}
+    </option>
+  </datalist>
+
+  <br />
+
+  <input
+    class="form-control"
+    list="allergyTypeList"
+    formControlName="allergyType"
+    placeholder="Select Allergy Type"
+  />
+  <datalist id="allergyTypeList">
+    <option *ngFor="let option of allergy_idlist">
+      {{ option.allergyType }}
+    </option>
+  </datalist>
+
+
+  <!-- <br />
+
+  <input
+    class="form-control"
+    list="allergyDescList"
+    formControlName="allergyDesc"
+    placeholder="Select Allergy Desc"
+  />
+  <datalist id="allergyDescList">
+    <option *ngFor="let option of allergy_idlist">
+      {{ option.allergyDesc }}
+    </option>
+  </datalist> -->
+
+
+  <br />
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="submit" class="btn btn-success">Save</button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onClose()">
+        Close
+      </button>
+    </div>
+  </div>
+</form>

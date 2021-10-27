@@ -95,3 +95,11 @@ mat-expansion-panel{
 mat-expansion-panel-header mat-panel-title{
   color: white;
 }
+.appDiv{
+margin-top: 1px;
+margin-bottom: 1px;
+}
+/* .mat-drawer-content{
+  overflow-x: hidden;
+  overflow-y: hidden !important;
+} */
