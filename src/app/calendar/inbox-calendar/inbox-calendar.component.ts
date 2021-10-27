@@ -68,6 +68,7 @@ L10n.load({
   encapsulation: ViewEncapsulation.None,
 })
 export class InboxCalendarComponent implements OnInit {
+  
   constructor(private inboxService: InboxService) {
     this.inboxService.onloadFun();
     this.loadUser();
@@ -135,7 +136,8 @@ export class InboxCalendarComponent implements OnInit {
   public validator: FormValidator;
   timeServiceRes:TimeSlotResponse;
   eventSettings: EventSettingsModel;
-
+  reasonFlag: boolean;
+  reaonVal:String='';
   loadUser() {
     this.inboxService.getAllAppointmentData().subscribe((data: any) => {
       //scheduleData: extend(data, null, true) as Record<string, any>[];
@@ -152,6 +154,7 @@ export class InboxCalendarComponent implements OnInit {
           },
           startTime: { name: 'startTime', validation: { required: true } },
           endTime: { name: 'endTime', validation: { required: true } },
+          location: { name: 'Reason', validation: { required: true } },
         },
       };
     });
@@ -215,7 +218,6 @@ export class InboxCalendarComponent implements OnInit {
     }
   }
   public onActionBegin(args: any): void {
-   
     if (
       args.requestType === 'eventCreate' ||
       args.requestType === 'eventChange' ||
@@ -226,6 +228,7 @@ export class InboxCalendarComponent implements OnInit {
         data = <any>args.data[0];
         const objData: InboxData = this.getAppointmentData(data);
         this.inboxService.addAppointment(objData);
+         this.reaonVal = (<HTMLInputElement>document.getElementById("Reason")).value;
         this.scheduleObj.eventWindow.refresh(); 
       } else if (args.requestType === 'eventChange') {
         data = <any>args.data;
@@ -265,7 +268,7 @@ export class InboxCalendarComponent implements OnInit {
       description: Description,
       physicianId: PhysicianId,
       patientId: patientId,
-      reason: 'no reason',
+      reason: this.reaonVal,
     };
     return obj;
   }
@@ -354,12 +357,12 @@ export class InboxCalendarComponent implements OnInit {
 
   }
   isValidAction(date: Date) {
-    return !(date.getTime() > new Date().getTime());
+   let localDate =new Date(date);
+    return !(localDate.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
-
-    //args.element.querySelector('.e-event-save').classList.add('e-custom-display');
     this.showPatientError=false;
+    args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
     //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
     if(this.inboxService.disablePhysician){
       console.log(this.inboxService.userEmpId.toString());
@@ -389,6 +392,8 @@ export class InboxCalendarComponent implements OnInit {
       this.physicianStringVal = args.data.physicianId;
       this.physicianValue = args.data.physicianId;
       this.PatientNamePopUp = args.data.patientId;
+      this.reasonFlag=true;
+      (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '90%';
     }
     if (args.type === 'Editor') {
       let formElement: HTMLElement = <HTMLElement>(args.element.querySelector('.e-schedule-form')
@@ -403,6 +408,7 @@ export class InboxCalendarComponent implements OnInit {
       } else {
         args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
       }
+
       if (this.isValidAction(args.data.startTime)) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-hide');
         args.element.querySelector('.e-event-delete').classList.add('e-custom-hide');
@@ -423,6 +429,10 @@ export class InboxCalendarComponent implements OnInit {
     this.showTimeSlotflag=false;
     this.physicianSlotflag= false;
     this.patientSlotfalg = false;
+    this.reasonFlag=false;
+    
+    
+    (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '510px';
   }
   public onEventRendered(args: EventRenderedArgs): void {
   }
