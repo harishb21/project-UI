@@ -14,7 +14,7 @@ export class InboxData {
 
 export class DashboardInbox{  
     constructor(){}
-            public id: string;
+            public id: number;
             public title: String;
             public dashboardDate:Date;
             public dashboardStime: Date;

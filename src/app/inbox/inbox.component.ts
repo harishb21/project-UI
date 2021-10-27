@@ -171,11 +171,22 @@ export class InboxComponent implements OnInit, AfterViewInit {
       return false;
     }
   }
-  onClickDetails(args:DashboardInbox){
-    this.expandedElement = args;
-  }
+ 
   onClickEdit(args:DashboardInbox){
     this.expandedElement = args;
     this.router.navigate(['app-inbox-calendar']);
+  }
+
+  onClickDetails(args:DashboardInbox) {
+    this.expandedElement = args;
+    let patientId:number;
+    let appointmentId:number;
+    this.inboxServiceBoard.getAppointmentById(args.id).subscribe(
+      data=>{
+        patientId = data.patientId;
+        appointmentId = data.id
+      }
+    )
+    this.router.navigate(['patient-visit/visit/' + patientId + '/' + appointmentId]);
   }
 }
