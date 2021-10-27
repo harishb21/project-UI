@@ -37,7 +37,7 @@ export class User {
   public emgrFname: string;
   public emgrLname: string;
   public emgrEmail: string;
-  public emgrContactNo: number;
+  public emgrPhnumber: number;
   public emgrRelation: string;
   public emgrAddress: number;
   public emgrCity: string;
