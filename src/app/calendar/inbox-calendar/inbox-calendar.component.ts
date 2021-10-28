@@ -77,7 +77,7 @@ export class InboxCalendarComponent implements OnInit {
     
   }
   ngOnInit(): void {
-    console.log(this.inboxService.staffNameList)
+    
   }
   @ViewChild('scheduleObj', { static: false })
   public scheduleObj: ScheduleComponent;
@@ -142,7 +142,8 @@ export class InboxCalendarComponent implements OnInit {
     this.inboxService.getAllAppointmentData().subscribe((data: any) => {
       //scheduleData: extend(data, null, true) as Record<string, any>[];
       this.eventSettings = {
-        dataSource: <InboxData[]>extend(data, null, true),
+       // dataSource: <InboxData[]>extend(data, null, true),
+       dataSource:data,
         fields: {
           subject: {
             name: 'title',
@@ -154,7 +155,7 @@ export class InboxCalendarComponent implements OnInit {
           },
           startTime: { name: 'startTime', validation: { required: true } },
           endTime: { name: 'endTime', validation: { required: true } },
-          //location: { name: 'Reason', validation: { required: true } },
+       
         },
       };
     });
@@ -229,19 +230,21 @@ export class InboxCalendarComponent implements OnInit {
         const objData: InboxData = this.getAppointmentData(data);
         this.inboxService.addAppointment(objData);
        // this.reaonVal = (<HTMLInputElement>document.getElementById("Reason")).value;
-
-        this.scheduleObj.eventWindow.refresh(); 
+        window.location.reload();
+       // this.scheduleObj.eventWindow.refresh(); 
       } else if (args.requestType === 'eventChange') {
         data = <any>args.data;
         const objData: InboxData = this.getAppointmentData(data);
         this.inboxService.updateAppointment(objData);
-        this.scheduleObj.eventWindow.refresh(); 
+        window.location.reload();
+        //this.scheduleObj.eventWindow.refresh(); 
       } else if (args.requestType === 'eventRemove') {
         data = <any>args.data[0];
         console.log(data);
         if (data.id != undefined && data.id) {
           this.inboxService.deleteAppointment(data.id);
-          this.scheduleObj.eventWindow.refresh(); 
+         // this.scheduleObj.eventWindow.refresh(); 
+          window.location.reload();
         }
       }
     }
@@ -307,20 +310,23 @@ export class InboxCalendarComponent implements OnInit {
     }
   }
   public startDateParser(data: string) {
+    // console.log("startDateParser");
+    // console.log(data);
     if (isNullOrUndefined(this.startDate) && !isNullOrUndefined(data)) {
       return new Date(data);
     } else if (!isNullOrUndefined(this.startDate)) {
       return new Date(this.startDate);
     }
-    return new Date(data);
+   return new Date(data);
   }
   public endDateParser(data: string) {
+   
     if (isNullOrUndefined(this.endDate) && !isNullOrUndefined(data)) {
       return new Date(data);
     } else if (!isNullOrUndefined(this.endDate)) {
       return new Date(this.endDate);
     }
-    return new Date(data);
+   return new Date(data);
   }
 
   isValidAction1(date: Date,bool:boolean) {
@@ -360,6 +366,8 @@ export class InboxCalendarComponent implements OnInit {
   }
   isValidAction(date: Date) {
    //let localDate =new Date(date);
+   console.log(date);
+   
     return !(date.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
@@ -404,14 +412,17 @@ export class InboxCalendarComponent implements OnInit {
       this.validator = (formElement as EJ2Instance).ej2_instances[0] as FormValidator;
       if(!this.inboxService.disablePhysician){
       this.validator.addRules('Status', {required: [true, 'This field is required.'],});
-    }
+      }
+    if(!this.inboxService.disablePatient){
       this.validator.addRules('books', {required: true});
+      }
       if (args.target.classList.contains('e-work-cells')) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
       } else {
         args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
       }
-
+      console.log((<HTMLInputElement>document.getElementById("startTime")).value);
+      
       if (this.isValidAction(args.data.startTime)) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-hide');
         args.element.querySelector('.e-event-delete').classList.add('e-custom-hide');
@@ -461,12 +472,6 @@ export class InboxCalendarComponent implements OnInit {
   }
 }
 
-// keyupDatecheck(args:any){
-// console.log("keyupDatecheck---------------");
-// console.log(args);
-// //$("#datePickerInput").datepicker('getDate');
-// }
-  //==================patient Name===================
 
   //========save button disbale code=====================
   public onChange(args: any) {
@@ -485,6 +490,7 @@ export class InboxCalendarComponent implements OnInit {
         'startTime',
       ];
     }else if(this.inboxService.disablePatient){
+    console.log("else if---");
       names = [
         'Status',
         'title',
@@ -493,14 +499,16 @@ export class InboxCalendarComponent implements OnInit {
         'startTime',
       ];
     }else{
-     names = [
+     console.log("else-");
+     
+      names = [
       'title',
       'description',
       'Status',
       'books',
       'endTime',
       'startTime',
-    ];
+    ];  
   }
     names.forEach((e) => {
       form.validateRules(e);
@@ -531,7 +539,7 @@ export class InboxCalendarComponent implements OnInit {
     }
   }
 }
-
+   //location: { name: 'Reason', validation: { required: true } },
 // console.log("appointmentId-------"+appointmentId);
 // console.log("title-------"+title);
 // console.log("Description-------"+Description);
