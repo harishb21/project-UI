@@ -35,6 +35,7 @@ export class VisitHistoryComponent implements OnInit {
     this.visitHistoryService
       .getAppointmentIdByVisitDate(date)
       .subscribe((id) => {
+        
         this.appointmentId = id;
         this.getVitals();
         this.getDiagnosis();
@@ -95,7 +96,7 @@ export class VisitHistoryComponent implements OnInit {
   exportToExcel(): void {
 
     const edata: Array<ExcelJson> = [];
-    // adding V"
+    // adding Vital sign to file"
     const pvs = {
       data: [
         // chart title

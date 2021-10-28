@@ -32,7 +32,6 @@ export class DiagnosisComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '250px';
     dialogConfig.data = this.appointmentId;
     dialogConfig.position = {};
 

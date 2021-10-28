@@ -1,7 +1,10 @@
 <div class="maindiv  mat-elevation-z5">
-  <h3>Patients List</h3>
+
+  <p class="lead">
+    Patients List
+  </p>
 <mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
+  <mat-label>Search</mat-label>
   <input
     matInput
     (keyup)="applyFilter($event)"
@@ -15,19 +18,20 @@
   class="table table-hover table-bordered
   text-center
   table-responsive
-  table-success
+  table-light
   table-striped
  ">
     <!-- ID Column -->
     <ng-container matColumnDef="patientId">
       <th
+      class=" fw-bold table-primary"
         mat-header-cell
         (click)="getSort('userId')"
         *matHeaderCellDef
         mat-sort-header
-        class=" table-warning header "
+        
       >
-        Patient ID
+    Patients ID
       </th>
       <td mat-cell *matCellDef="let row">{{ row.userId }}</td>
     </ng-container>
@@ -35,27 +39,29 @@
     <!-- Name Column -->
     <ng-container matColumnDef="firstName">
       <th
+      class=" fw-bold table-primary"
         mat-header-cell
         (click)="getSort('firstName')"
         *matHeaderCellDef
         mat-sort-header
-        class="table-warning header"
+       
       >
         Patient Name
       </th>
       <td mat-cell *matCellDef="let row">
-       <b> {{ row.firstName }}&nbsp;{{ row.lastName }}</b>
+       {{ row.firstName }}&nbsp;{{ row.lastName }}
       </td>
     </ng-container>
 
     <!-- Progress Column -->
     <ng-container matColumnDef="createdOn">
       <th
+      class=" fw-bold table-primary"
         mat-header-cell
         (click)="getSort('createdOn')"
         *matHeaderCellDef
         mat-sort-header
-        class=" table-warning header"
+        
       >
         Date Of registration
       </th>
@@ -65,11 +71,12 @@
     <!-- status Column -->
     <ng-container matColumnDef="status">
       <th
+      class="fw-bold table-primary"
         mat-header-cell
         (click)="getSort('status')"
         *matHeaderCellDef
         mat-sort-header
-        class="table-warning header"
+       
       >
         Status
       </th>
@@ -98,7 +105,7 @@
     <!-- Edit Status-->
 
     <ng-container matColumnDef="editstatus">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-warning header">
+      <th class="table-primary" mat-header-cell *matHeaderCellDef mat-sort-header >
         Edit Status
       </th>
       <td mat-cell *matCellDef="let row; let i = index">

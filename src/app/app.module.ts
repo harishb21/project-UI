@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { ExportService } from './services/export.service';
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './footer/footer.component';
@@ -129,6 +130,7 @@ const router: Routes = [
     HttpClientModule,
     ToastrModule.forRoot(),
     MatInputModule,
+    MatDialogModule
   ],
   providers: [
     AuthGuard,

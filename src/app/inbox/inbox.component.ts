@@ -34,7 +34,7 @@ import { Router } from '@angular/router';
   ],
 })
 export class InboxComponent implements OnInit, AfterViewInit {
-
+patientId : number ;
  // ELEMENT_DATA1: Inbox[] = this.inboxService.getAllappointments();
   //dataSource = new MatTableDataSource<Inbox>(this.ELEMENT_DATA1);
   dataSource = new MatTableDataSource<DashboardInbox>();
@@ -176,6 +176,10 @@ export class InboxComponent implements OnInit, AfterViewInit {
     this.expandedElement = args;
     this.router.navigate(['app-inbox-calendar']);
   }
+  editData(element:DashboardInbox) {
+   
+    this.router.navigate(['patient-visit/visit/' + element.id + '/' + element.id]);
+  }
 
   onClickDetails(args:DashboardInbox) {
     this.expandedElement = args;
@@ -183,10 +187,13 @@ export class InboxComponent implements OnInit, AfterViewInit {
     let appointmentId:number;
     this.inboxServiceBoard.getAppointmentById(args.id).subscribe(
       data=>{
+        console.log(data)
         patientId = data.patientId;
         appointmentId = data.id
       }
     )
+    patientId=49;
+    appointmentId=2;
     this.router.navigate(['patient-visit/visit/' + patientId + '/' + appointmentId]);
   }
 }

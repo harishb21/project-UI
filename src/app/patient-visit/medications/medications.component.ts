@@ -52,7 +52,7 @@ export class MedicationsComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '400px';
+    //dialogConfig.height = '400px';
     dialogConfig.data = this.appointmentId;
     dialogConfig.position = {};
 

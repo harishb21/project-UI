@@ -33,7 +33,7 @@ export class ProcedureDialogComponent implements OnInit {
       description: [''],
     });
 
-    this.appointmentId = this.appointmentService.patientId;
+    this.appointmentId = this.appointmentService.appointmentId;
 
     this.getActiveProcedures();
   }

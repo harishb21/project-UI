@@ -70,6 +70,13 @@ mat-divider {
 .appDiv {
   margin-top: 10px;
   margin-left: 25px;
+ 
+}
+.backgroundimage{
+  background-image: url('src\assets\pexels-photo.jpeg');
+  background-size: cover;
+  background-position: center;
+  
 }
 
 .mat-form-field + .mat-form-field {

@@ -31,7 +31,7 @@ export class MedicationsDialogComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.appointmentId = this.appointmentService.patientId;
+    this.appointmentId = this.appointmentService.appointmentId;
 
     this.getAlldrugs();
   }

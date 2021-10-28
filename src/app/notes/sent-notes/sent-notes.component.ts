@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Notes } from 'src/app/model/notes.model';
+import { User } from 'src/app/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { NotesServiceService } from '../services/notes-service.service';
 
 @Component({
@@ -19,21 +21,27 @@ export class SentNotesComponent implements OnInit {
 
   @ViewChild('input', { static: true }) input: ElementRef;
 
-
+  public user: User;
   notes:Notes;
-  userId:number =1;
+  
   dataSource: MatTableDataSource<Notes>;
   displayedColumns = ["date", "reciever","message","reply"];
-  constructor(private notesService:NotesServiceService,private route: ActivatedRoute,
-    public dialog: MatDialog
+  constructor(private notesService:NotesServiceService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private authService: AuthService
     ) { }
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res) => {
+      this.user = res;
+    });
     this.loadNotes();
   }
   loadNotes() {
-    this.notesService.getSentNotes(this.userId).subscribe(
+    this.notesService.getSentNotes(this.user.userId).subscribe(
       (data:any) => {
+        console.log(this.user)
         this.dataSource = new MatTableDataSource(data.notes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

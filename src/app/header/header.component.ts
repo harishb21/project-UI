@@ -127,4 +127,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickNotes() {}
+  routeToHistory(){
+    this.router.navigate([`/patient-visit/patient-history/`+this.user.userId])
+  }
 }

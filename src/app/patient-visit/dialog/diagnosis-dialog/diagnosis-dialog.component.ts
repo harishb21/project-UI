@@ -35,7 +35,7 @@ export class DiagnosisDialogComponent implements OnInit {
     });
 
     this.getActiveDiagnosis();
-    this.appointmentId = this.appointmentService.patientId;
+    this.appointmentId = this.appointmentService.appointmentId;
   }
 
   // onClose() {

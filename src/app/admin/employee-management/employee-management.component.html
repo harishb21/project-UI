@@ -11,13 +11,7 @@
       placeholder="Search with employee id or employee name"
       #input
     />
-    <button
-        style="width: 100px"
-        (click)="exportElmToExcel()"
-        class="btn btn-success"
-      >
-        Export Data
-      </button>
+    
   </mat-form-field>
   <div class="table-responsive">
   <table #userTable
@@ -30,7 +24,8 @@
   >
     <tr  >
       <th   (click)="getSort('empId')">
-        Employee ID &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
+        Employee ID &nbsp;<i class="bi bi-arrow-down-short"></i>
+        
       </th>
       <th (click)="getSort('firstName')">
         Employee Name &nbsp;<mat-icon style="cursor: pointer">filter_list</mat-icon>
@@ -54,11 +49,9 @@
     >
       <td>{{ employee.empId }}</td>
       <td>
-        <b
-          >{{ employee.firstName | uppercase }}&nbsp;{{
+        {{ employee.firstName | uppercase }}&nbsp;{{
             employee.lastName | uppercase
-          }}</b
-        >
+          }}
       </td>
       <td>{{ employee.createdOn | date }}</td>
       <td>

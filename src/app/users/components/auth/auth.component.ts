@@ -87,7 +87,7 @@ export class AuthComponent implements OnInit {
             this.router.navigate(['/users/update']);
           } else {
             let redirectLink = '/';
-            if (res.roleId == Roles.ADMIN) {
+            if (res.roleName == Roles.ADMIN) {
               redirectLink = '/admin';
             }
             // this.router

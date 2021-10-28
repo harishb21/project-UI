@@ -1,6 +1,6 @@
 <div class="maindiv containermt-5 mat-elevation-z5">
   <div class="row">
-  <div class="col-sm-3" style="background-color: #7386d5">
+  <div class="col-sm-3" >
     <nav id="sidebar">
       <div class="sidebar-header">
         <h3>Notes</h3>
@@ -10,10 +10,10 @@
         <li>
           <a style="cursor: pointer" (click)="activatatedeSendNotes()">
             <i class="fa fa-envelope" aria-hidden="true"></i>
-            send notes
+            New Notes
           </a>
         </li>
-        <li *ngIf="user.roleName=='ADMIN'">
+        <li *ngIf="user.roleName !='Admin'">
           <a style="cursor: pointer" (click)="activatatedeRecievedNotes()">
             <i class="fa fa-download" aria-hidden="true"></i>
             <span 
@@ -24,7 +24,7 @@
               [matBadgeHidden]="hidden"
               (click)="toggleBadgeVisibility()"
             >
-              Recieved Notes
+              Inbox Notes
               </span
             >
           </a>
@@ -38,7 +38,7 @@
       </ul>
     </nav>
   </div>
-  <div class="col-sm-9 backgroundimage" >
+  <div class="col-sm-9" >
     <app-send-notes *ngIf="activateSendNotes"></app-send-notes>
     <app-recieved-notes *ngIf="activateRecievedNotes"></app-recieved-notes>
     <app-sent-notes *ngIf="activateSentNotes"></app-sent-notes>

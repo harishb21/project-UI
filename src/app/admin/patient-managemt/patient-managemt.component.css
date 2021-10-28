@@ -11,11 +11,7 @@ table {
      width: 25%; 
   } */
 
-.header {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 15px;
-  color: rgb(68, 63, 63);
-}
+
 .maindiv {
  width: 90%;
   margin: auto;

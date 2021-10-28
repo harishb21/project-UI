@@ -1,3 +1,4 @@
+<section class="">
 <mat-toolbar class="mat-elevation-z8">
   <button mat-icon-button (click)="sidenav.toggle()" *ngIf="user">
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
@@ -30,7 +31,7 @@
   </button>
 </mat-toolbar>
 
-<mat-sidenav-container>
+<mat-sidenav-container class="backgroundimage">
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
     <div *ngIf="user">
       
@@ -66,12 +67,13 @@
             class="menu-button"
             routerLink="/admin/employee-details"
           >
-            <mat-icon>group_work</mat-icon>
-            <span>Employee Details</span>
+            <mat-icon>view_list</mat-icon>
+            <span>Employees List</span>
           </button>
         </mat-expansion-panel>
 
         <mat-expansion-panel
+        *ngIf="!isPatient()"
           class="mat-expanded-panel"
           
         >
@@ -94,7 +96,7 @@
             *ngIf="isAdmin()"
           >
             <mat-icon>group_add</mat-icon>
-            <span>Patient Details</span>
+            <span>Patient List</span>
           </button>
           <button
             *ngIf="!isAdmin()"
@@ -106,19 +108,20 @@
             <span>Patients</span>
           </button>
 
-          <button
+          <!-- <button
+          *ngIf="!isPatient() && !isAdmin()"
             mat-button
             class="menu-button"
             routerLink="/patient-visit/appointment-list"
           >
             <mat-icon>people</mat-icon>
             <span>Appointments</span>
-          </button>
-        </mat-expansion-panel>
+          </button>-->
+        </mat-expansion-panel> 
 
         <!-- ------------------------------------------------------------- -->
 
-        <mat-expansion-panel *ngIf="!isPatient()" class="mat-expanded-panel">
+        <mat-expansion-panel *ngIf="isAdmin()" class="mat-expanded-panel">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>people</mat-icon>
@@ -126,7 +129,6 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <button
-            *ngIf="!isAdmin()"
             mat-button
             class="menu-button"
             routerLink="/master/all-drugs"
@@ -138,7 +140,6 @@
             mat-button
             class="menu-button"
             routerLink="/master/all-diagnosis"
-            *ngIf="isAdmin"
           >
             <mat-icon>group_add</mat-icon>
             <span>Diagnosis</span>
@@ -153,20 +154,7 @@
           </button>
         </mat-expansion-panel>
 
-        <!-- --------------------------------------------------------------- -->
-
-        <mat-expansion-panel class="mat-expanded-panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>manage_accounts</mat-icon>
-              <span>Settings</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <button mat-button class="menu-button" routerLink="/users/update">
-            <mat-icon>https</mat-icon>
-            <span>Change Password</span>
-          </button>
-        </mat-expansion-panel>
+        
 
         <button
           mat-button
@@ -176,12 +164,11 @@
         >
           <mat-icon>inbox</mat-icon>
           <span>Inbox</span>
-        </button>
-
-
-
-        
-
+      </button>
+      <button mat-button *ngIf="isPatient()" class="menu-button" routerLink="/patient-visit/patient-history/31">
+        <mat-icon>question_answer</mat-icon>
+        <span>Visit History</span>
+      </button>
         <button mat-button *ngIf="!isPatient()" class="menu-button" routerLink="/notes">
           <mat-icon>question_answer</mat-icon>
           <span>Notes</span>
@@ -206,7 +193,20 @@
         </button>
 
         <mat-divider></mat-divider>
+<!-- --------------------------------------------------------------- -->
 
+<mat-expansion-panel class="mat-expanded-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Settings</span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <button mat-button class="menu-button" routerLink="/users/update">
+    <mat-icon>https</mat-icon>
+    <span>Change Password</span>
+  </button>
+</mat-expansion-panel>
         <button mat-button class="menu-button">
           <mat-icon>help</mat-icon>
           <span>Help</span>
@@ -221,3 +221,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</section>

@@ -19,6 +19,10 @@ const routes: Routes = [
     component: AppointmentListComponent,
   },
   {
+    path: 'appointment-list/:id',
+    component: AppointmentListComponent,
+  },
+  {
     path: 'visit/:patientId/:appointmentId',
     component: PatientVisitComponent,
   },
@@ -28,6 +32,10 @@ const routes: Routes = [
   },
   {
     path:'patient-history/:id/:patientId',
+    component:VisitHistoryComponent
+  },
+  {
+    path:'patient-history/:patientId',
     component:VisitHistoryComponent
   }
 

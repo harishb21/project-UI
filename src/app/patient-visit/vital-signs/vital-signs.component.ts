@@ -56,6 +56,7 @@ export class VitalSignsComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.appointmentId)
     this.submitted = true;
     if (this.Form.invalid) {
       return;
