@@ -154,7 +154,7 @@ export class InboxCalendarComponent implements OnInit {
           },
           startTime: { name: 'startTime', validation: { required: true } },
           endTime: { name: 'endTime', validation: { required: true } },
-          location: { name: 'Reason', validation: { required: true } },
+          //location: { name: 'Reason', validation: { required: true } },
         },
       };
     });
@@ -228,7 +228,8 @@ export class InboxCalendarComponent implements OnInit {
         data = <any>args.data[0];
         const objData: InboxData = this.getAppointmentData(data);
         this.inboxService.addAppointment(objData);
-         this.reaonVal = (<HTMLInputElement>document.getElementById("Reason")).value;
+       // this.reaonVal = (<HTMLInputElement>document.getElementById("Reason")).value;
+
         this.scheduleObj.eventWindow.refresh(); 
       } else if (args.requestType === 'eventChange') {
         data = <any>args.data;
@@ -251,8 +252,8 @@ export class InboxCalendarComponent implements OnInit {
     let title: string = data.title;
     let Description: string = data.description;
     let PhysicianId: number = this.physicianValue;
-    let EndTime: Date = data.endTime;
-    let StartTime: Date = data.startTime;
+    let EndTime: String = data.endTime;
+    let StartTime: String = data.startTime;
     let patientId: number = this.patientFilterValue;
     let status: string = data.Status;
     if( this.inboxService.userRoleId === 2 ){
@@ -268,7 +269,8 @@ export class InboxCalendarComponent implements OnInit {
       description: Description,
       physicianId: PhysicianId,
       patientId: patientId,
-      reason: this.reaonVal,
+     // reason: this.reaonVal,
+     reason:"no reason"
     };
     return obj;
   }
@@ -357,11 +359,12 @@ export class InboxCalendarComponent implements OnInit {
 
   }
   isValidAction(date: Date) {
-   let localDate =new Date(date);
-    return !(localDate.getTime() > new Date().getTime());
+   //let localDate =new Date(date);
+    return !(date.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
     this.showPatientError=false;
+    args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
     args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
     //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
     if(this.inboxService.disablePhysician){
@@ -370,7 +373,7 @@ export class InboxCalendarComponent implements OnInit {
       this.showPhysicianDisable =this.inboxService.disablePhysician;
       this.physicianStringVal=this.inboxService.userEmpId.toString();
     }else if(this.inboxService.disablePatient){
-        this.showPatientName = this.inboxService.patientName;
+        this.showPatientName = this.inboxService.UIpatientName;
         this.patientFilterValue= this.inboxService.patientId;
         this.showPatientDisable = this.inboxService.disablePatient;
     }
@@ -429,7 +432,7 @@ export class InboxCalendarComponent implements OnInit {
     this.showTimeSlotflag=false;
     this.physicianSlotflag= false;
     this.patientSlotfalg = false;
-    this.reasonFlag=false;
+    //this.reasonFlag=false;
     
     
    // (document.querySelector('#_dialog_wrapper') as HTMLElement).style.height = '510px';

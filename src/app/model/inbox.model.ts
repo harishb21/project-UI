@@ -3,8 +3,8 @@ export class InboxData {
     constructor(
         public id: number,
         public title: String,
-        public startTime: Date,
-        public endTime: Date,
+        public startTime: String,
+        public endTime: String,
         public description: String,
         public physicianId:number,
         public patientId:number,

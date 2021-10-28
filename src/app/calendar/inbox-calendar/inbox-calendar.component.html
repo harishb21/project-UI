@@ -49,7 +49,7 @@
                             <div *ngIf="showPatientError" id='patienterroMsg' >please provide valid patient Name</div>
                             </td>
                             <td colspan="4" *ngIf="showPatientDisable">
-                                <input id="patientName" class="e-field e-input" type="text" value="{{showPatientName}}"
+                                <input id="patientName" class="e-input" type="text" value="{{showPatientName}}"
                                     name="patientName"  style="width: 100%" disabled/>
                             </td>
                         </tr>
@@ -88,13 +88,7 @@
                                 <div *ngIf="endDateCheck" id='endDateCheck' >please provide valid Date and Time</div>
                             </td>
                         </tr>
-                        <!-- <tr *ngIf="reasonFlag">
-                            <td class="e-textlabel">Reason</td>
-                            <td colspan="4">
-                                <input id="Reason" class="e-field e-input" type="text"
-                                    name="Reason"  style="width: 100%" />
-                            </td>
-                        </tr> -->
+                        
                        <tr>
                             <td></td>
                             <td>
@@ -112,3 +106,10 @@
 </div>
 
 <!-- (renderCell)="onRenderCell($event)" -->
+<!-- <tr *ngIf="reasonFlag">
+                            <td class="e-textlabel">Reason</td>
+                            <td colspan="4">
+                                <input id="Reason" class="e-field e-input" type="text"
+                                    name="Reason"  style="width: 100%" />
+                            </td>
+                        </tr> -->
