@@ -34,7 +34,7 @@
         <mat-hint></mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="split">
+      <mat-form-field appearance="outline" class="full">
         <mat-label>Email Id</mat-label>
         <input matInput placeholder="Email" formControlName="email" />
         <mat-error *ngIf="isFieldInvalid('email')">{{
@@ -52,7 +52,7 @@
         <mat-hint></mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full">
+      <mat-form-field appearance="outline" class="split">
         <mat-label>Birth Date</mat-label>
         <input
           matInput

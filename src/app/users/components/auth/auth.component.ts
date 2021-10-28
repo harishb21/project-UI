@@ -97,7 +97,7 @@ export class AuthComponent implements OnInit {
             //   });
             this.router.navigate([redirectLink]);
 
-            window.location.reload();
+            // window.location.reload();
             console.log('INSIDE ELSE Auth');
           }
 
