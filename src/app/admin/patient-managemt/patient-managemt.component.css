@@ -24,3 +24,9 @@ table {
   text-align: center;
   font-size: 18px;
 }
+
+::ng-deep .mat-paginator {
+  background-color: transparent;
+  color: white;
+  
+}

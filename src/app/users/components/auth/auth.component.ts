@@ -87,20 +87,22 @@ export class AuthComponent implements OnInit {
             this.router.navigate(['/users/update']);
           } else {
             let redirectLink = '/';
-            if (res.roleName == Roles.ADMIN) {
+            if (res.roleName === 'Admin') {
               redirectLink = '/admin';
             }
+            
             // this.router
             //   .navigateByUrl('/', { skipLocationChange: true })
             //   .then(() => {
             //     this.router.navigate([redirectLink]);
             //   });
+            window.location.reload();
             this.router.navigate([redirectLink]);
 
-            // window.location.reload();
+            
             console.log('INSIDE ELSE Auth');
           }
-
+          console.log(this.user)
           this._snackBar.open('Successfully Authenticated');
 
           // If res shows user not found set user null and login fail

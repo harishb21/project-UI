@@ -69,7 +69,6 @@ export class PatientManagementComponent implements OnInit {
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private toastr: ToastrService,
     private _snackBar: MatSnackBar,
     private router:Router
   ) {
@@ -141,7 +140,7 @@ export class PatientManagementComponent implements OnInit {
       pipe((data:any) => {
         this._snackBar.open(data.msg);
         this.ngOnInit();
-       // window.location.reload();
+       window.location.reload();
       })
     );
   }

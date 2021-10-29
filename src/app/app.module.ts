@@ -45,11 +45,12 @@ const router: Routes = [
     component: InboxComponent,
     canActivate: [UserGuard],
     data: {
-      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
+      role: [Roles.ADMIN,Roles.PHYSICIAN, Roles.NURSE, Roles.PATIENT],
     },
   },
   {
     path: 'app-inbox',
+    canActivate: [UserGuard],
     component: InboxComponent,
   },
   {

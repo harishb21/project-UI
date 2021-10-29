@@ -1,15 +1,23 @@
-.maindiv {
-  width: max-content;
-  margin: auto;
-  padding: 10px;
-  height: 80%;
-  width: 90%;
+table {
+  width: 100%;
 }
 
 .mat-form-field {
   width: 100%;
+  font-size: 14px;
 }
 
+/* td, th {
+     width: 25%; 
+  } */
+
+
+.maindiv {
+ width: 90%;
+  margin: auto;
+  padding: 10px;
+  height: 80%;
+}
 .status-button {
   color: aliceblue;
   float: none;
@@ -17,11 +25,8 @@
   font-size: 18px;
 }
 
-td,
-th {
-  width: 150px;
-}
-
-.blue-snackbar {
-  background: #2196F3;
+::ng-deep .mat-paginator {
+  background-color: transparent;
+  color: white;
+  
 }

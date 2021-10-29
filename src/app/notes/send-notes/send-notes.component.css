@@ -21,7 +21,9 @@
   }
 
   .maindiv{
+    
     background-image: url('src\assets\pexels-photo-4386467.jpeg');
+    opacity: 0.8;
     background-size: cover;
     background-position: center;
   }
