@@ -30,14 +30,14 @@ export class InboxServiceBoard {
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
     });
+    if(this.user){
      if( this.user.roleId === 2){
         this.disablePhysician=true;
         this.uPhyisicanName = this.user.title+" "+this.user.firstName+" "+this.user.lastName;
         this.userEmpId=this.user.empId;
         this.userRoleId=this.user.roleId;
      }else if(this.user.roleId === 4){
-      console.log("patient details---------"); 
-      console.log(this.user); 
+     
       this.disablePatient=true;
       this.patientName = this.user.firstName+" "+this.user.lastName;
       this.patientId = this.user.userId;
@@ -48,6 +48,7 @@ export class InboxServiceBoard {
       this.userEmpId=this.user.empId;
       this.userRoleId=this.user.roleId;
      }
+    }
    }
   HOST_URL = 'http://localhost:8072/api';
   getAllAppointmentData(): Observable<InboxData[]> {
@@ -127,13 +128,5 @@ getUIPhysicianName(physicianId:number){
     return new Date(date.toString())
   }
 
-getDeclined(){
- // return this.listOfData.filter(ob=>ob.declined===true);
-}
-  //delete method
-  deleteRecord(args:any){
-   // const pos = this.listOfData.indexOf(args);
-    //this.listOfData.splice(pos, 1);
-    //this.listOfData[pos].declined=true;
-  }
+
 }
