@@ -32,7 +32,7 @@ export class InboxService implements OnInit {
   disablePhysician:boolean=false;
   //---patient data-----
   patientId:number=0;
-  patientName:string='';
+  UIpatientName:string='';
   disablePatient:boolean=false;
   onloadFun(){
     this.authService.userInfo.subscribe((res) => {
@@ -50,7 +50,7 @@ export class InboxService implements OnInit {
       console.log("patient details---------"); 
       console.log(this.user); 
       this.disablePatient=true;
-      this.patientName = this.user.firstName+" "+this.user.lastName;
+      this.UIpatientName = this.user.firstName+" "+this.user.lastName;
       this.patientId = this.user.userId;
       this.userEmpId=this.user.userId;
       this.userRoleId=this.user.roleId;

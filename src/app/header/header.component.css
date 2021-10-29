@@ -17,11 +17,11 @@ mat-sidenav {
 }
 
 .content {
-  height: calc(100vh - 98px); 
-   border-radius: 10px;
+  height: calc(100vh - 98px);
+  border-radius: 10px;
   margin: 14px;
   margin-left: 26px;
-  padding: 2px; 
+  padding: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,13 +70,11 @@ mat-divider {
 .appDiv {
   margin-top: 10px;
   margin-left: 25px;
- 
 }
-.backgroundimage{
-  background-image: url('src\assets\pexels-photo.jpeg');
+.backgroundimage {
+  background-image: url("src\assets\pexels-photo.jpeg");
   background-size: cover;
   background-position: center;
-  
 }
 
 .mat-form-field + .mat-form-field {
@@ -94,18 +92,18 @@ mat-expanded-panel {
 .example-spacer {
   flex: 1 1 auto;
 }
-mat-expansion-panel{
+mat-expansion-panel {
   /* background-color: #002b5c; */
   background: #002b5c;
   color: white;
 }
-mat-expansion-panel-header mat-panel-title{
+mat-expansion-panel-header mat-panel-title {
   color: white;
 }
-.appDiv{
+/* .appDiv{
 margin-top: 1px;
 margin-bottom: 1px;
-}
+} */
 /* .mat-drawer-content{
   overflow-x: hidden;
   overflow-y: hidden !important;
