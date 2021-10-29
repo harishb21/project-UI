@@ -13,16 +13,13 @@ import { Roles } from '../model/roles.enum';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  title = 'my-project';
+  title = 'CT Hospital';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
   user: User | null;
   isLoggedIn$: Observable<boolean>; //{1}
   isLoggedIn: boolean = false;
-
-  // isPatient: boolean = false;
-  // isAdmin: boolean = false;
 
   constructor(
     private observer: BreakpointObserver,
@@ -65,7 +62,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
-      // this.isLoggedIn$.next(true);
+
+      // console.log('Subscribe : ', this.user);
+
+      // this.user = this.authService.getUserFromSession();
+      // console.log('Sssion : ', this.user);
+      // if (res) this.isLoggedIn = true;
+      // else this.isLoggedIn = false;
+
+      // this.isLoggedIn$.next(this.isLoggedIn);
     });
     // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
     // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
@@ -127,7 +132,9 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickNotes() {}
-  routeToHistory(){
-    this.router.navigate([`/patient-visit/patient-history/`+this.user.userId])
+  routeToHistory() {
+    this.router.navigate([
+      `/patient-visit/patient-history/` + this.user.userId,
+    ]);
   }
 }
