@@ -61,7 +61,7 @@ mat-grid-tile {
 
 mat-card {
   max-width: 80%;
-  margin: 7em auto;
+  margin: 6em auto;
   background-color: rgb(255, 255, 255);
 }
 
@@ -74,8 +74,8 @@ mat-form-field {
   display: block;
   width: 100%;
   height: 100%;
-  background: url("https://www.loginvsi.com/wp-content/uploads/2021/04/Login_VSI_Coronavirus_Covid-19_Landing_Page_Validate_Your_Remote_Infrastructure_Scale_Healthcare_Doctor_Holding_iPad-1-1.png")
-    no-repeat fixed center;
+  /* background: url("https://www.loginvsi.com/wp-content/uploads/2021/04/Login_VSI_Coronavirus_Covid-19_Landing_Page_Validate_Your_Remote_Infrastructure_Scale_Healthcare_Doctor_Holding_iPad-1-1.png")
+    no-repeat fixed center; */
 }
 
 .fp {
