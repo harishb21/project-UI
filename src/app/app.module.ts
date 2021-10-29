@@ -38,19 +38,23 @@ import { AuthInterceptor } from './users/auth.interceptor';
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
 import { CalendarModule } from './model/calendar.module';
 import { NotificationComponent } from './notes/notification/notification.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const router: Routes = [
   {
     path: '',
-    component: InboxComponent,
+    component: DashboardComponent,
     canActivate: [UserGuard],
     data: {
-      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.PATIENT, Roles.ADMIN],
     },
   },
   {
     path: 'app-inbox',
     component: InboxComponent,
+    data: {
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.PATIENT],
+    },
   },
   {
     path: 'notes',
@@ -106,7 +110,6 @@ const router: Routes = [
     AppComponent,
     InboxComponent,
     NotesComponent,
-
     HeaderComponent,
     AdminComponent,
     FooterComponent,
@@ -114,6 +117,7 @@ const router: Routes = [
     SentNotesComponent,
     SendNotesComponent,
     NotificationComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,7 @@ const router: Routes = [
     HttpClientModule,
     ToastrModule.forRoot(),
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [
     AuthGuard,

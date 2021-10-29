@@ -8,7 +8,6 @@ import { AuthService } from '../../../services/auth.service';
 import { ErrorMessage } from '../../../model/error.enum';
 import { User } from '../../../model/user.model';
 import { UserService } from '../../services/user.service';
-import { Roles } from 'src/app/model/roles.enum';
 
 @Component({
   selector: 'app-auth',
@@ -87,9 +86,9 @@ export class AuthComponent implements OnInit {
             this.router.navigate(['/users/update']);
           } else {
             let redirectLink = '/';
-            if (res.roleName == Roles.ADMIN) {
-              redirectLink = '/admin';
-            }
+            // if (res.roleName == Roles.ADMIN) {
+            //   redirectLink = '/admin';
+            // }
             // this.router
             //   .navigateByUrl('/', { skipLocationChange: true })
             //   .then(() => {
