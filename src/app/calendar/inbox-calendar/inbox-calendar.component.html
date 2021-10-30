@@ -82,7 +82,7 @@
                             <td class="e-textlabel">EndTime</td>
                             <td colspan="4">
                                 <ejs-datetimepicker id="endTime" class="e-field e-input" data-name="endTime" format="M/dd/yyyy h:mm a"
-                                    (change)="onDateChange($event)" [value]="endDateParser(data.endTime)"
+                                    (change)="onDateChange($event)" [value]="endDateParser(data.endTime || data.EndTime)"
                                     [min]='minDate' [max]='maxDate' (keyup)="onChange($event);"  >
                                 </ejs-datetimepicker>
                                 <div *ngIf="endDateCheck" id='endDateCheck' >please provide valid Date and Time</div>
