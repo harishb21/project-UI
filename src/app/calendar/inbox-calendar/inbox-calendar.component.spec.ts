@@ -1,3 +1,5 @@
+import { TestingModule } from './../../testing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InboxCalendarComponent } from './inbox-calendar.component';
@@ -8,6 +10,7 @@ describe('InboxCalendarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ InboxCalendarComponent ]
     })
     .compileComponents();

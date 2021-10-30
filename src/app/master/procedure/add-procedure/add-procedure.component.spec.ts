@@ -1,3 +1,5 @@
+import { TestingModule } from 'src/app/testing.module';
+import { FormBuilder } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddProcedureComponent } from './add-procedure.component';
@@ -8,6 +10,7 @@ describe('AddProcedureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ AddProcedureComponent ]
     })
     .compileComponents();

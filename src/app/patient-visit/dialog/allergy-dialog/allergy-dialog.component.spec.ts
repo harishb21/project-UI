@@ -1,3 +1,8 @@
+import { TestingModule } from './../../../testing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AllergyDialogComponent } from './allergy-dialog.component';
@@ -8,6 +13,8 @@ describe('AllergyDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule
+      ],
       declarations: [ AllergyDialogComponent ]
     })
     .compileComponents();

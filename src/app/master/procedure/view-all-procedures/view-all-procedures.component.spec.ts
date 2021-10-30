@@ -1,3 +1,4 @@
+import { TestingModule } from 'src/app/testing.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewAllProceduresComponent } from './view-all-procedures.component';
@@ -8,6 +9,7 @@ describe('ViewAllProceduresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ ViewAllProceduresComponent ]
     })
     .compileComponents();

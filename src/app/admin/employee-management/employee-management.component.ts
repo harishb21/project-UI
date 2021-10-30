@@ -51,7 +51,7 @@ export class EmployeeManagementComponent implements OnInit {
   length: number;
   columnName: string = 'userId';
   direction: string = 'ASC';
-
+  disabledEditButton:boolean=false;
   patienId: number;
   tempId: number;
   id: number = 0;
@@ -100,8 +100,9 @@ export class EmployeeManagementComponent implements OnInit {
     this.loadUser();
   }
   onClick(i: number) {
+    this.disabledEditButton=true;
     this.id = i;
-    this.disableSelect = new FormControl(!this.disableSelect.value);
+    this.disableSelect = new FormControl(false);
   }
   loadUser() {
     this.adminService

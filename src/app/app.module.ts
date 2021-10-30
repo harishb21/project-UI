@@ -136,6 +136,7 @@ const router: Routes = [
     ToastrModule.forRoot(),
     MatInputModule,
     MatDialogModule,
+  
   ],
   providers: [
     AuthGuard,

@@ -1,4 +1,6 @@
-
+.sidebar-header{
+    padding: 10px;
+}
 
 
 #sidebar ul li a {
@@ -16,7 +18,7 @@
 .maindiv{
     width: 80%; 
     margin-top: 20px;
-     margin-left: 40px;
+    margin-left: 40px;
      /* background-image: url('src\assets\pexels-photo-4386467.jpeg'); */
      
 }

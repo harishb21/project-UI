@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestingModule } from 'src/app/testing.module';
 
 import { ProcedureDialogComponent } from './procedure-dialog.component';
 
@@ -8,6 +9,7 @@ describe('ProcedureDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ ProcedureDialogComponent ]
     })
     .compileComponents();

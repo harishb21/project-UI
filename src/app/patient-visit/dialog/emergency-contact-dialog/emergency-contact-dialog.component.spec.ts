@@ -1,3 +1,5 @@
+import { TestingModule } from './../../../testing.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmergencyContactDialogComponent } from './emergency-contact-dialog.component';
@@ -8,6 +10,7 @@ describe('EmergencyContactDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ EmergencyContactDialogComponent ]
     })
     .compileComponents();
