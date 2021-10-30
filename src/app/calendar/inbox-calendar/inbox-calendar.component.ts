@@ -240,7 +240,7 @@ export class InboxCalendarComponent implements OnInit {
         //this.scheduleObj.eventWindow.refresh(); 
       } else if (args.requestType === 'eventRemove') {
         data = <any>args.data[0];
-        console.log(data);
+    
         if (data.id != undefined && data.id) {
           this.inboxService.deleteAppointment(data.id);
          // this.scheduleObj.eventWindow.refresh(); 
@@ -310,8 +310,7 @@ export class InboxCalendarComponent implements OnInit {
     }
   }
   public startDateParser(data: string) {
-    // console.log("startDateParser");
-    // console.log(data);
+  
     if (isNullOrUndefined(this.startDate) && !isNullOrUndefined(data)) {
       return new Date(data);
     } else if (!isNullOrUndefined(this.startDate)) {
@@ -365,8 +364,6 @@ export class InboxCalendarComponent implements OnInit {
 
   }
   isValidAction(date: Date) {
-   //let localDate =new Date(date);
-   console.log(date);
    
     return !(date.getTime() > new Date().getTime());
   }
@@ -376,7 +373,6 @@ export class InboxCalendarComponent implements OnInit {
     args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
     //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
     if(this.inboxService.disablePhysician){
-      console.log(this.inboxService.userEmpId.toString());
       this.showPhysicianName=this.inboxService.uPhyisicanName;
       this.showPhysicianDisable =this.inboxService.disablePhysician;
       this.physicianStringVal=this.inboxService.userEmpId.toString();
@@ -490,7 +486,7 @@ export class InboxCalendarComponent implements OnInit {
         'startTime',
       ];
     }else if(this.inboxService.disablePatient){
-    console.log("else if---");
+    
       names = [
         'Status',
         'title',
@@ -499,7 +495,6 @@ export class InboxCalendarComponent implements OnInit {
         'startTime',
       ];
     }else{
-     console.log("else-");
      
       names = [
       'title',
