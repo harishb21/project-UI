@@ -309,8 +309,7 @@ export class InboxCalendarComponent implements OnInit {
         }
     }
   }
-  public startDateParser(data: string) {
-  
+  public startDateParser(data: string) { 
     if (isNullOrUndefined(this.startDate) && !isNullOrUndefined(data)) {
       return new Date(data);
     } else if (!isNullOrUndefined(this.startDate)) {
@@ -345,11 +344,13 @@ export class InboxCalendarComponent implements OnInit {
         this.inboxService.timeCheck.startDateTime=args.value.toISOString();
         //console.log(this.startDateCheck);
       } else if (args.element.id === 'endTime') {
+       console.log(args.value);
         this.endDate = args.value;
         this.endDateCheck = this.isValidAction1(this.endDate,true);
         this.inboxService.timeCheck.endDateTime=args.value.toISOString();
-      }   
-      if((this.startDate <= this.endDate && this.physicianValue != undefined)|| this.inboxService.timeCheck.roleId == 2){
+      }  
+      if(!isNullOrUndefined(this.startDate) && !isNullOrUndefined(this.endDate)){ 
+      if((this.startDate <= this.endDate && this.physicianValue != undefined)|| this.inboxService.timeCheck.roleId === 2){
       this.inboxService.timeSlotcheck(this.inboxService.timeCheck).subscribe(
         data=>{
           if(this.inboxService.timeCheck.roleId === 2){
@@ -361,14 +362,17 @@ export class InboxCalendarComponent implements OnInit {
       );
       }
     }
+    }
 
   }
   isValidAction(date: Date) {
-   
+  
     return !(date.getTime() > new Date().getTime());
   }
   public onPopupOpen(args: PopupOpenEventArgs): void {
     this.showPatientError=false;
+    let openStartTime = (args.data.StartTime || args.data.startTime);
+    let openEndTime = (args.data.EndTime || args.data.endTime);
     args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
     args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
     //let classOptElement: HTMLInputElement = args.element.querySelector('.e-title-text');
@@ -381,15 +385,13 @@ export class InboxCalendarComponent implements OnInit {
         this.patientFilterValue= this.inboxService.patientId;
         this.showPatientDisable = this.inboxService.disablePatient;
     }
-    // if (['QuickInfo', 'Editor'].indexOf(args.type) > -1) {
-    //disable all previous days appointments
-    // args.cancel = this.isValidAction(args.data.startTime);
-    if(args.data.startTime != null && args.data.startTime != undefined && args.data.startTime != ''
-    && args.data.endTime != null && args.data.endTime != undefined && args.data.endTime != ''){
-      this.startDate  = args.data.startTime;
-      this.endDate =args.data.endTime;
-      this.inboxService.timeCheck.startDateTime = args.data.startTime.toISOString();
-      this.inboxService.timeCheck.endDateTime = args.data.endTime.toISOString();
+
+    if(openStartTime != null && openStartTime != undefined && openStartTime != ''
+    && openEndTime != null &&openEndTime != undefined && openEndTime != ''){
+      this.startDate  = openStartTime;
+      this.endDate =openEndTime;
+      this.inboxService.timeCheck.startDateTime = openStartTime.toISOString();
+      this.inboxService.timeCheck.endDateTime = openEndTime.toISOString();
     } 
     if (((args.data.id != null && args.data.physicianId != null) ||
         (args.data.id != undefined && args.data.physicianId != undefined)) &&
@@ -411,15 +413,14 @@ export class InboxCalendarComponent implements OnInit {
       }
     if(!this.inboxService.disablePatient){
       this.validator.addRules('books', {required: true});
-      }
+    }
       if (args.target.classList.contains('e-work-cells')) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-disable');
       } else {
         args.element.querySelector('.e-event-save').classList.remove('e-custom-disable');
       }
-      console.log((<HTMLInputElement>document.getElementById("startTime")).value);
       
-      if (this.isValidAction(args.data.startTime)) {
+      if (this.isValidAction(openStartTime)) {
         args.element.querySelector('.e-event-save').classList.add('e-custom-hide');
         args.element.querySelector('.e-event-delete').classList.add('e-custom-hide');
       } else {
