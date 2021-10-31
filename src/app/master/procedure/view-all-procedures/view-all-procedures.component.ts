@@ -39,7 +39,6 @@ export class ViewAllProceduresComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '350px';
-    dialogConfig.height = '250px';
     dialogConfig.position = {};
 
     this.isPopupOpened = true;

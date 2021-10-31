@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Allergy } from 'src/app/model/allergy.model';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-add-allergy-dialog',

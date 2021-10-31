@@ -16,6 +16,8 @@ export class VitalSignsComponent implements OnInit {
   submitted = false;
   selectedViatalId: number;
 
+  vitals:Vitals;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: VitalSignsService,
@@ -36,22 +38,10 @@ export class VitalSignsComponent implements OnInit {
 
     this.service
       .getByAppointmentId(this.appointmentId)
-      .subscribe(
-        (val: {
-          vital_id: number;
-          height: any;
-          weight: any;
-          bloodPressure: any;
-          bodyTemperature: any;
-          respirationRate: any;
-        }) => {
-          this.selectedViatalId = val.vital_id;
-          this.Form.get('height').setValue(val.height);
-          this.Form.get('weight').setValue(val.weight);
-          this.Form.get('bloodPressure').setValue(val.bloodPressure);
-          this.Form.get('bodyTemperature').setValue(val.bodyTemperature);
-          this.Form.get('respirationRate').setValue(val.respirationRate);
-        }
+      .subscribe( (data)=>{
+        this.vitals=data;          
+      }
+        
       );
   }
 

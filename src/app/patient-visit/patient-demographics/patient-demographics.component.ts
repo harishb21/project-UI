@@ -10,11 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmergencyContact } from '../../model/EmergencyContact';
 import { ErrorMessage } from '../../model/error.enum';
 
-import { PatientService } from '../patient.service';
+import { PatientService } from '../services/patient.service';
 import { Allergy } from 'src/app/model/allergy.model';
-import { Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddAllergyDialogComponent } from '../add-allergy-dialog/add-allergy-dialog.component';
+import { AppointmentService } from '../services/appointment.service';
 
 @Component({
   selector: 'app-patient-demographics',
@@ -60,8 +60,8 @@ export class PatientDemographicsComponent implements OnInit {
     fb: FormBuilder,
     private formBuilder: FormBuilder,
     private patientService: PatientService,
-    private router: Router,
     private activatedroute: ActivatedRoute,
+    private appointmentService:AppointmentService,
     private dialog?: MatDialog
   ) {
     this.toppings = fb.group({});
@@ -72,7 +72,18 @@ export class PatientDemographicsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientId = this.activatedroute.snapshot.paramMap.get('id');
+    this.patientId = this.appointmentService.patientId;
+
+    if(this.appointmentService.patientId)
+    {
+      this.patientId = this.appointmentService.patientId;
+    }
+    else
+    {
+      this.patientId =  this.activatedroute.snapshot.paramMap.get('id');
+
+    }
+    
     this.patientService.patientIdToAddAllergy = this.patientId;
     this.getAllAllergiesOfPatient(this.patientId);
     this.loadPatient(this.patientId);
@@ -153,7 +164,7 @@ export class PatientDemographicsComponent implements OnInit {
         Validators.minLength(3),
       ]),
       emgrEmail: new FormControl(null, [Validators.required, Validators.email]),
-      emgrPhnumber: new FormControl(null, [
+      emgrContactNo: new FormControl(null, [
         Validators.required,
         Validators.minLength(7),
       ]),
@@ -171,7 +182,6 @@ export class PatientDemographicsComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '350px';
-    dialogConfig.height = '350px';
     dialogConfig.position = {};
 
     this.isPopupOpened = true;
@@ -264,7 +274,7 @@ export class PatientDemographicsComponent implements OnInit {
     patientObject.emgrFname = this.form.value.emgrFname;
     patientObject.emgrLname = this.form.value.emgrLname;
     patientObject.emgrEmail = this.form.value.emgrEmail;
-    patientObject.emgrPhnumber = this.form.value.emgrPhnumber;
+    patientObject.emgrContactNo = this.form.value.emgrContactNo;
     patientObject.emgrRelation = this.form.value.emgrRelation;
     patientObject.emgrAddress = this.form.value.emgrAddress;
     patientObject.emgrCity = this.form.value.emgrCity;
@@ -279,7 +289,6 @@ export class PatientDemographicsComponent implements OnInit {
     const res = confirm('Are you sure?');
     if (res) {
       this.patientService.updatePatientDetails(patientObject);
-      this.router.navigate(['/patient/landingPage']);
     }
   }
 

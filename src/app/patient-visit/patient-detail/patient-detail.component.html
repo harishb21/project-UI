@@ -1,29 +1,126 @@
 <br />
-<br />
+<section class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <p class="heading">PATIENT DETAILS</p>
 
-<mat-card>
-  <div>
-    <button
-      class="btn btn-primary"
-      (click)="openDialogPatientDetail()"
-    >
-      Patient Detail
-    </button>
-    <br />
-    <br>
-    <button
-      class="btn btn-primary"
-      (click)="openDialogEmergencyContact()"
-    >
-      Emergency Contact
-    </button>
-    <br />
-    <br>
-    <button
-      class="btn btn-primary"
-      (click)="openDialogAllergy()"
-    >
-      Allergies
-    </button>
+       <table>
+        <tr>
+          <th>title</th>
+          <td>{{ patient.title }}</td>
+        </tr>
+
+        <tr>
+          <th>First Name</th>
+          <td>{{ patient.firstName }}</td>
+        </tr>
+        <tr>
+          <th>Last Name</th>
+          <td>{{ patient.lastName }}</td>
+        </tr>
+
+        <tr>
+          <th>Date of Birth</th>
+          <td>{{ patient.birthDate }}</td>
+        </tr>
+
+        <tr>
+          <th>Email</th>
+          <td>{{ patient.email }}</td>
+        </tr>
+
+        <tr>
+          <th>age</th>
+          <td>{{ patient.age }}</td>
+        </tr>
+
+        <tr>
+          <th>gender</th>
+          <td>{{ patient.gender }}</td>
+        </tr>
+
+        <tr>
+          <th>race</th>
+          <td>{{ patient.race }}</td>
+        </tr>
+
+        <tr>
+          <th>Ethnicity</th>
+          <td>{{ patient.ethnicity }}</td>
+        </tr>
+
+        <tr>
+          <th>Language known</th>
+          <td>{{ patient.langKnown }}</td>
+        </tr>
+
+        <tr>
+          <th>contact No</th>
+          <td>{{ patient.contactNo }}</td>
+        </tr>
+
+        <tr>
+          <th>address</th>
+          <td>{{ patient.address }}</td>
+        </tr>
+      </table> 
+    </div>
+  
+
+  <div class="col-sm-6">
+    <div class="col-sm">
+      <p class="heading">EMERGENCY CONTACT DETAILS</p>
+
+       <table>
+        <!-- <tr>
+          <th>Title</th>
+          <td>{{ patient.emgrTitle }}</td>
+        </tr> -->
+
+        <tr>
+          <th>First Name</th>
+          <td>{{ patient.emgrFname }}</td>
+        </tr>
+        <tr>
+          <th>Last Name</th>
+          <td>{{ patient.emgrLname }}</td>
+        </tr>
+
+        <tr>
+          <th>Email</th>
+          <td>{{ patient.emgrEmail }}</td>
+        </tr>
+
+        <tr>
+          <th>Relationship</th>
+          <td>{{ patient.emgrRelation }}</td>
+        </tr>
+
+        <tr>
+          <th>Address</th>
+          <td>{{ patient.emgrAddress }}</td>
+        </tr>
+      </table> 
+    </div>
+
+    <div class="col-sm">
+      <p class="heading">Allergies</p>
+
+       <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr *ngFor="let allergy of allergies">
+          <td>{{ allergy.allergyId }}</td>
+          <td>{{ allergy.allergyName }}</td>
+          <td>{{ allergy.allergyType }}</td>
+          <td>{{ allergy.allergyDesc }}</td>
+        </tr>
+      </table> 
+    </div>
   </div>
-</mat-card>
+  </div>
+</section>

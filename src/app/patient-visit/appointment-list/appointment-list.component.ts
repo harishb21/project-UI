@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PatientService } from 'src/app/patient/patient.service';
+import { PatientService } from 'src/app/patient-visit/services/patient.service';
 import { Appointment } from '../model/appointment.model';
 import { AppointmentService } from '../services/appointment.service';
 

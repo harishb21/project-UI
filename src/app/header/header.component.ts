@@ -7,6 +7,7 @@ import { delay } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
 import { Roles } from '../model/roles.enum';
+import { AppointmentService } from '../patient-visit/services/appointment.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private observer: BreakpointObserver,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private appointmentService:AppointmentService
   ) {}
 
   ngAfterContentInit() {
@@ -130,4 +132,13 @@ export class HeaderComponent implements OnInit {
   routeToHistory(){
     this.router.navigate([`/patient-visit/patient-history/`+this.user.userId])
   }
+
+navigateToPatientDetails()
+{
+this.appointmentService.patientId=this.user.userId.toString();
+  this.router.navigate(['/patient-visit/patientDemographics/'+this.user.userId]);
+
+}
+
+
 }

@@ -65,8 +65,10 @@ export class InboxServiceBoard {
     return this.http.get<User[]>(`${this.HOST_URL}/appointments/patients`);
   } 
   getAppointmentById(AppointmentId:number):Observable<InboxData> {
+
     return this.http.get<InboxData>(`${this.HOST_URL}/appointments/`+AppointmentId);
   }
+
 loadStaffData() {
   this.getAllStaffData().subscribe((res) => {
     res
