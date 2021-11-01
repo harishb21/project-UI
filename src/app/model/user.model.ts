@@ -1,6 +1,6 @@
 import { Allergy } from './allergy.model';
 export class User {
-  public id!:number;
+  public id!: number;
   public userId!: number;
   public title!: string;
   public firstName!: string;
@@ -17,7 +17,7 @@ export class User {
   public password!: string;
   public gender: string;
   public message!: string;
-  public status!:string;
+  public status!: string;
   public race!: string;
   public country!: string;
   public ethnicity!: string;
@@ -45,6 +45,8 @@ export class User {
   public emgrState: number;
   public emgrCountry: string;
   public allergies: Allergy[];
+
+  public profilePic: string;
 
   constructor() {} // public roleId: number // public roleName: string, // public username: string, // public birthDate: Date, // public email: string, // public lastName: string, // public firstName: string, // public title: string,
 }
