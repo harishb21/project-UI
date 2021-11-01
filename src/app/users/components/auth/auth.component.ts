@@ -100,7 +100,7 @@ export class AuthComponent implements OnInit {
             window.location.reload();
             console.log('INSIDE ELSE Auth');
           }
-          console.log(this.user)
+          console.log(this.user);
           this._snackBar.open('Successfully Authenticated');
 
           // If res shows user not found set user null and login fail
@@ -110,25 +110,28 @@ export class AuthComponent implements OnInit {
           console.log('Error Received');
           console.log(err);
 
-          if (err.error.attempt) {
-            console.log('Inside attempt');
+          // if (err.error.attempt) {
+          //   console.log('Inside attempt');
 
-            // Error Message when user tries more than one time with wrong crendials
-            if (err.error.attempt >= this.MAX_ATTEMPT) {
-              this.errorMessage =
-                'Your account has been locked. Please contact the hospital administrator or call helpdesk on 123456 for more information.';
-            } else if (err.error.attempt > 0) {
-              this.errorMessage = `${
-                this.MAX_ATTEMPT - err.error.attempt
-              } login attempts remaining`;
-            } else {
-              this.errorMessage = '';
-            }
+          //   // Error Message when user tries more than one time with wrong crendials
+          //   if (
+          //     err.error.attempt >= this.MAX_ATTEMPT ||
+          //     err.error.status === 'INACTIVE'
+          //   ) {
+          //     this.errorMessage =
+          //       'Your account has been locked. Please contact the hospital administrator or call helpdesk on 123456 for more information.';
+          //   } else if (err.error.attempt > 0) {
+          //     this.errorMessage = `${
+          //       this.MAX_ATTEMPT - err.error.attempt
+          //     } login attempts remaining`;
+          //   } else {
+          //     this.errorMessage = '';
+          //   }
 
-            this.attempt = err.error.attempt;
-          } else {
-            this.errorMessage = err.error;
-          }
+          //   this.attempt = err.error.attempt;
+          // } else {
+          this.errorMessage = err.error;
+          // }
 
           // alert(err.error.title + '\n' + err.error.detail);
 
