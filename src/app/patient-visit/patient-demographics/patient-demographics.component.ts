@@ -219,14 +219,32 @@ export class PatientDemographicsComponent implements OnInit {
     );
   }
 
-  ageCalculator() {
-    console.log(' ageCalculator method called');
+  ageCalculator(){
+    if(this.age){
+      const convertAge = new Date(this.age);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
 
-    const convertAge = new Date(this.age);
-    const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-    this.showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
-    console.log('age is ' + this.showAge);
+console.log(this.showAge);
+
+
+    }
   }
+
+
+  public ageFromDateOfBirthday(dateOfBirth: any): number {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
+
 
   changeFunction() {
     console.log('checked');
