@@ -1,20 +1,30 @@
+
+
 <mat-tab-group>
-  <mat-tab label="Patient Visit History">
-    <app-visit-history></app-visit-history>
-  </mat-tab>
-  <mat-tab label="Patient Details">
+  <mat-tab label="Patient Details" *ngIf="user.roleName !='Admin'">
     <app-patient-detail></app-patient-detail>
   </mat-tab>
-  <mat-tab label="Vital Signs">
+
+  <mat-tab label="Patient Visit History" *ngIf="user.roleName !='Admin'">
+    <app-visit-history></app-visit-history>
+  </mat-tab>
+ 
+  <mat-tab label="Patient Demographics" *ngIf="user.roleName !='Admin'">
+    <app-patient-demographics></app-patient-demographics>
+  </mat-tab>
+
+  <mat-tab label="Vital Signs" *ngIf="user.roleName =='Physician' || user.roleName =='Nurse'" >
     <app-vital-signs></app-vital-signs>
   </mat-tab>
-  <mat-tab label="Diagnosis">
+  <mat-tab label="Diagnosis" *ngIf="user.roleName =='Physician'">
     <app-diagnosis></app-diagnosis>
   </mat-tab>
-  <mat-tab label="Procedure">
+  <mat-tab label="Procedure" *ngIf="user.roleName =='Physician'">
     <app-patient-procedures></app-patient-procedures>
   </mat-tab>
-  <mat-tab label="Medication">
+  <mat-tab label="Medication" *ngIf="user.roleName =='Physician'">
     <app-medications></app-medications>
   </mat-tab>
 </mat-tab-group>
+
+

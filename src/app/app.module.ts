@@ -1,43 +1,37 @@
-import { MatDialogModule } from '@angular/material/dialog';
-import { ExportService } from './services/export.service';
-import { MatInputModule } from '@angular/material/input';
-import { FooterComponent } from './footer/footer.component';
-import { NgModule, Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { InboxComponent } from './inbox/inbox.component';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
-import { NotesComponent } from './notes/notes.component';
-
-import { RouterModule, Routes } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { ChartModule } from 'primeng/chart';
+import { AdminComponent } from './admin/admin.component';
+import { AngularMaterialModule } from './angular-material.module';
+import { AppComponent } from './app.component';
+import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { Roles } from './model/roles.enum';
+import { NotesComponent } from './notes/notes.component';
+import { NotificationComponent } from './notes/notification/notification.component';
+import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
+import { SendNotesComponent } from './notes/send-notes/send-notes.component';
+import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
+import { ExportService } from './services/export.service';
+import { AuthInterceptor } from './users/auth.interceptor';
 import { AuthGuard } from './users/guard/auth.guard';
 import { UserGuard } from './users/guard/user.guard';
-import { Roles } from './model/roles.enum';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AngularMaterialModule } from './angular-material.module';
-import { AdminComponent } from './admin/admin.component';
-import { ChartModule } from 'primeng/chart';
-import { CommonModule } from '@angular/common';
-import { ToastrModule } from 'ngx-toastr';
-import { SendNotesComponent } from './notes/send-notes/send-notes.component';
-import { RecievedNotesComponent } from './notes/recieved-notes/recieved-notes.component';
-import { SentNotesComponent } from './notes/sent-notes/sent-notes.component';
-import {
-  MatFormFieldControl,
-  MatFormFieldModule,
-} from '@angular/material/form-field';
-import { AuthInterceptor } from './users/auth.interceptor';
+
 import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
-import { CalendarModule } from './model/calendar.module';
-import { NotificationComponent } from './notes/notification/notification.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const router: Routes = [
@@ -88,11 +82,11 @@ const router: Routes = [
     loadChildren: () =>
       import('./model/calendar.module').then((m) => m.CalendarModule),
   },
-  {
-    path: 'patient',
-    loadChildren: () =>
-      import('./patient/patient.module').then((m) => m.PatientModule),
-  },
+  // {
+  //   path: 'patient',
+  //   loadChildren: () =>
+  //     import('./patient/patient.module').then((m) => m.PatientModule),
+  // },
   {
     path: 'patient-visit',
     loadChildren: () =>
@@ -105,6 +99,7 @@ const router: Routes = [
     loadChildren: () =>
       import('./master/master.module').then((m) => m.MasterModule),
   },
+  
 ];
 @NgModule({
   declarations: [

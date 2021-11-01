@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DiagnosisMaster } from '../../model/DiagnosisMaster';
 import { DiagnosisMasterService } from '../../services/diagnosis-master.service';
 import { AddDiagnosisComponent } from '../add-diagnosis/add-diagnosis.component';
+import { EditDiagnosisComponent } from '../edit-diagnosis/edit-diagnosis.component';
 
 @Component({
   selector: 'app-view-all-diagnosis',
@@ -37,7 +38,6 @@ export class ViewAllDiagnosisComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '350px';
-    dialogConfig.height = '250px';
     dialogConfig.position = {};
 
     this.isPopupOpened = true;
@@ -58,5 +58,21 @@ export class ViewAllDiagnosisComponent implements OnInit {
 
     this.diagnosisMasterService.saveDiagnosis(value);
     this.loadDiagnosis();
+  }
+
+  editDiagnosisPopUp(diagnosis: DiagnosisMaster) {
+    const dialogRef = this.dialog.open(EditDiagnosisComponent, {
+      data: diagnosis,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.isPopupOpened = false;
+      this.loadDiagnosis();
+    });
+  }
+
+  deleteDiagnosis(diagnosisCode: any) {
+    this.diagnosisMasterService.deleteDiagnosis(diagnosisCode).subscribe(() => {
+      this.loadDiagnosis();
+    });
   }
 }

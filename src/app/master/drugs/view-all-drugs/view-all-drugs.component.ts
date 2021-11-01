@@ -36,7 +36,6 @@ export class ViewAllDrugsComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '350px';
-    dialogConfig.height = '450px';
     dialogConfig.position = {};
 
     this.isPopupOpened = true;
@@ -48,6 +47,7 @@ export class ViewAllDrugsComponent implements OnInit {
     });
 
   }
+
 
 //  drugDepricate(value: DrugMaster) {
 //     if (value.isDepricated == 'yes') {

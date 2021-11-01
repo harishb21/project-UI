@@ -138,6 +138,17 @@
                 <span>Master data</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
+
+
+            <button
+            mat-button
+            class="menu-button"
+            routerLink="/master/all-allergy"
+          >
+            <mat-icon>person_add</mat-icon>
+            <span>Allergy</span>
+          </button>
+
             <button
               mat-button
               class="menu-button"
@@ -173,14 +184,17 @@
             <mat-icon>inbox</mat-icon>
             <span>Inbox</span>
           </button>
+
+   
+
           <button
             mat-button
             *ngIf="isPatient()"
             class="menu-button"
-            routerLink="/patient-visit/patient-history/31"
+            routerLink="/patient-visit/patientList"
           >
-            <mat-icon>question_answer</mat-icon>
-            <span>Visit History</span>
+            <mat-icon>people</mat-icon>
+            <span>Patient List</span>
           </button>
           <button
             mat-button

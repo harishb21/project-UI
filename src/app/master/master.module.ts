@@ -11,6 +11,9 @@ import { ViewAllDiagnosisComponent } from './diagnosis/view-all-diagnosis/view-a
 import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
+import { AllergyComponent } from './allergy/allergy.component';
 
 
 
@@ -23,12 +26,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddDrugsComponent,
     ViewAllDrugsComponent,
     ViewAllDiagnosisComponent,
-    AddDiagnosisComponent  ],
+    AddDiagnosisComponent,
+    EditDiagnosisComponent,
+    AllergyComponent  ],
   imports: [
     CommonModule,
     MasterRoutingModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ]
 })
 export class MasterModule { }

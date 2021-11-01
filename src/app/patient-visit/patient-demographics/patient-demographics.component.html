@@ -263,10 +263,10 @@
               <input
                 matInput
                 placeholder="Contact Number"
-                formControlName="emgrPhnumber"
-                [(ngModel)]="patient.emgrPhnumber"
+                formControlName="emgrContactNo"
+                [(ngModel)]="patient.emgrContactNo"
               />
-              <mat-error *ngIf="isFieldInvalid('emgrPhnumber')">{{
+              <mat-error *ngIf="isFieldInvalid('emgrContactNo')">{{
                 errorEmergencyContactContactNo()
               }}</mat-error>
             </mat-form-field>
@@ -353,9 +353,9 @@
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th scope="col">Allergy ID</th>
-                <th scope="col">Allergy Name</th>
-                <th scope="col">Allergy Type</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
               </tr>
@@ -383,8 +383,8 @@
     <button type="submit" style="margin-right: 16px" class="btn btn-success">
       SUBMIT
     </button>
-    <button type="reset" style="margin-right: 16px" class="btn btn-danger">
+    <!-- <button type="reset" style="margin-right: 16px" class="btn btn-danger">
       Clear
-    </button>
+    </button> -->
   </div>
 </form>

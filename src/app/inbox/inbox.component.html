@@ -51,9 +51,9 @@
           class="btn btn-primary" (click)='onClickEdit(element)' > 
           <mat-icon>edit</mat-icon> 
         </button>  -->
-          <button mat-icon-button matTooltip="Click to detail" 
-          class="btn btn-primary" (click)='onClickDetails(element)'>
-              visit
+          <button matTooltip="Click to detail" 
+          mat-raised-button color="primary" (click)='onClickDetails(element.patientId, element.id)'>
+                 {{getButtonName()}}
         </button> 
           </td>
         <!-- <td mat-cell *matCellDef="let element" class="action-link">
