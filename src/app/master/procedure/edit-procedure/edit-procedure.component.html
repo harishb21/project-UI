@@ -1,0 +1,31 @@
+<p class="heading">Edit Procedure</p>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input
+    class="form-control"
+    type="text"
+    formControlName="procedureCode"
+    placeholder="Procedure Code"
+    [(ngModel)]="data.procedureCode"
+  /><br />
+  <input
+    class="form-control"
+    type="text"
+    formControlName="description"
+    placeholder="Procedure Description"
+    [(ngModel)]="data.description"
+  /><br />
+
+  <input
+    type="hidden"
+    formControlName="isDepricated"
+    [(ngModel)]="data.isDepricated"
+  />
+
+  <div class="row">
+    <div class="col text-center">
+      <button class="btn btn-success">Save</button>&nbsp;
+      <button class="btn btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

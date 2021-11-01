@@ -15,13 +15,14 @@ export class AddAllergyDialogComponent implements OnInit {
 
   patientId:string;
 
+  allergy:Allergy=new Allergy();
+
   allergy_idlist: Allergy[];
   allergy_namelist: Allergy[];
   allergy_typelist: Allergy[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private patientService: PatientService,
     private dialog: MatDialogRef<AddAllergyDialogComponent>
   ) {}
@@ -71,4 +72,12 @@ export class AddAllergyDialogComponent implements OnInit {
     this.patientService.saveAllergy(this.obj);
     this.onClose();
   }
+
+  getDataByAllergyId(allergyId:any)
+  {
+    console.log("allergyyyyy : "+allergyId);
+    
+  }
+
+
 }

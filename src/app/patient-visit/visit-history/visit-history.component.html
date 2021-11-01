@@ -1,106 +1,110 @@
 <section class="container float-none">
-<div class="row">
-  <div class="col-sm-12">
-<select
-  placeholder="Select Visit Date"
-  (change)="getAppointmentIdByVisitDate(selectedVisitDate)"
-  [(ngModel)]="selectedVisitDate"
->
-  <option
-    class="dropdown-item"
-    *ngFor="let option of visitDateList"
-    [value]="option"
-  >
-    {{ option }}
-  </option>
-</select>
-  
-<button
-        
-        (click)="exportToExcel()"
-        class="btn btn-success float-md-end"
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- <select
+        (change)="getAppointmentIdByVisitDate(selectedVisitDate)"
+        [(ngModel)]="selectedVisitDate"
       >
-      <img src="https://img.icons8.com/color/48/000000/export-excel.png"/>
+        <option   
+          class="dropdown-item"
+          *ngFor="let option of visitDateList"
+          [value]="option"
+        >
+          {{ option | date: "mediumDate" }}
+        </option>
+      </select> -->
+
+      <mat-divider></mat-divider>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Visited Date</mat-label>
+        <mat-select
+          (selectionChange)="getAppointmentIdByVisitDate(selectedVisitDate)"
+          [(ngModel)]="selectedVisitDate"
+        >
+          <mat-option>None</mat-option>
+          <mat-option
+            class="dropdown-item"
+            *ngFor="let option of visitDateList"
+            [value]="option"
+            >{{ option | date: "mediumDate" }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <button (click)="exportToExcel()" class="btn btn-success float-md-end">
+        <img src="https://img.icons8.com/color/48/000000/export-excel.png" />
       </button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
+      <p class="heading">Vital Signs</p>
+      <table>
+        <tr>
+          <th>Heigth</th>
+          <th>Weight</th>
+          <th>Blood Pressure</th>
+          <th>Body Temperature</th>
+          <th>Respiration Rate</th>
+        </tr>
+        <tr>
+          <td>{{ heigth }}</td>
+          <td>{{ weigth }}</td>
+          <td>{{ bloodPressure }}</td>
+          <td>{{ bodyTemperature }}</td>
+          <td>{{ respirationRate }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <p class="heading">Diagnosis Details</p>
 
- 
-    <p class="heading">Vital Signs</p>
-    <table >
-      <tr>
-        <th>Heigth</th>
-        <th>Weight</th>
-        <th>Blood Pressure</th>
-        <th>Body Temperature</th>
-        <th>Respiration Rate</th>
-      </tr>
-      <tr>
-        <td>{{ heigth }}</td>
-        <td>{{ weigth }}</td>
-        <td>{{ bloodPressure }}</td>
-        <td>{{ bodyTemperature }}</td>
-        <td>{{ respirationRate }}</td>
-      </tr>
-    </table>
- 
-</div>
-<div class="col-md-6">
- 
-    <p class="heading">Diagnosis Details</p>
+      <table>
+        <tr>
+          <th>Diagnosis Code</th>
+          <th>Description</th>
+        </tr>
+        <tr *ngFor="let diagnosiss of diagnosis">
+          <td>{{ diagnosiss.diagnosisCode }}</td>
+          <td>{{ diagnosiss.description }}</td>
+        </tr>
+      </table>
+    </div>
 
-    <table >
-      <tr>
-        <th>Diagnosis Code</th>
-        <th>Description</th>
-      </tr>
-      <tr *ngFor="let diagnosiss of diagnosis">
-        <td>{{ diagnosiss.diagnosisCode }}</td>
-        <td>{{ diagnosiss.description }}</td>
-      </tr>
-    </table>
-</div>
+    <div class="col-md-6">
+      <p class="heading">Procedures Details</p>
 
-<div class="col-md-6">
- 
-    <p class="heading">Procedures Details</p>
+      <table>
+        <tr>
+          <th>Procedure Code</th>
+          <th>Description</th>
+        </tr>
 
-    <table >
-      <tr>
-        <th>Procedure Code</th>
-        <th>Description</th>
-      </tr>
+        <tr *ngFor="let procedure of procedures">
+          <td>{{ procedure.procedureCode }}</td>
+          <td>{{ procedure.description }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <p class="heading">Medication Details</p>
 
-      <tr *ngFor="let procedure of procedures">
-        <td>{{ procedure.procedureCode }}</td>
-        <td>{{ procedure.description }}</td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th>Drug Name</th>
+          <th>Drug Generic Name</th>
+          <th>Drug Brand Name</th>
+          <th>Drug Form</th>
+        </tr>
 
-</div>
-<div class="col-md-6">
- 
-    <p class="heading">Medication Details</p>
-
-    <table >
-      <tr>
-        <th>Drug Name</th>
-        <th>Drug Generic Name</th>
-        <th>Drug Brand Name</th>
-        <th>Drug Form</th>
-      </tr>
-
-      <tr *ngFor="let drug of medications">
-        <td>{{ drug.drugName }}</td>
-    <td>{{ drug.drugGenericName }}</td>
-    <td>{{ drug.drugBrandName }}</td>
-    <td>{{ drug.drugForm }}</td>
-      </tr>
-    </table>
-  
-
-</div>
-</div>
+        <tr *ngFor="let drug of medications">
+          <td>{{ drug.drugName }}</td>
+          <td>{{ drug.drugGenericName }}</td>
+          <td>{{ drug.drugBrandName }}</td>
+          <td>{{ drug.drugForm }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </section>

@@ -13,9 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
-import { AllergyComponent } from './allergy/allergy.component';
-
-
+import { EditDrugsComponent } from './drugs/edit-drugs/edit-drugs.component';
+import { EditProcedureComponent } from './procedure/edit-procedure/edit-procedure.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +27,15 @@ import { AllergyComponent } from './allergy/allergy.component';
     ViewAllDiagnosisComponent,
     AddDiagnosisComponent,
     EditDiagnosisComponent,
-    AllergyComponent  ],
+    EditDrugsComponent,
+    EditProcedureComponent,
+  ],
   imports: [
     CommonModule,
     MasterRoutingModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
-export class MasterModule { }
+export class MasterModule {}

@@ -1,8 +1,8 @@
-<!-- <mat-card>
+<mat-card>
   <mat-card-content>
     <div class="example-container" style="align-content: center; padding: 20px">
       <div>
-        <h2 style="color: cornflowerblue">Enter Vital sings Details</h2>
+        <h2 style="color: cornflowerblue">Vital signs</h2>
       </div>
       <form [formGroup]="Form" (submit)="onSubmit()">
         <table class="example-full-width" cellspacing="0">
@@ -16,7 +16,6 @@
                   maxlength="3"
                   placeholder="Ex. 175 cm"
                   formControlName="height"
-                  [(ngModel)]="vitals.height"
                 />
                 <span matSuffix>cm</span>
                 <mat-hint align="end"
@@ -37,7 +36,6 @@
                   maxlength="3"
                   placeholder="Ex. 50 kg"
                   formControlName="weight"
-                  [(ngModel)]="vitals.weight"
                 />
                 <span matSuffix>kg</span>
                 <mat-hint align="end"
@@ -60,7 +58,6 @@
                   maxlength="6"
                   placeholder="Ex. 120/80"
                   formControlName="bloodPressure"
-                  [(ngModel)]="vitals.bloodPressure"
                 />
                 <span matSuffix>mm Hg</span>
                 <mat-error
@@ -80,7 +77,6 @@
                   maxlength="6"
                   placeholder="Ex. 98.6°F"
                   formControlName="bodyTemperature"
-                  [(ngModel)]="vitals.bodyTemperature"
                 />
                 <span matSuffix>°F</span>
                 <mat-error
@@ -95,7 +91,7 @@
             <td>
               <mat-form-field appearance="fill">
                 <mat-label>Respiration Rate </mat-label>
-                <input matInput #input formControlName="respirationRate"  [(ngModel)]="vitals.respirationRate" />
+                <input matInput #input formControlName="respirationRate" />
                 <span matSuffix>BPM</span>
                 <mat-error
                   *ngIf="Form.controls['respirationRate'].hasError('required')"
@@ -114,4 +110,4 @@
       </form>
     </div>
   </mat-card-content>
-</mat-card> -->
+</mat-card>

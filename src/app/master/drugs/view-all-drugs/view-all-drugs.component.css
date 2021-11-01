@@ -19,3 +19,9 @@ th{
   color: black;
   font-size: large;
 }
+
+
+mat-icon{
+
+  cursor: pointer;
+}

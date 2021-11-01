@@ -15,6 +15,10 @@ export class DrugMasterService {
     return this.http.get<any>(this.baseUrl + `/drug/master/drugs`);
   }
 
+  deleteDrug(drugId:string) {
+    return this.http.delete<any>(this.baseUrl + `/drug/master/delete/`+drugId);
+  }
+
   addNewDrug(newDrug: DrugMaster) {
     this.http
       .post(this.baseUrl + `/drug/master/save`, newDrug)

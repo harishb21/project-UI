@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DrugMaster } from '../../model/DrugMaster';
 import { DrugMasterService } from '../../services/drug-master.service';
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
+import { EditDrugsComponent } from '../edit-drugs/edit-drugs.component';
 
 @Component({
   selector: 'app-view-all-drugs',
@@ -46,6 +47,26 @@ export class ViewAllDrugsComponent implements OnInit {
       this.loadDrugs();
     });
 
+  }
+
+  deleteAllergy(drugId:string)
+  {
+    this.drugMasterService.deleteDrug(drugId).subscribe((res)=>{
+      console.log(res);
+      this.loadDrugs();
+    })
+  }
+
+
+  
+  editDrugPopUp(diagnosis: DrugMaster) {
+    const dialogRef = this.dialog.open(EditDrugsComponent, {
+      data: diagnosis,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.isPopupOpened = false;
+      this.loadDrugs();
+    });
   }
 
 

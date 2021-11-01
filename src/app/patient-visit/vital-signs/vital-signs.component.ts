@@ -12,11 +12,11 @@ import { VitalSignsService } from '../services/vital-signs.service';
 })
 export class VitalSignsComponent implements OnInit {
   appointmentId: string;
-  Form: FormGroup;
+  Form: FormGroup=new FormGroup({});
   submitted = false;
   selectedViatalId: number;
 
-  vitals:Vitals;
+  vitals:Vitals=new Vitals();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,9 +25,15 @@ export class VitalSignsComponent implements OnInit {
     private appointmentService: AppointmentService
   ) {}
 
+  height: null;
+  weight: null;
+  bloodPressure: null;
+  bodyTemperature:null;
+  respirationRate: null;
+
   ngOnInit(): void {
     this.Form = this.formBuilder.group({
-      height: ['', Validators.required],
+      height: [this.height, Validators.required],
       weight: ['', Validators.required],
       bloodPressure: ['', Validators.required],
       bodyTemperature: ['', Validators.required],
@@ -39,7 +45,10 @@ export class VitalSignsComponent implements OnInit {
     this.service
       .getByAppointmentId(this.appointmentId)
       .subscribe( (data)=>{
-        this.vitals=data;          
+
+        this.height = data.height;
+
+        // this.vitals=data;         
       }
         
       );

@@ -29,6 +29,7 @@ text-center
       <th scope="col">Drug Brand Name</th>
       <th scope="col">Drug Form</th>
       <th scope="col">Drug Strength</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -39,6 +40,10 @@ text-center
       <td scope="row">{{ d.drugBrandName }}</td>
       <td scope="row">{{ d.drugForm }}</td>
       <td scope="row">{{ d.drugStrength }}</td>
+      <td>  
+        <mat-icon class="button" (click)="editDrugPopUp(d)"  >edit</mat-icon>
+        <mat-icon class="button" (click)="deleteAllergy(d.drugId)" >delete</mat-icon>
+      </td>
     </tr>
   </tbody>
 </table>

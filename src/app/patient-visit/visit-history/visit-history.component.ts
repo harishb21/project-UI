@@ -32,6 +32,10 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   getAppointmentIdByVisitDate(date: string) {
+
+console.log(date);
+
+
     this.visitHistoryService
       .getAppointmentIdByVisitDate(date)
       .subscribe((id) => {

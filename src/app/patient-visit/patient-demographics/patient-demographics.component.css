@@ -51,11 +51,12 @@ mat-error {
 }
 
 
-
 .heading {
-  color: rgb(26, 65, 192);
-  size: 4px;
-  font-size: 20px;
+  color: #02020ef6;
+  font-size: 25px;
+  text-decoration: underline;     
+  text-decoration-color: rgb(12, 12, 12);  
+  text-align: center;
 }
 
 mat-card {
@@ -98,4 +99,8 @@ h2 {
 .deleteButton
 {
   cursor: pointer;
+}
+
+th{
+  background-color: rgb(52, 133, 165);
 }
