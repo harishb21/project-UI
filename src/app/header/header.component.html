@@ -4,11 +4,13 @@
       <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
       <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
     </button>
-    <span>CT General Hospital</span>
+    <span name="title">CT General Hospital</span>
     <span class="example-spacer"></span>
 
     <button
       mat-stroked-button
+      id="signIn"
+      name="signIn"
       class="example-icon"
       routerLink="/users/auth"
       *ngIf="!user"
@@ -19,6 +21,8 @@
 
     <button
       mat-stroked-button
+      id="signup"
+      name="signup"
       class="example-icon"
       routerLink="/users/signup"
       *ngIf="!user"
@@ -106,7 +110,7 @@
               <span>Patient List</span>
             </button>
             <button
-              *ngIf="!isAdmin()"
+              *ngIf="!isAdmin() || !isPatient()"
               mat-button
               class="menu-button"
               routerLink="/patient/patientList"
@@ -125,8 +129,6 @@
             <span>Appointments</span>
           </button>-->
           </mat-expansion-panel>
-
-
 
           <!-- ------------------------------------------------------------- -->
 
@@ -164,9 +166,6 @@
             </button>
           </mat-expansion-panel>
 
-
-          
-
           <button
             mat-button
             class="menu-button"
@@ -179,7 +178,7 @@
 
           <button
             mat-button
-            *ngIf="!isPatient()"
+            *ngIf="!isAdmin() && !isPatient()"
             class="menu-button"
             routerLink="/patient-visit/patientList"
           >
@@ -193,19 +192,19 @@
             class="menu-button"
             (click)="routeToHistory()"
           >
-            <mat-icon>people</mat-icon>
+            <mat-icon>history</mat-icon>
             <span>Visit History</span>
           </button>
 
           <button
-          *ngIf="isPatient()"
-          mat-button
-          class="menu-button"
-          (click)="navigateToPatientDetails()"
-        >
-          <mat-icon>people</mat-icon>
-          <span>Profile</span>
-        </button>
+            *ngIf="isPatient()"
+            mat-button
+            class="menu-button"
+            (click)="navigateToPatientDetails()"
+          >
+            <mat-icon>perm_identity</mat-icon>
+            <span>Profile</span>
+          </button>
 
           <button
             mat-button
@@ -234,7 +233,6 @@
             <mat-icon>event</mat-icon>
             <span>Schedule</span>
           </button>
-
           <mat-divider></mat-divider>
           <!-- --------------------------------------------------------------- -->
 
