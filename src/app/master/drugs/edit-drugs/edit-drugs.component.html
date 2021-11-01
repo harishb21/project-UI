@@ -1,0 +1,18 @@
+<p class="heading">Edit Drugs</p>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input type="text"  class="form-control" formControlName="drugId" placeholder="Drug ID"     [(ngModel)]="data.drugId"
+  /> <br />
+  <input type="text"  class="form-control" formControlName="drugName" placeholder="Drug Name"   [(ngModel)]="data.drugName" /> <br />
+  <input type="text"  class="form-control" formControlName="drugGenericName"  placeholder="Drug Generic Name"   [(ngModel)]="data.drugGenericName" /> <br />
+  <input type="text"  class="form-control" formControlName="drugBrandName" placeholder="Drug Brand Name"   [(ngModel)]="data.drugBrandName" /> <br />
+  <input type="text"  class="form-control" formControlName="drugForm" placeholder="Drug Form"   [(ngModel)]="data.drugForm" /> <br />
+  <input type="text"  class="form-control" formControlName="drugStrength" placeholder="Drug Strength"   [(ngModel)]="data.drugStrength" /> <br />
+
+  <div class="row">
+    <div class="col text-center">
+      <button  [disabled]="!form.valid" class="btn btn-success">Save</button>&nbsp;
+      <button class="btn btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</form>

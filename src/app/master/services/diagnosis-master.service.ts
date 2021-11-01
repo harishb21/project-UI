@@ -24,8 +24,18 @@ export class DiagnosisMasterService {
   }
 
   getActiveDiagnosis(): Observable<any> {
-    console.log("service called");
     
     return this.http.get<any>(this.baseUrl + `/diagnosis/master/active/diagnosis`);
   }
+
+  getDiagnosisByCode(diagnosisCode:any): Observable<any> {
+    
+    return this.http.get<any>(this.baseUrl + `/diagnosis/getByDiagnosisCode/`+diagnosisCode);
+  }
+
+  deleteDiagnosis(diagnosisCode:any): Observable<any> {
+    
+    return this.http.delete(this.baseUrl + `/diagnosis/master/deleteDiagnosis/`+diagnosisCode);
+  }
+
 }

@@ -16,7 +16,11 @@
 
 <br />
 
-<table class="table table-striped table-bordered">
+<table mat-table  class="table table-hover table-bordered
+table-responsive
+table-light
+text-center
+">
   <thead>
     <tr>
       <th scope="col">Drug ID</th>
@@ -25,6 +29,7 @@
       <th scope="col">Drug Brand Name</th>
       <th scope="col">Drug Form</th>
       <th scope="col">Drug Strength</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +40,10 @@
       <td scope="row">{{ d.drugBrandName }}</td>
       <td scope="row">{{ d.drugForm }}</td>
       <td scope="row">{{ d.drugStrength }}</td>
+      <td>  
+        <mat-icon class="button" (click)="editDrugPopUp(d)"  >edit</mat-icon>
+        <mat-icon class="button" (click)="deleteAllergy(d.drugId)" >delete</mat-icon>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/model/user.model';
-import { PatientService } from 'src/app/patient/patient.service';
+import { PatientService } from 'src/app/patient-visit/services/patient.service';
 import { AppointmentService } from '../../services/appointment.service';
 
 @Component({

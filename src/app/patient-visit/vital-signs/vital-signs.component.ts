@@ -12,9 +12,11 @@ import { VitalSignsService } from '../services/vital-signs.service';
 })
 export class VitalSignsComponent implements OnInit {
   appointmentId: string;
-  Form: FormGroup;
+  Form: FormGroup=new FormGroup({});
   submitted = false;
   selectedViatalId: number;
+
+  vitals:Vitals=new Vitals();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,9 +25,15 @@ export class VitalSignsComponent implements OnInit {
     private appointmentService: AppointmentService
   ) {}
 
+  height: null;
+  weight: null;
+  bloodPressure: null;
+  bodyTemperature:null;
+  respirationRate: null;
+
   ngOnInit(): void {
     this.Form = this.formBuilder.group({
-      height: ['', Validators.required],
+      height: [this.height, Validators.required],
       weight: ['', Validators.required],
       bloodPressure: ['', Validators.required],
       bodyTemperature: ['', Validators.required],
@@ -36,22 +44,13 @@ export class VitalSignsComponent implements OnInit {
 
     this.service
       .getByAppointmentId(this.appointmentId)
-      .subscribe(
-        (val: {
-          vital_id: number;
-          height: any;
-          weight: any;
-          bloodPressure: any;
-          bodyTemperature: any;
-          respirationRate: any;
-        }) => {
-          this.selectedViatalId = val.vital_id;
-          this.Form.get('height').setValue(val.height);
-          this.Form.get('weight').setValue(val.weight);
-          this.Form.get('bloodPressure').setValue(val.bloodPressure);
-          this.Form.get('bodyTemperature').setValue(val.bodyTemperature);
-          this.Form.get('respirationRate').setValue(val.respirationRate);
-        }
+      .subscribe( (data)=>{
+
+        this.height = data.height;
+
+        // this.vitals=data;         
+      }
+        
       );
   }
 

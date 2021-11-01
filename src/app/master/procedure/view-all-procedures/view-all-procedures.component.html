@@ -15,12 +15,17 @@
 </div>
 <br />
 
-<table class="table table-striped table-bordered">
+<table   class="table table-hover table-bordered
+table-responsive
+table-light
+text-center
+">
   <thead>
     <tr>
       <th scope="col">Procedure Code</th>
       <th scope="col">Procedure Description</th>
       <th scope="col">Depricated</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +41,10 @@
           />
           <span class="slider round"></span>
         </label>
+      </td>
+      <td>  
+        <mat-icon class="button" (click)="editDiagnosisPopUp(d)"  >edit</mat-icon>
+        <mat-icon class="button" (click)="deleteProcedure(d.procedureCode)"  >delete</mat-icon>
       </td>
     </tr>
   </tbody>

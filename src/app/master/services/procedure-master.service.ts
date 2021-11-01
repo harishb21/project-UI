@@ -15,16 +15,22 @@ export class ProcedureMasterService {
     return this.http.get<any>(this.baseUrl + `/procedure/master/procedures`);
   }
 
+  deleteProcedure(procedureCode: string):Observable<any> {
+   return this.http
+      .delete<any>(this.baseUrl + `/procedure/master/delete/` + procedureCode);
+  }
+
   saveProcedures(value: ProcedureMaster) {
     this.http
       .post(this.baseUrl + `/procedure/master/save`, value)
-      .subscribe(() => {
-        console.log('data saved!!');
+      .subscribe((res) => {
+        console.log(res);
       });
   }
 
   getActiveProcedures(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `/procedure/master/active/procedures`);
+    return this.http.get<any>(
+      this.baseUrl + `/procedure/master/active/procedures`
+    );
   }
-
 }

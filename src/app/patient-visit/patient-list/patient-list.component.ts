@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -28,16 +28,12 @@ export class PatientListComponent implements OnInit {
     'Email',
     'Action',
   ];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+ 
 
   editData(id: number) {
     console.log(id);
     // id=1;
-    this.router.navigate(['/patient/patientDemographics/' + id]);
+    this.router.navigate(['/patient-visit/patientDemographics/' + id]);
   }
 }
 

@@ -54,7 +54,13 @@ export class DiagnosisDialogComponent implements OnInit {
     this.obj.description = this.Form.value.description;
     this.obj.appointmentId = this.appointmentId;
 
+    console.log(this.obj);
+    
+
     if (this.obj != null) {
+
+
+
       this.diagnosisService.saveDiagnosis(this.obj).subscribe((response) => {
         
       });

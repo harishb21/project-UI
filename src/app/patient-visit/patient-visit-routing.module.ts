@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
-import { MedicationsComponent } from './medications/medications.component';
-import { PatientDetailComponent } from './patient-detail/patient-detail.component';
-import { PatientProceduresComponent } from './patient-procedures/patient-procedures.component';
+import { PatientDemographicsComponent } from './patient-demographics/patient-demographics.component';
+import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientVisitComponent } from './patient-visit/patient-visit.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
-import { VitalSignsComponent } from './vital-signs/vital-signs.component';
 
 const routes: Routes = [
   {
@@ -37,7 +35,15 @@ const routes: Routes = [
   {
     path:'patient-history/:patientId',
     component:VisitHistoryComponent
-  }
+  },
+  {
+    path: 'patientList',
+    component: PatientListComponent,
+  },
+  {
+    path: 'patientDemographics/:id',
+    component: PatientDemographicsComponent,
+  },
 
 ];
 

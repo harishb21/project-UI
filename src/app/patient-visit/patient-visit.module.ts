@@ -34,7 +34,21 @@ import { AllergyDialogComponent } from './dialog/allergy-dialog/allergy-dialog.c
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { PatientDemographicsComponent } from './patient-demographics/patient-demographics.component';
+import { PatientListComponent } from './patient-list/patient-list.component';
+import { AddAllergyDialogComponent } from './add-allergy-dialog/add-allergy-dialog.component';
+
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { MatRadioModule } from '@angular/material/radio';
+
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -52,6 +66,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AllergyDialogComponent,
     AppointmentListComponent,
     VisitHistoryComponent,
+    PatientDemographicsComponent,
+    PatientListComponent,
+    AddAllergyDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -60,27 +77,34 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatTabsModule,
     MatIconModule,
     MatDialogModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
     MatPaginatorModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatSidenavModule,
     MatDividerModule,
     MatToolbarModule,
     MatListModule,
-    MatIconModule,
-    MatTableModule,
     MatCardModule,
-    MatDividerModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatDividerModule,
     MatAutocompleteModule,
-    MatGridListModule
+    MatSortModule,
+    MatTableModule,
+    MatInputModule,
+    MatGridListModule,
+    ScrollingModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    FormsModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
   providers: [MedicationsService],

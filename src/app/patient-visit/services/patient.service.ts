@@ -2,15 +2,16 @@ import { User } from 'src/app/model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PatientInterface } from './patient-list/patient-list.component';
+import { PatientInterface } from '../patient-list/patient-list.component';
 import { map } from 'rxjs/operators';
-import { Allergy } from '../model/allergy.model';
+import { Allergy } from '../../model/allergy.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
   patientList: PatientInterface[] = [];
+  patientId:any;
   patientIdToAddAllergy: string;
   constructor(private http: HttpClient) {
     this.getAllPatient();

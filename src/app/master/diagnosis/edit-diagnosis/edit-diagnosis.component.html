@@ -1,16 +1,17 @@
-<p class="heading">Add Diagnosis</p>
+<p class="heading">Edit Diagnosis</p>
 
 
 <form [formGroup]="form" (submit)="onSubmit()">
-  <input matInput
-    type="text"   class="form-control"
+  <input matInput type="text" class="form-control"
     formControlName="diagnosisCode"
     placeholder="Diagnosis Code"
+    [(ngModel)]="data.diagnosisCode"
   /><br />
   <input matInput
     type="text"   class="form-control"
     formControlName="description"
     placeholder="Diagnosis Description"
+    [(ngModel)]="data.description"
 
   /><br />
 
@@ -23,7 +24,7 @@
 
   <div class="row">
     <div class="col text-center">
-      <button type="submit" [disabled]="!form.valid" class="btn btn-success">Save</button>&nbsp;
+      <button type="submit" [disabled]="!form.valid" class="btn btn-success">Submit</button>&nbsp;
       <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
     </div>
   </div>

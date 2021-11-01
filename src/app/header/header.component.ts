@@ -7,6 +7,7 @@ import { delay } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
 import { Roles } from '../model/roles.enum';
+import { AppointmentService } from '../patient-visit/services/appointment.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private observer: BreakpointObserver,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private appointmentService: AppointmentService
   ) {}
 
   ngAfterContentInit() {
@@ -60,20 +62,12 @@ export class HeaderComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    // this.user.profilePic = '/src/assets/Profile Avatar.png';
     this.authService.userInfo.subscribe((res) => {
       this.user = res;
-
-      // console.log('Subscribe : ', this.user);
-
-      // this.user = this.authService.getUserFromSession();
-      // console.log('Sssion : ', this.user);
-      // if (res) this.isLoggedIn = true;
-      // else this.isLoggedIn = false;
-
-      // this.isLoggedIn$.next(this.isLoggedIn);
+      // if (!res?.profilePic)
+      //   this.user.profilePic = '/src/assets/Profile Avatar.png';
     });
-    // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
-    // console.log('Header Component on nginit Loggedin : ', this.isLoggedIn$);
 
     this.user = this.authService.getUserFromSession();
 
@@ -135,6 +129,13 @@ export class HeaderComponent implements OnInit {
   routeToHistory() {
     this.router.navigate([
       `/patient-visit/patient-history/` + this.user.userId,
+    ]);
+  }
+
+  navigateToPatientDetails() {
+    this.appointmentService.patientId = this.user.userId.toString();
+    this.router.navigate([
+      '/patient-visit/patientDemographics/' + this.user.userId,
     ]);
   }
 }

@@ -10,7 +10,7 @@
 
   <div class="row">
     <div class="col text-center">
-      <button  class="btn btn-success">Save</button>&nbsp;
+      <button  [disabled]="!form.valid"  class="btn btn-success">Save</button>&nbsp;
       <button class="btn btn-danger" (click)="onClose()">Close</button>
     </div>
   </div>

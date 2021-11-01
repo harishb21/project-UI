@@ -11,8 +11,10 @@ import { ViewAllDiagnosisComponent } from './diagnosis/view-all-diagnosis/view-a
 import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { MatIconModule } from '@angular/material/icon';
+import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
+import { EditDrugsComponent } from './drugs/edit-drugs/edit-drugs.component';
+import { EditProcedureComponent } from './procedure/edit-procedure/edit-procedure.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddDrugsComponent,
     ViewAllDrugsComponent,
     ViewAllDiagnosisComponent,
-    AddDiagnosisComponent  ],
+    AddDiagnosisComponent,
+    EditDiagnosisComponent,
+    EditDrugsComponent,
+    EditProcedureComponent,
+  ],
   imports: [
     CommonModule,
     MasterRoutingModule,
     MatDialogModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatIconModule,
+  ],
 })
-export class MasterModule { }
+export class MasterModule {}
