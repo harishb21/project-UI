@@ -1,9 +1,12 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SendNotesComponent } from './send-notes.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SendNotesComponent', () => {
   let component: SendNotesComponent;
@@ -11,7 +14,9 @@ describe('SendNotesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule,HttpClientModule,RouterModule],
+      imports: [HttpClientTestingModule,MatDialogModule,
+        MatSnackBarModule,HttpClientTestingModule,
+        HttpClientModule,RouterTestingModule, RouterModule.forRoot([]),],
       declarations: [ SendNotesComponent ]
     })
     .compileComponents();

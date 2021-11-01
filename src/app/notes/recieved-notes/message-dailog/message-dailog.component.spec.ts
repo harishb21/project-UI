@@ -1,3 +1,4 @@
+import { TestingModule } from 'src/app/testing.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessageDailogComponent } from './message-dailog.component';
@@ -8,6 +9,7 @@ describe('MessageDailogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ MessageDailogComponent ]
     })
     .compileComponents();

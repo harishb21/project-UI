@@ -1,3 +1,4 @@
+import { TestingModule } from './../../../testing.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MedicationsDialogComponent } from './medications-dialog.component';
@@ -8,6 +9,7 @@ describe('MedicationsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ MedicationsDialogComponent ]
     })
     .compileComponents();

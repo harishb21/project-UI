@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestingModule } from 'src/app/testing.module';
 
 import { AddAllergyDialogComponent } from './add-allergy-dialog.component';
 
@@ -8,6 +9,7 @@ describe('AddAllergyDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[TestingModule],
       declarations: [ AddAllergyDialogComponent ]
     })
     .compileComponents();

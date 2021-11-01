@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Roles } from '../model/roles.enum';
 import { UserGuard } from '../users/guard/user.guard';
+import { AllergyComponent } from './allergy/allergy.component';
 import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
 import { ViewAllDiagnosisComponent } from './diagnosis/view-all-diagnosis/view-all-diagnosis.component';
 import { ViewAllDrugsComponent } from './drugs/view-all-drugs/view-all-drugs.component';
@@ -62,6 +63,14 @@ const routes: Routes = [
       role: [Roles.ADMIN],
     },
   },
+  {
+    path: 'all-allergy',
+    component: AllergyComponent,
+    canActivate: [UserGuard],
+    data: {
+      role: [Roles.ADMIN],
+    },
+  }
 ];
 
 @NgModule({

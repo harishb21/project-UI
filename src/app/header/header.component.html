@@ -1,129 +1,124 @@
 <section class="">
-<mat-toolbar class="mat-elevation-z8">
-  <button mat-icon-button (click)="sidenav.toggle()" *ngIf="user">
-    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-  </button>
-  <span>CT General Hospital</span>
-  <span class="example-spacer"></span>
+  <mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button (click)="sidenav.toggle()" *ngIf="user">
+      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+    <span>CT General Hospital</span>
+    <span class="example-spacer"></span>
 
-  <button
-    mat-button
-    class="example-icon"
-    routerLink="/users/auth"
-    *ngIf="!user"
-  >
-    <span>Sign in</span>
-  </button>
+    <button
+      mat-stroked-button
+      class="example-icon"
+      routerLink="/users/auth"
+      *ngIf="!user"
+    >
+      <mat-icon>login</mat-icon>
+      <span>Sign in</span>
+    </button>
 
-  <button
-    mat-button
-    class="example-icon"
-    routerLink="/users/signup"
-    *ngIf="!user"
-  >
-    <span>Sign up</span>
-  </button>
+    <button
+      mat-stroked-button
+      class="example-icon"
+      routerLink="/users/signup"
+      *ngIf="!user"
+    >
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sign up</span>
+    </button>
 
-  <button
-    mat-raised-button
-    class="example-icon"
-    (click)="onLogout()"
-    *ngIf="user"
-  >
-    <mat-icon>logout</mat-icon>
-    <span>Logout</span>
-  </button>
-</mat-toolbar>
+    <button
+      mat-stroked-button
+      class="example-icon"
+      (click)="onLogout()"
+      *ngIf="user"
+    >
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-toolbar>
 
-<mat-sidenav-container class="backgroundimage">
-  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-    <div *ngIf="user">
-      <img
-        class="avatar mat-elevation-z8"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfhnnb_9Wy7toeAbYmtM-4dJ5Nwty-rf8HVlhkSuHZDygLfAwGBm4wrcB6HHfwK1johMU&usqp=CAU"
-      />
+  <mat-sidenav-container class="backgroundimage">
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <div *ngIf="user">
+        <img
+          class="avatar mat-elevation-z8"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfhnnb_9Wy7toeAbYmtM-4dJ5Nwty-rf8HVlhkSuHZDygLfAwGBm4wrcB6HHfwK1johMU&usqp=CAU"
+        />
 
-      <h4 class="name">{{ user?.firstName }} {{ user?.lastName }}</h4>
-      <br />
-      <p class="designation">{{ user?.roleName }}</p>
+        <h4 class="name">{{ user?.firstName }} {{ user?.lastName }}</h4>
+        <br />
+        <p class="designation">{{ user?.roleName }}</p>
 
-      <mat-divider></mat-divider>
-      <mat-accordion mat-button>
-        <button
-          *ngIf="isAdmin()"
-          mat-button
-          class="menu-button"
-          routerLink="/admin"
-        >
-          <mat-icon>dashboard</mat-icon>
-          <span>Dashboard</span>
-        </button>
-
-        <mat-expansion-panel class="mat-expanded-panel" *ngIf="isAdmin()">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>people</mat-icon>
-              <span>Employee</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <button mat-button class="menu-button" routerLink="/users/employee">
-            <mat-icon>person_add</mat-icon>
-            <span>Register</span>
-          </button>
+        <mat-divider></mat-divider>
+        <mat-accordion mat-button>
           <button
-            mat-button
-            class="menu-button"
-            routerLink="/admin/employee-details"
-          >
-            <mat-icon>view_list</mat-icon>
-            <span>Employees List</span>
-          </button>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel
-        *ngIf="!isPatient()"
-          class="mat-expanded-panel"
-          
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>people</mat-icon>
-              <span>Patient</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <button
-            *ngIf="!isAdmin() && user.roleName != 'PATIENT'"
-            mat-button
-            class="menu-button"
-            routerLink="/users/patient"
-          >
-            <mat-icon>person_add</mat-icon>
-            <span>Register</span>
-          </button>
-          <button
-            mat-button
-            class="menu-button"
-            routerLink="/admin/patient-details"
             *ngIf="isAdmin()"
-          >
-            <mat-icon>group_add</mat-icon>
-            <span>Patient List</span>
-          </button>
-
-   
-
-          <button
-            *ngIf="!isAdmin()"
             mat-button
             class="menu-button"
-            routerLink="/patient-visit/patientList"
+            routerLink="/admin"
           >
-            <mat-icon>people</mat-icon>
-            <span>Patient List</span>
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
           </button>
 
-          <!-- <button
+          <mat-expansion-panel class="mat-expanded-panel" *ngIf="isAdmin()">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>people</mat-icon>
+                <span>Employee</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-button class="menu-button" routerLink="/users/employee">
+              <mat-icon>person_add</mat-icon>
+              <span>Register</span>
+            </button>
+            <button
+              mat-button
+              class="menu-button"
+              routerLink="/admin/employee-details"
+            >
+              <mat-icon>view_list</mat-icon>
+              <span>Employees List</span>
+            </button>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel *ngIf="!isPatient()" class="mat-expanded-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>people</mat-icon>
+                <span>Patient</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button
+              *ngIf="!isAdmin() && user.roleName != 'PATIENT'"
+              mat-button
+              class="menu-button"
+              routerLink="/users/patient"
+            >
+              <mat-icon>person_add</mat-icon>
+              <span>Register</span>
+            </button>
+            <button
+              mat-button
+              class="menu-button"
+              routerLink="/admin/patient-details"
+              *ngIf="isAdmin()"
+            >
+              <mat-icon>group_add</mat-icon>
+              <span>Patient List</span>
+            </button>
+            <button
+              *ngIf="!isAdmin()"
+              mat-button
+              class="menu-button"
+              routerLink="/patient/patientList"
+            >
+              <mat-icon>people</mat-icon>
+              <span>Patients</span>
+            </button>
+
+            <!-- <button
           *ngIf="!isPatient() && !isAdmin()"
             mat-button
             class="menu-button"
@@ -132,118 +127,130 @@
             <mat-icon>people</mat-icon>
             <span>Appointments</span>
           </button>-->
-        </mat-expansion-panel> 
+          </mat-expansion-panel>
 
-        <!-- ------------------------------------------------------------- -->
+          <!-- ------------------------------------------------------------- -->
 
-        <mat-expansion-panel *ngIf="isAdmin()" class="mat-expanded-panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>people</mat-icon>
-              <span>Master data</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <button
+          <mat-expansion-panel *ngIf="isAdmin()" class="mat-expanded-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>people</mat-icon>
+                <span>Master data</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <button
             mat-button
             class="menu-button"
-            routerLink="/master/all-drugs"
+            routerLink="/master/all-allergy"
           >
             <mat-icon>person_add</mat-icon>
-            <span>Drugs</span>
+            <span>Allergy</span>
           </button>
+
+            <button
+              mat-button
+              class="menu-button"
+              routerLink="/master/all-drugs"
+            >
+              <mat-icon>person_add</mat-icon>
+              <span>Drugs</span>
+            </button>
+            <button
+              mat-button
+              class="menu-button"
+              routerLink="/master/all-diagnosis"
+            >
+              <mat-icon>group_add</mat-icon>
+              <span>Diagnosis</span>
+            </button>
+            <button
+              mat-button
+              class="menu-button"
+              routerLink="/master/all-procedures"
+            >
+              <mat-icon>people</mat-icon>
+              <span>Procedure</span>
+            </button>
+          </mat-expansion-panel>
+
           <button
             mat-button
             class="menu-button"
-            routerLink="/master/all-diagnosis"
+            routerLink="/app-inbox"
+            *ngIf="!isAdmin()"
           >
-            <mat-icon>group_add</mat-icon>
-            <span>Diagnosis</span>
+            <mat-icon>inbox</mat-icon>
+            <span>Inbox</span>
           </button>
+
+   
+
           <button
             mat-button
+            *ngIf="isPatient()"
             class="menu-button"
-            routerLink="/master/all-procedures"
+            routerLink="/patient-visit/patientList"
           >
             <mat-icon>people</mat-icon>
-            <span>Procedure</span>
+            <span>Patient List</span>
           </button>
-        </mat-expansion-panel>
+          <button
+            mat-button
+            *ngIf="!isPatient()"
+            class="menu-button"
+            routerLink="/notes"
+          >
+            <mat-icon>question_answer</mat-icon>
+            <span>Notes</span>
+          </button>
+          <button
+            mat-button
+            class="menu-button"
+            *ngIf="isAdmin()"
+            routerLink="/notes/notification"
+          >
+            <mat-icon> email</mat-icon>
+            <span>Send Notification</span>
+          </button>
+          <button
+            mat-button
+            class="menu-button"
+            routerLink="/app-inbox-calendar"
+            *ngIf="!isAdmin()"
+          >
+            <mat-icon>event</mat-icon>
+            <span>Schedule</span>
+          </button>
 
-        
+          <mat-divider></mat-divider>
+          <!-- --------------------------------------------------------------- -->
 
-        <button
-          mat-button
-          class="menu-button"
-          routerLink="/app-inbox"
-          *ngIf="!isAdmin()"
-        >
-          <mat-icon>inbox</mat-icon>
-          <span>Inbox</span>
-      </button>
-      <button mat-button *ngIf="isPatient()" class="menu-button" routerLink="/patient-visit/patient-history/31">
-        <mat-icon>question_answer</mat-icon>
-        <span>Visit History</span>
-      </button>
-        <button mat-button *ngIf="!isPatient()" class="menu-button" routerLink="/notes">
-          <mat-icon>question_answer</mat-icon>
-          <span>Notes</span>
-        </button>
-        <button
-          mat-button
-          class="menu-button"
-          *ngIf="isAdmin()"
-          routerLink="/notes/notification"
-        >
-          <mat-icon> email</mat-icon>
-          <span>Send Notification</span>
-        </button>
-        <button
-          mat-button
-          class="menu-button"
-          routerLink="/app-inbox-calendar"
-          *ngIf="!isAdmin()"
-        >
-          <mat-icon>event</mat-icon>
-          <span>Schedule</span>
-        </button>
+          <mat-expansion-panel class="mat-expanded-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>manage_accounts</mat-icon>
+                <span>Settings</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-button class="menu-button" routerLink="/users/update">
+              <mat-icon>https</mat-icon>
+              <span>Change Password</span>
+            </button>
+          </mat-expansion-panel>
+          <button mat-button class="menu-button">
+            <mat-icon>help</mat-icon>
+            <span>Help</span>
+          </button>
+        </mat-accordion>
+      </div>
+    </mat-sidenav>
 
-        <button
-        mat-button
-        class="menu-button"
-        (click)="navigateToPatientDetails()"
-        *ngIf="isPatient()"
-      >
-        <mat-icon>person_add</mat-icon>
-        <span>Patient Detail</span>
-      </button>
-
-        <mat-divider></mat-divider>
-<!-- --------------------------------------------------------------- -->
-
-<mat-expansion-panel class="mat-expanded-panel">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <mat-icon>manage_accounts</mat-icon>
-      <span>Settings</span>
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <button mat-button class="menu-button" routerLink="/users/update">
-    <mat-icon>https</mat-icon>
-    <span>Change Password</span>
-  </button>
-</mat-expansion-panel>
-        <button mat-button class="menu-button">
-          <mat-icon>help</mat-icon>
-          <span>Help</span>
-        </button>
-      </mat-accordion>
-    </div>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <div class="appDiv">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-content>
+      <div class="appDiv">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </section>

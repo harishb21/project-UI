@@ -24,3 +24,12 @@ table {
   text-align: center;
   font-size: 18px;
 }
+
+::ng-deep .mat-paginator {
+  background-color: transparent;
+  color: white;
+  
+}
+.center-text{
+  text-align: center;
+}

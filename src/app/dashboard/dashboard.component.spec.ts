@@ -1,23 +1,24 @@
-import { TestingModule } from './../../../testing.module';
+import { TestingModule } from 'src/app/testing.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmergencyContactDialogComponent } from './emergency-contact-dialog.component';
+import { DashboardComponent } from './dashboard.component';
 
-describe('EmergencyContactDialogComponent', () => {
-  let component: EmergencyContactDialogComponent;
-  let fixture: ComponentFixture<EmergencyContactDialogComponent>;
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[TestingModule],
-      declarations: [ EmergencyContactDialogComponent ]
+      declarations: [ DashboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmergencyContactDialogComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

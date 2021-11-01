@@ -48,6 +48,7 @@ export class ViewAllDrugsComponent implements OnInit {
 
   }
 
+
 //  drugDepricate(value: DrugMaster) {
 //     if (value.isDepricated == 'yes') {
 //       value.isDepricated = 'no';

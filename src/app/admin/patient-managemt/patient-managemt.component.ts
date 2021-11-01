@@ -52,10 +52,10 @@ export class PatientManagementComponent implements OnInit {
   length: number;
   columnName: string = 'userId';
   direction: string = 'ASC';
-
+disabledEditButton : boolean = false;
   patienId: number;
   tempId: number;
-  id: number = 0;
+  id: number = -1;
   allPatient: User[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   disableSelect = new FormControl(true);
@@ -69,7 +69,6 @@ export class PatientManagementComponent implements OnInit {
   constructor(
     private adminService: AdminserviceService,
     private authService: AuthService,
-    private toastr: ToastrService,
     private _snackBar: MatSnackBar,
     private router:Router
   ) {
@@ -102,8 +101,9 @@ export class PatientManagementComponent implements OnInit {
     this.ngOnInit();
   }
   onClick(i: number) {
+    this.disabledEditButton=true;
     this.id = i;
-    this.disableSelect = new FormControl(!this.disableSelect.value);
+    this.disableSelect = new FormControl(false);
   }
   loadPatient() {
     this.adminService
@@ -141,7 +141,7 @@ export class PatientManagementComponent implements OnInit {
       pipe((data:any) => {
         this._snackBar.open(data.msg);
         this.ngOnInit();
-       // window.location.reload();
+       window.location.reload();
       })
     );
   }

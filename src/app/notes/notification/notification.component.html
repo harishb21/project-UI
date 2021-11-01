@@ -7,10 +7,10 @@
             class="main-content col-md-8 mat-elevation-z3"
           >
             <h3>Send New Notification</h3><br>
-            <button type="button"[disabled]="allPatientButton" (click)="getAllPatient()" class="users-button btn btn-secondary">Send To All Patient</button>&nbsp;&nbsp;
-                  <button type="button" [disabled]="ActivePatientButton" (click)="getAllActivePatient()" class="users-button btn btn-secondary">Send To All Active Patient</button>
-                  <hr><button type="button" [disabled]="allEmployeeButton" (click)="getAllEmployee()" class="users-button btn btn-secondary">Send To All Staff</button>&nbsp;&nbsp;
-                  <button type="button" [disabled]="activeEmployeebutton" (click)="getAllActiveEmployee()" class="users-button btn btn-secondary">Send To All Active Staff</button>
+            <button type="button"[disabled]="allPatientButton" (click)="getAllPatient()" mat-raised-button color="primary" class="users-button">Send To All Patient</button>&nbsp;&nbsp;
+                  <button type="button" [disabled]="ActivePatientButton" (click)="getAllActivePatient()" mat-raised-button color="primary"class="users-button">Send To All Active Patient</button>
+                  <hr><button type="button" [disabled]="allEmployeeButton" (click)="getAllEmployee()" mat-raised-button color="primary"class="users-button">Send To All Staff</button>&nbsp;&nbsp;
+                  <button type="button" [disabled]="activeEmployeebutton" (click)="getAllActiveEmployee()" mat-raised-button color="primary"class="users-button">Send To All Active Staff</button>
                   <hr>
             <form (ngSubmit)="onSubmit()" [formGroup]="emailform">
               <div class="form-group">

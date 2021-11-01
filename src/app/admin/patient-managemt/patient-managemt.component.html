@@ -1,8 +1,6 @@
 <div class="maindiv  mat-elevation-z5">
-
-  <p class="lead">
-    Patients List
-  </p>
+  <p class="h3">Patients List</p>
+  
 <mat-form-field appearance="standard">
   <mat-label>Search</mat-label>
   <input
@@ -16,22 +14,21 @@
 <div class="table-responsive">
   <table mat-table [dataSource]="dataSource" matSort 
   class="table table-hover table-bordered
-  text-center
   table-responsive
   table-light
-  table-striped
+  text-center
  ">
     <!-- ID Column -->
     <ng-container matColumnDef="patientId">
       <th
-      class=" fw-bold table-primary"
+      class="  table-primary text-center "
         mat-header-cell
         (click)="getSort('userId')"
         *matHeaderCellDef
         mat-sort-header
         
       >
-    Patients ID
+      Patient ID
       </th>
       <td mat-cell *matCellDef="let row">{{ row.userId }}</td>
     </ng-container>
@@ -39,14 +36,15 @@
     <!-- Name Column -->
     <ng-container matColumnDef="firstName">
       <th
-      class=" fw-bold table-primary"
+      class="table-primary text-center"
         mat-header-cell
         (click)="getSort('firstName')"
         *matHeaderCellDef
         mat-sort-header
-       
+        text-center
       >
-        Patient Name
+      Patient Name
+        
       </th>
       <td mat-cell *matCellDef="let row">
        {{ row.firstName }}&nbsp;{{ row.lastName }}
@@ -56,14 +54,15 @@
     <!-- Progress Column -->
     <ng-container matColumnDef="createdOn">
       <th
-      class=" fw-bold table-primary"
+      class=" fw-bold table-primary text-center"
         mat-header-cell
         (click)="getSort('createdOn')"
         *matHeaderCellDef
         mat-sort-header
         
       >
-        Date Of registration
+      Date Of registration
+        
       </th>
       <td mat-cell *matCellDef="let row">{{ row.createdOn | date }}</td>
     </ng-container>
@@ -78,23 +77,24 @@
         mat-sort-header
        
       >
-        Status
+      <p class="h6"> Status</p>
+       
       </th>
       <td mat-cell *matCellDef="let row">
         <h3
-          class="status-button bg-success"
+          class=" bg-success"
           *ngIf="row.status == 'active'"
         >
           <span>Active</span>
         </h3>
         <h3
           *ngIf="row.status == 'deactive'"
-          class="status-button bg-warning"
+          class=" bg-warning"
         >
           <span>Inactive </span>
         </h3>
         <h3
-          class="status-button bg-danger"
+          class=" bg-danger"
           *ngIf="row.status == 'block'"
         >
           <span>Blocked</span>
@@ -106,10 +106,11 @@
 
     <ng-container matColumnDef="editstatus">
       <th class="table-primary" mat-header-cell *matHeaderCellDef mat-sort-header >
-        Edit Status
+        
+        <p class="h6">Edit Status</p>
       </th>
       <td mat-cell *matCellDef="let row; let i = index">
-        <button mat-button mat-icon-button color="accent" (click)="onClick(i)">
+        <button [hidden]="disabledEditButton && id == i" mat-button mat-icon-button color="accent" (click)="onClick(i)">
           <mat-icon>edit</mat-icon>
         </button>
         <mat-form-field
@@ -149,9 +150,9 @@
   <div>
     <span style="float: right; padding-right: 10%"
       ><button
-        style="width: 100px"
+        
         (click)="changeStatus()"
-        class="btn btn-success"
+        mat-raised-button color="primary"
       >
         Save
       </button></span

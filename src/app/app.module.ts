@@ -17,7 +17,6 @@ import { ChartModule } from 'primeng/chart';
 import { AdminComponent } from './admin/admin.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
-import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { InboxComponent } from './inbox/inbox.component';
@@ -32,19 +31,25 @@ import { AuthInterceptor } from './users/auth.interceptor';
 import { AuthGuard } from './users/guard/auth.guard';
 import { UserGuard } from './users/guard/user.guard';
 
+import { InboxCalendarComponent } from './calendar/inbox-calendar/inbox-calendar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const router: Routes = [
   {
     path: '',
-    component: InboxComponent,
+    component: DashboardComponent,
     canActivate: [UserGuard],
     data: {
-      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.ADMIN, Roles.PATIENT],
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.PATIENT, Roles.ADMIN],
     },
   },
   {
     path: 'app-inbox',
+    canActivate: [UserGuard],
     component: InboxComponent,
+    data: {
+      role: [Roles.PHYSICIAN, Roles.NURSE, Roles.PATIENT],
+    },
   },
   {
     path: 'notes',
@@ -101,7 +106,6 @@ const router: Routes = [
     AppComponent,
     InboxComponent,
     NotesComponent,
-
     HeaderComponent,
     AdminComponent,
     FooterComponent,
@@ -109,6 +113,7 @@ const router: Routes = [
     SentNotesComponent,
     SendNotesComponent,
     NotificationComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,7 +130,8 @@ const router: Routes = [
     HttpClientModule,
     ToastrModule.forRoot(),
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+  
   ],
   providers: [
     AuthGuard,
