@@ -4,11 +4,13 @@
       <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
       <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
     </button>
-    <span>CT General Hospital</span>
+    <span name="title" >CT General Hospital</span>
     <span class="example-spacer"></span>
 
     <button
       mat-stroked-button
+      id="signIn"
+      name="signIn"
       class="example-icon"
       routerLink="/users/auth"
       *ngIf="!user"
@@ -19,6 +21,8 @@
 
     <button
       mat-stroked-button
+      id="signup"
+      name="signup"
       class="example-icon"
       routerLink="/users/signup"
       *ngIf="!user"
