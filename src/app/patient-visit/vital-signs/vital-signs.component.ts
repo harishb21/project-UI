@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/toast/toast.service';
 import { Vitals } from '../model/vitals';
@@ -12,28 +13,32 @@ import { VitalSignsService } from '../services/vital-signs.service';
 })
 export class VitalSignsComponent implements OnInit {
   appointmentId: string;
-  Form: FormGroup=new FormGroup({});
+  Form: FormGroup = new FormGroup({});
   submitted = false;
   selectedViatalId: number;
 
-  vitals:Vitals=new Vitals();
+  vitalsSubmitted: boolean = false;
+
+  vitals: Vitals = new Vitals();
 
   constructor(
     private formBuilder: FormBuilder,
     private service: VitalSignsService,
-    private toastService: ToastService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private _snackBar: MatSnackBar
   ) {}
 
-  height: null;
-  weight: null;
-  bloodPressure: null;
-  bodyTemperature:null;
-  respirationRate: null;
+  vitalId1: null;
+  height1: null;
+  weight1: null;
+  bloodPressure1: null;
+  bodyTemperature1: null;
+  respirationRate1: null;
 
   ngOnInit(): void {
     this.Form = this.formBuilder.group({
-      height: [this.height, Validators.required],
+      vitalId: [''],
+      height: ['', Validators.required],
       weight: ['', Validators.required],
       bloodPressure: ['', Validators.required],
       bodyTemperature: ['', Validators.required],
@@ -42,36 +47,32 @@ export class VitalSignsComponent implements OnInit {
 
     this.appointmentId = this.appointmentService.appointmentId;
 
-    this.service
-      .getByAppointmentId(this.appointmentId)
-      .subscribe( (data)=>{
+    this.service.getByAppointmentId(this.appointmentId).subscribe((data) => {
+      console.log(data);
 
-        this.height = data.height;
-
-        // this.vitals=data;         
-      }
-        
-      );
+      this.vitalId1 = data.vitalId;
+      this.height1 = data.height;
+      this.weight1 = data.weight;
+      this.bloodPressure1 = data.bloodPressure;
+      this.bodyTemperature1 = data.bodyTemperature;
+      this.respirationRate1 = data.respirationRate;
+    });
   }
 
+  obj: Vitals = new Vitals();
+
   onSubmit() {
-    console.log(this.appointmentId)
-    this.submitted = true;
-    if (this.Form.invalid) {
-      return;
-    }
-    let vital: Vitals = this.Form.value;
-    vital.appointmentId = this.appointmentId;
-    if (this.selectedViatalId) {
-      vital.vitalId = this.selectedViatalId;
-    }
+    this.obj.vitalId = this.Form.value.vitalId;
+    this.obj.height = this.Form.value.height;
+    this.obj.weight = this.Form.value.weight;
+    this.obj.bloodPressure = this.Form.value.bloodPressure;
+    this.obj.bodyTemperature = this.Form.value.bodyTemperature;
+    this.obj.respirationRate = this.Form.value.respirationRate;
+
     this.service
-      .addVitals(vital)
+      .addVitals(this.obj)
       .subscribe((data: { statusMessage: string | TemplateRef<any> }) => {
-        this.toastService.show(data.statusMessage, {
-          classname: 'bg-success text-light',
-          delay: 5000,
-        });
+        this._snackBar.open('Saved Successfully!!', '', { duration: 2000 });
       });
   }
 }

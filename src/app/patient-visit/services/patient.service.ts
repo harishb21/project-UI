@@ -97,7 +97,7 @@ export class PatientService {
   getAllergyById(allergyCode: string): Observable<any> {
     console.log('service' + allergyCode);
     return this.http.get(
-      this.baseUrl + 'patient/getAllergyByCode/' + allergyCode
+      this.baseUrl + '/allergy/getAllergyByCode/' + allergyCode
     );
   }
 }

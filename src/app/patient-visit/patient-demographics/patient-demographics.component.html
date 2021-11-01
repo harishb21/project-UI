@@ -61,8 +61,8 @@
                 matInput
                 placeholder="Date of Birth"
                 formControlName="birthDate"
-                [(ngModel)]="age"
-                (selectionChange)="ageCalculator()"
+                [(ngModel)]="patient.birthDate"
+                (change)="ageCalculator()"
               />
 
               <mat-error *ngIf="isFieldInvalid('birthDate')">{{
@@ -77,9 +77,8 @@
                 matInput
                 placeholder="Age"
                 formControlName="age"
-                [(ngModel)]="showAge"
+                [(ngModel)]='patient.age'
               />
-              {{ showAge }}
             </mat-form-field>
           </td>
           <td>

@@ -15,6 +15,7 @@ import { Allergy } from 'src/app/model/allergy.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddAllergyDialogComponent } from '../add-allergy-dialog/add-allergy-dialog.component';
 import { AppointmentService } from '../services/appointment.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-demographics',
@@ -61,8 +62,10 @@ export class PatientDemographicsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private patientService: PatientService,
     private activatedroute: ActivatedRoute,
-    private appointmentService:AppointmentService,
-    private dialog?: MatDialog
+    private appointmentService: AppointmentService,
+    private dialog?: MatDialog,
+    private _snackBar?: MatSnackBar
+
   ) {
     this.toppings = fb.group({});
 
@@ -74,16 +77,12 @@ export class PatientDemographicsComponent implements OnInit {
   ngOnInit(): void {
     this.patientId = this.appointmentService.patientId;
 
-    if(this.appointmentService.patientId)
-    {
+    if (this.appointmentService.patientId) {
       this.patientId = this.appointmentService.patientId;
+    } else {
+      this.patientId = this.activatedroute.snapshot.paramMap.get('id');
     }
-    else
-    {
-      this.patientId =  this.activatedroute.snapshot.paramMap.get('id');
 
-    }
-    
     this.patientService.patientIdToAddAllergy = this.patientId;
     this.getAllAllergiesOfPatient(this.patientId);
     this.loadPatient(this.patientId);
@@ -219,18 +218,13 @@ export class PatientDemographicsComponent implements OnInit {
     );
   }
 
-  ageCalculator(){
-    if(this.age){
-      const convertAge = new Date(this.age);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+  ageCalculator() {
+    const convertAge = new Date(this.age);
+    const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+    this.showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
 
-console.log(this.showAge);
-
-
-    }
+    console.log('age is : ' + this.showAge);
   }
-
 
   public ageFromDateOfBirthday(dateOfBirth: any): number {
     const today = new Date();
@@ -244,7 +238,6 @@ console.log(this.showAge);
 
     return age;
   }
-
 
   changeFunction() {
     console.log('checked');
@@ -307,6 +300,8 @@ console.log(this.showAge);
     const res = confirm('Are you sure?');
     if (res) {
       this.patientService.updatePatientDetails(patientObject);
+      this._snackBar.open('Saved Successfully!!', '', { duration: 2000 });
+
     }
   }
 

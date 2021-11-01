@@ -12,7 +12,7 @@
         <mat-error *ngIf="errorMessage !== ''">{{ errorMessage }}</mat-error>
         <mat-form-field appearance="outline">
           <mat-label>Email Id</mat-label>
-          <input
+          <input id="emailId"
             matInput
             type="text"
             placeholder="Email Id"
@@ -30,6 +30,7 @@
         <mat-form-field *ngIf="!isForget" appearance="outline">
           <mat-label>Password</mat-label>
           <input
+            id="password"
             matInput
             [type]="hidePwd ? 'password' : 'text'"
             formControlName="password"
@@ -59,6 +60,7 @@
         <br />
         <div *ngIf="!isForget">
           <button
+          id="submit"
             type="submit"
             class="register"
             [disabled]="attempt >= MAX_ATTEMPT"

@@ -4,7 +4,7 @@
   <br />
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="onRegister()">
-      <mat-radio-group aria-label="Select an option" formControlName="title">
+      <mat-radio-group aria-label="Select an option" id="title" formControlName="title">
         <mat-radio-button value="Mr.">Mr. </mat-radio-button>
         <mat-radio-button value="Ms.">Ms. </mat-radio-button>
         <mat-radio-button value="Mrs.">Mrs. </mat-radio-button>
@@ -18,7 +18,7 @@
 
       <mat-form-field appearance="outline" class="split">
         <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name" formControlName="firstName" />
+        <input matInput placeholder="First Name" id="firstName" formControlName="firstName" />
         <mat-error *ngIf="isFieldInvalid('firstName')">{{
           errorFirstName()
         }}</mat-error>
@@ -27,7 +27,7 @@
 
       <mat-form-field appearance="outline" class="split">
         <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Last Name" formControlName="lastName" />
+        <input matInput placeholder="Last Name" id="lastName" formControlName="lastName" />
         <mat-error *ngIf="isFieldInvalid('lastName')">{{
           errorLastName()
         }}</mat-error>
@@ -36,7 +36,7 @@
 
       <mat-form-field appearance="outline" class="full">
         <mat-label>Email Id</mat-label>
-        <input matInput placeholder="Email" formControlName="email" />
+        <input matInput placeholder="Email" id="email" formControlName="email" />
         <mat-error *ngIf="isFieldInvalid('email')">{{
           errorEmail()
         }}</mat-error>
@@ -45,7 +45,7 @@
 
       <mat-form-field appearance="outline" class="split">
         <mat-label>Contact No.</mat-label>
-        <input matInput placeholder="Contact No." formControlName="contactNo" />
+        <input matInput placeholder="Contact No." id="contactNo" formControlName="contactNo" />
         <mat-error *ngIf="isFieldInvalid('contactNo')">{{
           errorContactNo()
         }}</mat-error>
@@ -58,6 +58,7 @@
           matInput
           type="date"
           placeholder="Birth Date"
+          id="birthDate"
           formControlName="birthDate"
         />
         <mat-error *ngIf="isFieldInvalid('birthDate')">{{

@@ -126,6 +126,8 @@
           </button>-->
           </mat-expansion-panel>
 
+
+
           <!-- ------------------------------------------------------------- -->
 
           <mat-expansion-panel *ngIf="isAdmin()" class="mat-expanded-panel">
@@ -162,6 +164,9 @@
             </button>
           </mat-expansion-panel>
 
+
+          
+
           <button
             mat-button
             class="menu-button"
@@ -181,6 +186,27 @@
             <mat-icon>people</mat-icon>
             <span>Patient List</span>
           </button>
+
+          <button
+            *ngIf="isPatient()"
+            mat-button
+            class="menu-button"
+            (click)="routeToHistory()"
+          >
+            <mat-icon>people</mat-icon>
+            <span>Visit History</span>
+          </button>
+
+          <button
+          *ngIf="isPatient()"
+          mat-button
+          class="menu-button"
+          (click)="navigateToPatientDetails()"
+        >
+          <mat-icon>people</mat-icon>
+          <span>Profile</span>
+        </button>
+
           <button
             mat-button
             *ngIf="!isPatient()"
