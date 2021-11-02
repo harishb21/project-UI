@@ -7,6 +7,9 @@
       <form [formGroup]="Form" (submit)="onSubmit()">
         <table class="example-full-width" cellspacing="0">
           <tr>
+
+            <input type="hidden"  formControlName="vitalId"  [(ngModel)]="vitalId1">
+
             <td>
              <mat-form-field hintLabel="max limit 250 cm" appearance="fill">
                 <mat-label>Height</mat-label>
@@ -16,6 +19,7 @@
                   maxlength="3"
                   placeholder="Ex. 175 cm"
                   formControlName="height"
+                  [(ngModel)]="height1"
                 />
                 <span matSuffix>cm</span>
                 <mat-hint align="end"
@@ -36,6 +40,8 @@
                   maxlength="3"
                   placeholder="Ex. 50 kg"
                   formControlName="weight"
+                  [(ngModel)]="weight1"
+
                 />
                 <span matSuffix>kg</span>
                 <mat-hint align="end"
@@ -58,6 +64,7 @@
                   maxlength="6"
                   placeholder="Ex. 120/80"
                   formControlName="bloodPressure"
+                  [(ngModel)]="bloodPressure1"
                 />
                 <span matSuffix>mm Hg</span>
                 <mat-error
@@ -77,6 +84,8 @@
                   maxlength="6"
                   placeholder="Ex. 98.6°F"
                   formControlName="bodyTemperature"
+                  [(ngModel)]="bodyTemperature1"
+
                 />
                 <span matSuffix>°F</span>
                 <mat-error
@@ -91,7 +100,8 @@
             <td>
               <mat-form-field appearance="fill">
                 <mat-label>Respiration Rate </mat-label>
-                <input matInput #input formControlName="respirationRate" />
+                <input matInput #input formControlName="respirationRate" [(ngModel)]="respirationRate1"
+                />
                 <span matSuffix>BPM</span>
                 <mat-error
                   *ngIf="Form.controls['respirationRate'].hasError('required')"

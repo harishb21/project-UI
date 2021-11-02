@@ -29,7 +29,7 @@ export class AddAllergyDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      allergyId: ['', Validators.required],
+      allergyId: [''],
       allergyName: ['', Validators.required],
       allergyType: ['', Validators.required],
       allergyDesc: ['', Validators.required],
@@ -73,9 +73,20 @@ export class AddAllergyDialogComponent implements OnInit {
     this.onClose();
   }
 
-  getDataByAllergyId(allergyId:any)
+  getDataByAllergyId()
   {
-    console.log("allergyyyyy : "+allergyId);
+     var allergyId = this.form.value.allergyId;
+this.patientService.getAllergyById(allergyId).subscribe((res)=>{
+console.log(res);
+
+  this.form.value.allergyType=res.allergyType;
+
+  console.log("type : "+this.form.value.allergyType);
+  
+
+
+})
+
     
   }
 

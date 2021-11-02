@@ -102,7 +102,7 @@ export class InboxComponent implements OnInit, AfterViewInit {
         'Physician',
         'Date',
         'Time',
-        'action',
+        
       ];
     } else if (this.pysicianUIFlag) {
       this.columnsToDisplay = [

@@ -4,7 +4,7 @@
       <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
       <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
     </button>
-    <span name="title" >CT General Hospital</span>
+    <span name="title">CT General Hospital</span>
     <span class="example-spacer"></span>
 
     <button
@@ -178,13 +178,34 @@
 
           <button
             mat-button
-            *ngIf="!isAdmin() ||  !isPatient()"
+            *ngIf="!isAdmin() && !isPatient()"
             class="menu-button"
             routerLink="/patient-visit/patientList"
           >
             <mat-icon>people</mat-icon>
             <span>Patient List</span>
           </button>
+
+          <button
+            *ngIf="isPatient()"
+            mat-button
+            class="menu-button"
+            (click)="routeToHistory()"
+          >
+            <mat-icon>history</mat-icon>
+            <span>Visit History</span>
+          </button>
+
+          <button
+            *ngIf="isPatient()"
+            mat-button
+            class="menu-button"
+            (click)="navigateToPatientDetails()"
+          >
+            <mat-icon>perm_identity</mat-icon>
+            <span>Profile</span>
+          </button>
+
           <button
             mat-button
             *ngIf="!isPatient()"
@@ -212,33 +233,6 @@
             <mat-icon>event</mat-icon>
             <span>Schedule</span>
           </button>
-          <button
-          mat-button
-          class="menu-button"
-          (click)="routeToHistory()"
-          *ngIf="isPatient()"
-        >
-          <mat-icon>event</mat-icon>
-          <span>Visit History</span>
-        </button>
-         <button
-          mat-button
-          class="menu-button"
-          (click)="routeToHistory()"
-          *ngIf="isPatient()"
-        >
-          <mat-icon>event</mat-icon>
-          <span>Visit History</span>
-        </button>
-        <button
-          mat-button
-          class="menu-button"
-          (click)="navigateToPatientDetails()"
-          *ngIf="isPatient()"
-        >
-          <mat-icon>event</mat-icon>
-          <span>Profile</span>
-        </button>
           <mat-divider></mat-divider>
           <!-- --------------------------------------------------------------- -->
 
