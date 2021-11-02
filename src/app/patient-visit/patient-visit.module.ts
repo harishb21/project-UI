@@ -27,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PatientDetailDialogComponent } from './dialog/patient-detail-dialog/patient-detail-dialog.component';
 import { EmergencyContactDialogComponent } from './dialog/emergency-contact-dialog/emergency-contact-dialog.component';
 import { AllergyDialogComponent } from './dialog/allergy-dialog/allergy-dialog.component';
@@ -49,6 +49,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { MatSortModule } from '@angular/material/sort';
+import { AuthInterceptor } from '../users/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,13 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
   ],
   exports: [RouterModule],
-  providers: [MedicationsService],
+  providers: [MedicationsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   entryComponents: [PatientVisitComponent],
 })
 export class PatientVisitModule {}

@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Procedure } from '../model/procedure';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PatientProceduresService {
-  baseVisitUrl: string = 'http://localhost:8083'; //visit
+  baseVisitUrl: string = GlobalConstants.SERVER_URL; //visit
 
   procedureList: Procedure[] = [];
 

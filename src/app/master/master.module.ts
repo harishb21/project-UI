@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
 import { EditDrugsComponent } from './drugs/edit-drugs/edit-drugs.component';
 import { EditProcedureComponent } from './procedure/edit-procedure/edit-procedure.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../users/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,5 +39,12 @@ import { EditProcedureComponent } from './procedure/edit-procedure/edit-procedur
     ReactiveFormsModule,
     MatIconModule,
   ],
+  providers:[
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ]
 })
 export class MasterModule {}

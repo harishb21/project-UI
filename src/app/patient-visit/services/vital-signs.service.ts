@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Vitals } from '../model/vitals';
 })
 export class VitalSignsService {
 
-  baseVisitUrl:string= 'http://localhost:8083' //visit
+  baseVisitUrl:string= GlobalConstants.SERVER_URL //visit
 
   constructor(private http: HttpClient) { }
 

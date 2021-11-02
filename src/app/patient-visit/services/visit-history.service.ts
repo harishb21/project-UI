@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,8 +8,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class VisitHistoryService {
-  baseUrl: string = 'http://localhost:8083';
-  appointmentBaseUrl: string = 'http://localhost:8072';
+  baseUrl: string = GlobalConstants.SERVER_URL;
+  appointmentBaseUrl: string = GlobalConstants.SERVER_URL;
 
   constructor(private http: HttpClient) {}
 

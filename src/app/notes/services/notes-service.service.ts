@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { Notes } from './../../model/notes.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -18,7 +19,7 @@ export class NotesServiceService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   constructor(private http:HttpClient) { 
-    this.baseurl = 'http://localhost:8084/';
+    this.baseurl = GlobalConstants.SERVER_URL;
   }
 
   getAllPhycision(): Observable<User[]> {

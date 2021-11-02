@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { map } from 'rxjs/operators';
 import { User } from './../../model/user.model';
 import { InboxData } from '../../model/inbox.model';
@@ -120,7 +121,7 @@ export class InboxService implements OnInit {
       );
   }
   //==================================service data========DB Data===============================================
-  HOST_URL = 'http://localhost:8072/api';
+  HOST_URL = GlobalConstants.SERVER_URL+'/api';
   listOfInboxData: InboxData[] = [];
   // getAllAppointmentData(): Observable<InboxData[]> {
   //   return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)

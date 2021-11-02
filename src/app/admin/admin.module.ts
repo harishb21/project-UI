@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserGuard } from './../users/guard/user.guard';
 import { AuthGuard } from './../users/guard/auth.guard';
 import { AuthService } from '../services/auth.service';
@@ -24,6 +24,7 @@ import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from '../users/auth.interceptor';
 @NgModule({
   declarations: [PatientManagementComponent, EmployeeManagementComponent],
   imports: [
@@ -48,7 +49,11 @@ import { CommonModule } from '@angular/common';
     AuthService,
     AuthGuard,
     UserGuard,
-    
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 500 } },
   ],
   bootstrap: [],

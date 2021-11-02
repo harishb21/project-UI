@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularMaterialModule } from './../angular-material.module';
 import { SendNotesComponent } from './send-notes/send-notes.component';
 import { SentNotesComponent } from './sent-notes/sent-notes.component';
@@ -14,6 +14,7 @@ import { NotesRoutingModule } from './notes-routing.module';
 import { MessageDailogComponent } from './recieved-notes/message-dailog/message-dailog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from '../users/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthService,
     AuthGuard,
     UserGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 500 } },
   ],
   bootstrap: [],

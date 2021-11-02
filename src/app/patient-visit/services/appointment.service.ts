@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Appointment } from '../model/appointment.model';
   providedIn: 'root',
 })
 export class AppointmentService {
-  baseAppointmentUrl: string = 'http://localhost:8072'; //visit
+  baseAppointmentUrl: string = GlobalConstants.SERVER_URL; //visit
 
   public appointmentId: string;
   public patientId: string ;

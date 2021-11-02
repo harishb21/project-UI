@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +10,7 @@ import { DiagnosisMaster } from '../model/DiagnosisMaster';
 export class DiagnosisMasterService {
   constructor(private http: HttpClient) {}
 
-  baseUrl: string = 'http://localhost:8083'; //visit
+  baseUrl: string = GlobalConstants.SERVER_URL; //visit
 
   getDiagnosis(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `/diagnosis/allDiagnosis`);

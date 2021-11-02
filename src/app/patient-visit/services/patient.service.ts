@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { User } from 'src/app/model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,11 +18,11 @@ export class PatientService {
     this.getAllPatient();
   }
 
-  baseUrl: string = 'http://localhost:8083';
+  baseUrl: string = GlobalConstants.SERVER_URL;
 
   updatePatientDetails(patient: User) {
     this.http
-      .post('http://localhost:8083/patient/save', patient)
+      .post(`${GlobalConstants.SERVER_URL}/patient/save`, patient)
       .subscribe((res) => {
         console.log(res);
       });

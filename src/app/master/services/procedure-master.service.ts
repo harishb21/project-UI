@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +10,7 @@ import { ProcedureMaster } from '../model/ProcedureMaster';
 export class ProcedureMasterService {
   constructor(private http: HttpClient) {}
 
-  baseUrl: string = 'http://localhost:8083'; //visit
+  baseUrl: string = GlobalConstants.SERVER_URL; //visit
 
   getProcedures(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `/procedure/master/procedures`);

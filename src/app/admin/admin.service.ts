@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { User } from './../model/user.model';
 
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +16,7 @@ export class AdminserviceService {
   private baseurl: string;
   response: any;
   constructor(private http: HttpClient) {
-    this.baseurl = 'http://localhost:8085/admin/';
+    this.baseurl=GlobalConstants.SERVER_URL+"/admin/"
   }
 
   getAllPatient(
