@@ -16,8 +16,12 @@ export class InboxService implements OnInit {
   public user: User;
   timeCheck:TimeslotCheck = new TimeslotCheck();
   timeSlotServiceRes:TimeSlotResponse;
-  constructor(private http: HttpClient,private authService: AuthService) {
+  HOST_URL="";
+  constructor(private http: HttpClient,private authService: AuthService,
+    
+    ) {
     //this.getAllAppointmentData();
+    this.HOST_URL = GlobalConstants.SERVER_URL+'/api';
     this.getAllStaffData();
     this.getAllPaientData();
   }
@@ -68,6 +72,8 @@ export class InboxService implements OnInit {
     //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
     console.log(this.userEmpId);
     console.log(this.userRoleId);
+    console.log(this.HOST_URL);
+    
     return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments/`+this.userRoleId+"/"+this.userEmpId);
   }
 
@@ -121,7 +127,6 @@ export class InboxService implements OnInit {
       );
   }
   //==================================service data========DB Data===============================================
-  HOST_URL = GlobalConstants.SERVER_URL+'/api';
   listOfInboxData: InboxData[] = [];
   // getAllAppointmentData(): Observable<InboxData[]> {
   //   return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
