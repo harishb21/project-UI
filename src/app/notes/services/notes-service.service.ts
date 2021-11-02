@@ -13,20 +13,15 @@ import { Email } from 'src/app/model/email.model';
 })
 export class NotesServiceService {
   private baseurl: string;
-  errorData: {};
-
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
   constructor(private http:HttpClient) { 
     this.baseurl = GlobalConstants.SERVER_URL;
   }
 
   getAllPhycision(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseurl}inbox/physicians`);
+    return this.http.get<User[]>(`${this.baseurl}/inbox/physicians`);
   }
   saveNotes(notes:Notes):Observable<Notes>{
-      return this.http.post<Notes>(`${this.baseurl}notes/save`,notes);
+      return this.http.post<Notes>(`${this.baseurl}/notes/save`,notes);
   }
  getRecievedNotes(userId:number){
   return this.http.get<Notes[]>(`${this.baseurl}notes/recieved/${userId}`);
@@ -35,10 +30,10 @@ export class NotesServiceService {
   return this.http.get<Notes[]>(`${this.baseurl}notes/sent/${userId}`);
  }
  deleteNotes(notesId:number){
-return this.http.delete(`${this.baseurl}notes/delete/${notesId}`,{responseType: 'text'});
+return this.http.delete(`${this.baseurl}notes/delete/${notesId}`);
  }
  sendReply(notes:Notes):Observable<any>{
-   return this.http.put(`${this.baseurl}notes/reply/`,notes,{responseType: 'text'});
+   return this.http.put(`${this.baseurl}notes/reply/`,notes);
  }
  getNonReadCount(userId:number):Observable<any>{
    return this.http.get(`${this.baseurl}notes/nonreadcount/${userId}`);
