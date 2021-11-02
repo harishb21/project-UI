@@ -9,6 +9,7 @@ import {
 import { User } from '../model/user.model';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
+import { GlobalConstants } from '../common/global-constants';
 
 @Injectable({ providedIn: 'root' })
 export class InboxServiceBoard {
@@ -57,7 +58,7 @@ export class InboxServiceBoard {
       }
     }
   }
-  HOST_URL = 'http://localhost:8072/api';
+  HOST_URL = GlobalConstants.SERVER_URL+'/api';
   getAllAppointmentData(): Observable<InboxData[]> {
     //return this.http.get<InboxData[]>(`${this.HOST_URL}/appointments`)
     console.log(this.userEmpId);
